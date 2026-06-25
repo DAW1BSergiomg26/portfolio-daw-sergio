@@ -56,9 +56,11 @@ Además de los proyectos publicados, el portfolio recoge otros repositorios de p
 - Mi App: https://github.com/DAW1BSergiomg26/mi-app
 - Ejercicios de BBDD - 10/03/2026: https://github.com/DAW1BSergiomg26/Ejercicios-de-BBDD-10-03-2026
 
-## Filtros del catálogo
+## Filtros y buscador del catálogo
 
-La sección de proyectos incluye filtros interactivos para navegar el catálogo de forma más cómoda:
+La sección de proyectos incluye filtros interactivos y un buscador para navegar el catálogo de forma más cómoda.
+
+Filtros disponibles:
 
 - Todos
 - Publicados
@@ -69,6 +71,8 @@ La sección de proyectos incluye filtros interactivos para navegar el catálogo 
 - Grupo
 - Religioso
 - Apps
+
+El buscador permite encontrar proyectos por texto libre. Por ejemplo: `Python`, `Auri`, `BBDD`, `Divina`, `CMS`, `JavaScript`, `Naranco` o `DinoGamer`.
 
 ## Próximos proyectos
 
@@ -127,4 +131,4 @@ La fase SEO añade:
 
 ## Estado
 
-Portfolio DAW publicado en GitHub Pages con base premium, SEO inicial, proyectos publicados, catálogo ampliado de repositorios y filtros interactivos por categoría.
+Portfolio DAW publicado en GitHub Pages con base premium, SEO inicial, proyectos publicados, catálogo ampliado de repositorios, filtros interactivos por categoría y buscador combinado por texto libre.
