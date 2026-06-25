@@ -30,11 +30,18 @@ Mini aplicación funcional creada con HTML, CSS y JavaScript para practicar DOM,
 - Repositorio: https://github.com/DAW1BSergiomg26/gestor-tareas-daw
 - Release: https://github.com/DAW1BSergiomg26/gestor-tareas-daw/releases/tag/v1.0.0
 
+### Web Servicios Informáticos
+
+Landing profesional creada con HTML, CSS y JavaScript para presentar servicios informáticos básicos: instalación de Windows, limpieza, optimización, copias de seguridad, soporte remoto y mantenimiento preventivo.
+
+- Web: https://daw1bsergiomg26.github.io/web-servicios-informaticos/
+- Repositorio: https://github.com/DAW1BSergiomg26/web-servicios-informaticos
+- Release: https://github.com/DAW1BSergiomg26/web-servicios-informaticos/releases/tag/v1.0.0
+
 ## Próximos proyectos
 
 La sección **Próximos proyectos** prepara futuras entregas DAW:
 
-- Web de servicios informáticos.
 - Mini tienda web.
 - Web-Mio-Divina.
 - Laboratorio JavaScript.
@@ -87,4 +94,4 @@ La fase SEO añade:
 
 ## Estado
 
-Portfolio DAW publicado en GitHub Pages con base premium, SEO inicial y dos proyectos publicados.
+Portfolio DAW publicado en GitHub Pages con base premium, SEO inicial y tres proyectos publicados.
