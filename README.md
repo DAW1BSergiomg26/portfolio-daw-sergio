@@ -56,6 +56,20 @@ Además de los proyectos publicados, el portfolio recoge otros repositorios de p
 - Mi App: https://github.com/DAW1BSergiomg26/mi-app
 - Ejercicios de BBDD - 10/03/2026: https://github.com/DAW1BSergiomg26/Ejercicios-de-BBDD-10-03-2026
 
+## Filtros del catálogo
+
+La sección de proyectos incluye filtros interactivos para navegar el catálogo de forma más cómoda:
+
+- Todos
+- Publicados
+- Web
+- JavaScript
+- Python
+- BBDD
+- Grupo
+- Religioso
+- Apps
+
 ## Próximos proyectos
 
 La sección **Próximos proyectos** prepara futuras entregas DAW:
@@ -86,7 +100,8 @@ portfolio-daw-sergio/
 ├─ sitemap.xml
 ├─ site.webmanifest
 ├─ css/
-│  └─ styles.css
+│  ├─ styles.css
+│  └─ filters.css
 ├─ js/
 │  └─ app.js
 └─ README.md
@@ -112,4 +127,4 @@ La fase SEO añade:
 
 ## Estado
 
-Portfolio DAW publicado en GitHub Pages con base premium, SEO inicial, proyectos publicados y catálogo ampliado de repositorios.
+Portfolio DAW publicado en GitHub Pages con base premium, SEO inicial, proyectos publicados, catálogo ampliado de repositorios y filtros interactivos por categoría.
