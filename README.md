@@ -11,7 +11,7 @@ Portfolio personal de **Sergio Daniel Martínez Gómez** como alumno de **Desarr
 
 Este proyecto reúne mis prácticas, proyectos publicados y avances durante mi formación en DAW. La idea es tener una web central donde pueda enseñar lo que voy construyendo y documentar mi progreso de forma ordenada.
 
-## Proyectos publicados
+## Proyectos destacados publicados
 
 ### Archivo Moonwalk
 
@@ -30,15 +30,40 @@ Mini aplicación funcional creada con HTML, CSS y JavaScript para practicar DOM,
 - Repositorio: https://github.com/DAW1BSergiomg26/gestor-tareas-daw
 - Release: https://github.com/DAW1BSergiomg26/gestor-tareas-daw/releases/tag/v1.0.0
 
+### Web Servicios Informáticos
+
+Landing profesional creada con HTML, CSS y JavaScript para presentar servicios informáticos básicos: instalación de Windows, limpieza, optimización, copias de seguridad, soporte remoto y mantenimiento preventivo.
+
+- Web: https://daw1bsergiomg26.github.io/web-servicios-informaticos/
+- Repositorio: https://github.com/DAW1BSergiomg26/web-servicios-informaticos
+- Release: https://github.com/DAW1BSergiomg26/web-servicios-informaticos/releases/tag/v1.0.0
+
+## Catálogo ampliado de repositorios
+
+Además de los proyectos publicados, el portfolio recoge otros repositorios de práctica, grupo, aprendizaje o evolución personal:
+
+- Web-Mio-Divina: https://github.com/DAW1BSergiomg26/Web-Mio-Divina
+- Menú responsive ciberpunk multicolores: https://github.com/DAW1BSergiomg26/web-responsive-menu-ciberpunk-multicolores
+- Envios Paraguay CMS: https://github.com/DAW1BSergiomg26/Envios_Paraguay_CMS
+- NARANCO GRUPO B 2: https://github.com/DAW1BSergiomg26/NARANCO_GRUPO_B_2
+- Proyecto Intermodular Auri - Sergio, Juan, Juanca, Luis, Óscar y Héctor: https://github.com/DAW1BSergiomg26/Proyecto-Intermodular-Auri_Grupo_Sergio_Juan_Juanca_Luis_Oscar_Hector
+- Proyecto Intermodular Auri - Sergio, Mateo y Juanca: https://github.com/DAW1BSergiomg26/Proyecto-Intermodular-Auri_Grupo_Sergio_Mateo_Juanca
+- Mi Juego DinoGamer: https://github.com/DAW1BSergiomg26/mi-juego-dinogamer
+- Divina Misericordia App: https://github.com/DAW1BSergiomg26/divina-misericordia-app
+- 100 Ejercicios Prácticos de Todo un Poco: https://github.com/DAW1BSergiomg26/100-EJERCICIOS-PRACTICOS-DE-TODO-UN-POCO
+- Aprende a Programar con Python y Java: https://github.com/DAW1BSergiomg26/APRENDE-APROGRAMAR-CON-PYTHON-JAVA
+- Python de 0 a 100: https://github.com/DAW1BSergiomg26/python-de-0-a-100
+- Mi App: https://github.com/DAW1BSergiomg26/mi-app
+- Ejercicios de BBDD - 10/03/2026: https://github.com/DAW1BSergiomg26/Ejercicios-de-BBDD-10-03-2026
+
 ## Próximos proyectos
 
 La sección **Próximos proyectos** prepara futuras entregas DAW:
 
-- Web de servicios informáticos.
 - Mini tienda web.
-- Web-Mio-Divina.
 - Laboratorio JavaScript.
 - Memoria de proyectos DAW.
+- Mejora visual del portfolio.
 
 ## Tecnologías usadas
 
@@ -87,4 +112,4 @@ La fase SEO añade:
 
 ## Estado
 
-Portfolio DAW publicado en GitHub Pages con base premium, SEO inicial y dos proyectos publicados.
+Portfolio DAW publicado en GitHub Pages con base premium, SEO inicial, proyectos publicados y catálogo ampliado de repositorios.

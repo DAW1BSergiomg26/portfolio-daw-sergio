@@ -36,18 +36,37 @@ function markActiveSection() {
 
 const revealItems = document.querySelectorAll(".reveal");
 
-const revealObserver = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("is-visible");
-        revealObserver.unobserve(entry.target);
-      }
-    });
-  },
-  { threshold: 0.15 }
-);
+function showRevealItem(item) {
+  item.classList.add("is-visible");
+}
 
-revealItems.forEach((item) => revealObserver.observe(item));
+if ("IntersectionObserver" in window) {
+  const revealObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          showRevealItem(entry.target);
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    },
+    {
+      threshold: 0.05,
+      rootMargin: "0px 0px -40px 0px",
+    }
+  );
+
+  revealItems.forEach((item) => revealObserver.observe(item));
+
+  // Fallback defensivo: evita espacios vacíos si el navegador salta a un ancla
+  // antes de que IntersectionObserver pinte las secciones.
+  window.setTimeout(() => {
+    revealItems.forEach(showRevealItem);
+  }, 350);
+} else {
+  revealItems.forEach(showRevealItem);
+}
+
 window.addEventListener("scroll", markActiveSection, { passive: true });
+window.addEventListener("hashchange", markActiveSection);
 markActiveSection();
