@@ -1,12 +1,152 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Portfolio DAW - Sergio Daniel</title>
+  <meta name="description" content="Portfolio DAW de Sergio Daniel Martínez Gómez: proyectos web, prácticas, tecnologías y evolución como alumno de Desarrollo de Aplicaciones Web.">
+  <title>Portfolio DAW - Sergio Daniel Martínez Gómez</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-  <h1>Portfolio DAW - Sergio Daniel</h1>
-  <p>Proyecto inicial del portfolio personal.</p>
+  <header class="site-header">
+    <a class="brand" href="#inicio" aria-label="Ir al inicio">
+      <span class="brand-mark">SD</span>
+      <span>Portfolio DAW</span>
+    </a>
+
+    <button class="menu-toggle" type="button" aria-label="Abrir menú" aria-expanded="false">
+      ☰
+    </button>
+
+    <nav class="main-nav" aria-label="Navegación principal">
+      <a href="#sobre-mi">Sobre mí</a>
+      <a href="#tecnologias">Tecnologías</a>
+      <a href="#proyectos">Proyectos</a>
+      <a href="#ruta">Ruta DAW</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+  </header>
+
+  <main id="inicio">
+    <section class="hero section-grid">
+      <div class="hero-content reveal">
+        <p class="eyebrow">Alumno DAW · Desarrollo Web · GitHub Pages</p>
+        <h1>Sergio Daniel Martínez Gómez</h1>
+        <p class="hero-lead">
+          Portfolio personal para reunir mis proyectos, prácticas y avances como alumno de Desarrollo de Aplicaciones Web.
+          Aquí documento lo que voy construyendo, lo que aprendo y cómo organizo mi progreso con Git, HTML, CSS y JavaScript.
+        </p>
+        <div class="hero-actions">
+          <a class="btn primary" href="#proyectos">Ver proyectos</a>
+          <a class="btn ghost" href="https://github.com/DAW1BSergiomg26" target="_blank" rel="noopener noreferrer">Ver GitHub</a>
+        </div>
+      </div>
+
+      <aside class="hero-card reveal" aria-label="Resumen profesional">
+        <div class="card-icon">⌘</div>
+        <h2>Portfolio en construcción profesional</h2>
+        <p>
+          Un espacio vivo para presentar proyectos reales, publicados, documentados y versionados con un flujo Git limpio.
+        </p>
+        <ul class="mini-list">
+          <li>HTML5 semántico</li>
+          <li>CSS responsive</li>
+          <li>JavaScript básico</li>
+          <li>Git y GitHub</li>
+        </ul>
+      </aside>
+    </section>
+
+    <section id="sobre-mi" class="content-section reveal">
+      <p class="eyebrow">Sobre mí</p>
+      <h2>Aprendiendo a construir con orden, paciencia y criterio</h2>
+      <p>
+        Soy Sergio Daniel, alumno de DAW. Este portfolio nace para enseñar mi evolución real: desde ejercicios sencillos hasta proyectos completos publicados en GitHub Pages.
+        Mi objetivo es aprender bien la base, practicar mucho y crear trabajos que pueda defender con claridad.
+      </p>
+    </section>
+
+    <section id="tecnologias" class="content-section reveal">
+      <p class="eyebrow">Stack actual</p>
+      <h2>Tecnologías que estoy practicando</h2>
+      <div class="tag-grid">
+        <span>HTML5</span>
+        <span>CSS3</span>
+        <span>JavaScript</span>
+        <span>JSON</span>
+        <span>Git</span>
+        <span>GitHub</span>
+        <span>GitHub Pages</span>
+        <span>Responsive Design</span>
+        <span>SEO básico</span>
+      </div>
+    </section>
+
+    <section id="proyectos" class="content-section reveal">
+      <p class="eyebrow">Proyecto destacado</p>
+      <h2>Archivo Moonwalk</h2>
+      <article class="project-card">
+        <div>
+          <p class="project-kicker">Web cultural · legal · documentada</p>
+          <h3>Archivo Moonwalk v1.0.0</h3>
+          <p>
+            Web estática publicada en GitHub Pages como homenaje cultural y documentado a Michael Jackson. Incluye secciones de biografía,
+            discografía, videos, conciertos, documentales, curiosidades, museo visual, fuentes legales, portfolio interno y memoria técnica DAW.
+          </p>
+          <div class="project-links">
+            <a href="https://daw1bsergiomg26.github.io/m_j_pop_rey/" target="_blank" rel="noopener noreferrer">Web</a>
+            <a href="https://daw1bsergiomg26.github.io/m_j_pop_rey/portfolio.html" target="_blank" rel="noopener noreferrer">Portfolio del proyecto</a>
+            <a href="https://daw1bsergiomg26.github.io/m_j_pop_rey/MEMORIA_TECNICA_DAW.md?v=1" target="_blank" rel="noopener noreferrer">Memoria técnica</a>
+            <a href="https://github.com/DAW1BSergiomg26/m_j_pop_rey/releases/tag/v1.0.0" target="_blank" rel="noopener noreferrer">Release</a>
+          </div>
+        </div>
+        <div class="project-badge">
+          <span>v1.0.0</span>
+          <strong>Publicado</strong>
+        </div>
+      </article>
+    </section>
+
+    <section id="ruta" class="content-section reveal">
+      <p class="eyebrow">Ruta DAW</p>
+      <h2>Cómo quiero seguir creciendo</h2>
+      <div class="timeline">
+        <div>
+          <strong>1</strong>
+          <p>Crear proyectos pequeños pero bien terminados.</p>
+        </div>
+        <div>
+          <strong>2</strong>
+          <p>Documentar cada entrega con README, memoria y capturas.</p>
+        </div>
+        <div>
+          <strong>3</strong>
+          <p>Publicar versiones estables con GitHub Pages.</p>
+        </div>
+        <div>
+          <strong>4</strong>
+          <p>Mejorar diseño, accesibilidad, SEO y JavaScript poco a poco.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="contacto" class="content-section contact-section reveal">
+      <p class="eyebrow">Contacto</p>
+      <h2>Repositorio y perfil</h2>
+      <p>
+        Este portfolio irá creciendo con nuevos proyectos y prácticas. La idea es que cada entrega tenga una historia clara: qué hice, cómo lo hice y qué aprendí.
+      </p>
+      <a class="btn primary" href="https://github.com/DAW1BSergiomg26/portfolio-daw-sergio" target="_blank" rel="noopener noreferrer">Repositorio del portfolio</a>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>Portfolio DAW · Sergio Daniel Martínez Gómez · Hecho con HTML, CSS, JavaScript y Git.</p>
+  </footer>
+
+  <script src="js/app.js"></script>
 </body>
 </html>
