@@ -11,7 +11,7 @@ Portfolio personal de **Sergio Daniel Martínez Gómez** como alumno de **Desarr
 
 Este proyecto reúne mis prácticas, proyectos publicados y avances durante mi formación en DAW. La idea es tener una web central donde pueda enseñar lo que voy construyendo y documentar mi progreso de forma ordenada.
 
-## Proyecto destacado
+## Proyectos publicados
 
 ### Archivo Moonwalk
 
@@ -22,15 +22,23 @@ Web cultural, legal y documentada sobre Michael Jackson, publicada con GitHub Pa
 - Memoria técnica: https://daw1bsergiomg26.github.io/m_j_pop_rey/MEMORIA_TECNICA_DAW.md?v=1
 - Release: https://github.com/DAW1BSergiomg26/m_j_pop_rey/releases/tag/v1.0.0
 
+### Gestor de Tareas DAW
+
+Mini aplicación funcional creada con HTML, CSS y JavaScript para practicar DOM, eventos, filtros y almacenamiento local con `localStorage`.
+
+- Web: https://daw1bsergiomg26.github.io/gestor-tareas-daw/
+- Repositorio: https://github.com/DAW1BSergiomg26/gestor-tareas-daw
+- Release: https://github.com/DAW1BSergiomg26/gestor-tareas-daw/releases/tag/v1.0.0
+
 ## Próximos proyectos
 
 La sección **Próximos proyectos** prepara futuras entregas DAW:
 
-- Gestor de tareas DAW.
 - Web de servicios informáticos.
 - Mini tienda web.
 - Web-Mio-Divina.
 - Laboratorio JavaScript.
+- Memoria de proyectos DAW.
 
 ## Tecnologías usadas
 
@@ -79,4 +87,4 @@ La fase SEO añade:
 
 ## Estado
 
-Portfolio DAW publicado en GitHub Pages con base premium, SEO inicial y sección de próximos proyectos.
+Portfolio DAW publicado en GitHub Pages con base premium, SEO inicial y dos proyectos publicados.
