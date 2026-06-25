@@ -2,6 +2,11 @@
 
 Portfolio personal de **Sergio Daniel Martínez Gómez** como alumno de **Desarrollo de Aplicaciones Web**.
 
+## URL pública
+
+- Web publicada: https://daw1bsergiomg26.github.io/portfolio-daw-sergio/
+- Repositorio: https://github.com/DAW1BSergiomg26/portfolio-daw-sergio
+
 ## Objetivo
 
 Este proyecto reúne mis prácticas, proyectos publicados y avances durante mi formación en DAW. La idea es tener una web central donde pueda enseñar lo que voy construyendo y documentar mi progreso de forma ordenada.
@@ -33,12 +38,27 @@ Web cultural, legal y documentada sobre Michael Jackson, publicada con GitHub Pa
 ```text
 portfolio-daw-sergio/
 ├─ index.html
+├─ favicon.svg
+├─ robots.txt
+├─ sitemap.xml
+├─ site.webmanifest
 ├─ css/
 │  └─ styles.css
 ├─ js/
 │  └─ app.js
 └─ README.md
 ```
+
+## SEO base
+
+La fase SEO añade:
+
+- `favicon.svg`
+- `site.webmanifest`
+- `robots.txt`
+- `sitemap.xml`
+- Metadatos básicos Open Graph y Twitter Card
+- URL canonical
 
 ## Flujo Git
 
@@ -49,4 +69,4 @@ portfolio-daw-sergio/
 
 ## Estado
 
-Primera base premium del portfolio DAW en construcción.
+Portfolio DAW publicado en GitHub Pages con base premium y SEO inicial.
