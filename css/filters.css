@@ -1,0 +1,48 @@
+.project-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin: 1.5rem 0 0.75rem;
+  padding: 1rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.filter-btn {
+  min-height: 42px;
+  padding: 0.7rem 1rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--panel);
+  color: var(--text);
+  font: inherit;
+  font-weight: 900;
+  cursor: pointer;
+  transition: transform 180ms ease, background 180ms ease, border-color 180ms ease;
+}
+
+.filter-btn:hover,
+.filter-btn.is-active {
+  transform: translateY(-1px);
+  background: linear-gradient(135deg, var(--accent), var(--gold));
+  border-color: transparent;
+  color: #050712;
+}
+
+.project-counter {
+  margin: 0.75rem 0 0 !important;
+  color: var(--muted) !important;
+  font-size: 0.95rem !important;
+  font-weight: 800;
+}
+
+.project-card.is-hidden {
+  display: none;
+}
+
+@media (max-width: 560px) {
+  .filter-btn {
+    width: 100%;
+  }
+}
