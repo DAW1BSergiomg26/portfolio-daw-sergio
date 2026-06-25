@@ -151,7 +151,8 @@ h3 {
 
 .hero-lead,
 .content-section p,
-.project-card p {
+.project-card p,
+.future-card p {
   color: var(--muted);
   font-size: 1.08rem;
   line-height: 1.8;
@@ -286,6 +287,40 @@ h3 {
   font-weight: 900;
 }
 
+.future-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.future-card {
+  min-height: 250px;
+  padding: 1.1rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  background:
+    linear-gradient(145deg, rgba(125, 211, 252, 0.08), rgba(167, 139, 250, 0.05)),
+    rgba(255, 255, 255, 0.04);
+}
+
+.future-card span {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  margin-bottom: 1rem;
+  border-radius: 14px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  color: #050712;
+  font-weight: 900;
+}
+
+.future-card h3 {
+  font-size: clamp(1.35rem, 2vw, 1.8rem);
+  letter-spacing: -0.05em;
+}
+
 .timeline {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -328,6 +363,12 @@ h3 {
 .reveal.is-visible {
   opacity: 1;
   transform: translateY(0);
+}
+
+@media (max-width: 1120px) {
+  .future-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 @media (max-width: 920px) {
@@ -390,6 +431,10 @@ h3 {
   .hero-actions,
   .project-links {
     display: grid;
+  }
+
+  .future-grid {
+    grid-template-columns: 1fr;
   }
 
   .btn,

@@ -22,6 +22,16 @@ Web cultural, legal y documentada sobre Michael Jackson, publicada con GitHub Pa
 - Memoria técnica: https://daw1bsergiomg26.github.io/m_j_pop_rey/MEMORIA_TECNICA_DAW.md?v=1
 - Release: https://github.com/DAW1BSergiomg26/m_j_pop_rey/releases/tag/v1.0.0
 
+## Próximos proyectos
+
+La sección **Próximos proyectos** prepara futuras entregas DAW:
+
+- Gestor de tareas DAW.
+- Web de servicios informáticos.
+- Mini tienda web.
+- Web-Mio-Divina.
+- Laboratorio JavaScript.
+
 ## Tecnologías usadas
 
 - HTML5
@@ -69,4 +79,4 @@ La fase SEO añade:
 
 ## Estado
 
-Portfolio DAW publicado en GitHub Pages con base premium y SEO inicial.
+Portfolio DAW publicado en GitHub Pages con base premium, SEO inicial y sección de próximos proyectos.
