@@ -56,6 +56,18 @@ Además de los proyectos publicados, el portfolio recoge otros repositorios de p
 - Mi App: https://github.com/DAW1BSergiomg26/mi-app
 - Ejercicios de BBDD - 10/03/2026: https://github.com/DAW1BSergiomg26/Ejercicios-de-BBDD-10-03-2026
 
+## Catálogo dinámico en JSON
+
+Los proyectos del portfolio se centralizan en `data/projects.json` y se renderizan desde `js/app.js`.
+
+Ventajas de esta estructura:
+
+- El HTML queda más limpio.
+- El catálogo es más fácil de mantener.
+- Los nuevos proyectos se pueden añadir editando datos, no duplicando bloques completos de HTML.
+- Filtros, buscador, estadísticas y tarjetas premium siguen funcionando sobre las tarjetas generadas dinámicamente.
+- Existe respaldo defensivo: si el JSON no carga, el script puede usar las tarjetas estáticas existentes.
+
 ## Filtros, buscador, estadísticas y tarjetas premium
 
 La sección de proyectos incluye filtros interactivos, buscador por texto libre, dashboard de estadísticas y tarjetas premium generadas con JavaScript.
@@ -105,6 +117,7 @@ La sección **Próximos proyectos** prepara futuras entregas DAW:
 - HTML5
 - CSS3
 - JavaScript
+- JSON
 - Git
 - GitHub
 - GitHub Pages
@@ -123,6 +136,8 @@ portfolio-daw-sergio/
 ├─ css/
 │  ├─ styles.css
 │  └─ filters.css
+├─ data/
+│  └─ projects.json
 ├─ js/
 │  └─ app.js
 └─ README.md
@@ -148,7 +163,8 @@ La fase SEO añade:
 
 ## Estado
 
-Portfolio DAW publicado en GitHub Pages con base premium, SEO inicial, proyectos publicados, catálogo ampliado de repositorios, filtros interactivos por categoría, buscador combinado por texto libre, tarjetas premium con etiquetas visuales automáticas y dashboard de estadísticas del portfolio.
+Portfolio DAW publicado en GitHub Pages con base premium, SEO inicial, proyectos publicados, catálogo ampliado de repositorios, filtros interactivos por categoría, buscador combinado por texto libre, tarjetas premium con etiquetas visuales automáticas, dashboard de estadísticas del portfolio y catálogo dinámico de proyectos en JSON.
+
 ## Versionado de assets
 
 Para evitar problemas de cache en GitHub Pages, los archivos CSS y JavaScript se cargan con parametro de version.
