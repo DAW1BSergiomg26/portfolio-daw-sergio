@@ -74,6 +74,7 @@ const projectFilters = document.querySelector(".project-filters");
 
 let activeProjectCategory = "todos";
 let projectSearchInput = null;
+let portfolioStatsPanel = null;
 
 function normalizeText(text) {
   return text
@@ -170,6 +171,91 @@ function getCategoryLabels(categories) {
     .slice(0, 4);
 }
 
+function getPortfolioStats() {
+  const stats = {
+    total: projectCards.length,
+    published: 0,
+    academic: 0,
+    practice: 0,
+    technologies: new Set(),
+    visible: projectCards.length,
+  };
+
+  projectCards.forEach((card) => {
+    const tier = getProjectTier(card);
+    const categories = getProjectCategories(card);
+
+    if (tier.className === "tier-published") stats.published += 1;
+    if (tier.className === "tier-team") stats.academic += 1;
+    if (tier.className === "tier-practice") stats.practice += 1;
+
+    categories
+      .filter((category) => !["todos", "publicados", "grupo"].includes(category))
+      .forEach((category) => stats.technologies.add(category));
+  });
+
+  return stats;
+}
+
+function createPortfolioStats() {
+  if (!projectFilters || portfolioStatsPanel) return;
+
+  const stats = getPortfolioStats();
+  const panel = document.createElement("div");
+  panel.className = "portfolio-stats-panel";
+  panel.setAttribute("aria-label", "Estadísticas del portfolio");
+  panel.innerHTML = `
+    <div class="stats-heading">
+      <span>Dashboard DAW</span>
+      <strong>Resumen vivo del portfolio</strong>
+    </div>
+    <div class="stats-grid">
+      <article class="stat-card">
+        <span>Total</span>
+        <strong data-stat="total">${stats.total}</strong>
+        <small>proyectos catalogados</small>
+      </article>
+      <article class="stat-card">
+        <span>Publicados</span>
+        <strong data-stat="published">${stats.published}</strong>
+        <small>entregas estables</small>
+      </article>
+      <article class="stat-card">
+        <span>Académicos</span>
+        <strong data-stat="academic">${stats.academic}</strong>
+        <small>trabajos de grupo</small>
+      </article>
+      <article class="stat-card">
+        <span>Prácticas</span>
+        <strong data-stat="practice">${stats.practice}</strong>
+        <small>repos en evolución</small>
+      </article>
+      <article class="stat-card">
+        <span>Tecnologías</span>
+        <strong data-stat="tech">${stats.technologies.size}</strong>
+        <small>áreas usadas</small>
+      </article>
+      <article class="stat-card stat-card-live">
+        <span>Visibles</span>
+        <strong data-stat="visible">${stats.visible}</strong>
+        <small>según filtro actual</small>
+      </article>
+    </div>
+  `;
+
+  projectFilters.before(panel);
+  portfolioStatsPanel = panel;
+}
+
+function updatePortfolioStats(visibleCount) {
+  if (!portfolioStatsPanel) return;
+
+  const visibleStat = portfolioStatsPanel.querySelector('[data-stat="visible"]');
+  if (visibleStat) {
+    visibleStat.textContent = visibleCount;
+  }
+}
+
 function enhanceProjectCards() {
   projectCards.forEach((card, index) => {
     if (card.dataset.enhanced === "true") return;
@@ -258,10 +344,12 @@ function applyProjectView() {
   });
 
   updateProjectCounter(visibleCount, projectCards.length, searchTerms);
+  updatePortfolioStats(visibleCount);
 }
 
 if (filterButtons.length && projectCards.length) {
   enhanceProjectCards();
+  createPortfolioStats();
   createProjectSearch();
 
   filterButtons.forEach((button) => {

@@ -56,9 +56,9 @@ Además de los proyectos publicados, el portfolio recoge otros repositorios de p
 - Mi App: https://github.com/DAW1BSergiomg26/mi-app
 - Ejercicios de BBDD - 10/03/2026: https://github.com/DAW1BSergiomg26/Ejercicios-de-BBDD-10-03-2026
 
-## Filtros, buscador y tarjetas premium
+## Filtros, buscador, estadísticas y tarjetas premium
 
-La sección de proyectos incluye filtros interactivos, buscador por texto libre y tarjetas premium generadas con JavaScript.
+La sección de proyectos incluye filtros interactivos, buscador por texto libre, dashboard de estadísticas y tarjetas premium generadas con JavaScript.
 
 Filtros disponibles:
 
@@ -73,6 +73,15 @@ Filtros disponibles:
 - Apps
 
 El buscador permite encontrar proyectos por texto libre. Por ejemplo: `Python`, `Auri`, `BBDD`, `Divina`, `CMS`, `JavaScript`, `Naranco` o `DinoGamer`.
+
+El dashboard de estadísticas muestra:
+
+- Total de proyectos catalogados.
+- Proyectos publicados.
+- Trabajos académicos o de grupo.
+- Prácticas y repositorios en evolución.
+- Áreas tecnológicas detectadas.
+- Proyectos visibles según filtro o búsqueda activa.
 
 Las tarjetas premium añaden:
 
@@ -139,4 +148,4 @@ La fase SEO añade:
 
 ## Estado
 
-Portfolio DAW publicado en GitHub Pages con base premium, SEO inicial, proyectos publicados, catálogo ampliado de repositorios, filtros interactivos por categoría, buscador combinado por texto libre y tarjetas premium con etiquetas visuales automáticas.
+Portfolio DAW publicado en GitHub Pages con base premium, SEO inicial, proyectos publicados, catálogo ampliado de repositorios, filtros interactivos por categoría, buscador combinado por texto libre, tarjetas premium con etiquetas visuales automáticas y dashboard de estadísticas del portfolio.
