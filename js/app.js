@@ -125,6 +125,103 @@ function getProjectCategories(card) {
   return categories;
 }
 
+function getProjectTier(card) {
+  const text = normalizeText(card.textContent);
+
+  if (text.includes("publicado") || text.includes("release") || text.includes("github pages")) {
+    return {
+      className: "tier-published",
+      label: "Publicado",
+      detail: "Entrega estable",
+    };
+  }
+
+  if (text.includes("grupo") || text.includes("intermodular") || text.includes("auri") || text.includes("naranco")) {
+    return {
+      className: "tier-team",
+      label: "Académico",
+      detail: "Trabajo de grupo",
+    };
+  }
+
+  return {
+    className: "tier-practice",
+    label: "Práctica",
+    detail: "Repositorio en evolución",
+  };
+}
+
+function getCategoryLabels(categories) {
+  const categoryMap = {
+    publicados: "Publicado",
+    web: "Web",
+    javascript: "JavaScript",
+    python: "Python",
+    bbdd: "BBDD",
+    grupo: "Grupo",
+    religioso: "Religioso",
+    apps: "App",
+  };
+
+  return categories
+    .filter((category) => category !== "todos")
+    .map((category) => categoryMap[category])
+    .filter(Boolean)
+    .slice(0, 4);
+}
+
+function enhanceProjectCards() {
+  projectCards.forEach((card, index) => {
+    if (card.dataset.enhanced === "true") return;
+
+    const categories = getProjectCategories(card);
+    const tier = getProjectTier(card);
+    const labels = getCategoryLabels(categories);
+    const title = card.querySelector("h3");
+    const content = card.querySelector("div:first-child");
+
+    card.dataset.enhanced = "true";
+    card.classList.add("project-card-premium", tier.className);
+    card.style.setProperty("--card-order", String(index + 1).padStart(2, "0"));
+
+    if (content && !card.querySelector(".project-meta-row")) {
+      const metaRow = document.createElement("div");
+      metaRow.className = "project-meta-row";
+
+      const orderPill = document.createElement("span");
+      orderPill.className = "project-order-pill";
+      orderPill.textContent = `#${String(index + 1).padStart(2, "0")}`;
+
+      const tierPill = document.createElement("span");
+      tierPill.className = "project-tier-pill";
+      tierPill.textContent = tier.label;
+
+      metaRow.append(orderPill, tierPill);
+      content.prepend(metaRow);
+    }
+
+    if (title && labels.length && !card.querySelector(".project-chip-list")) {
+      const chipList = document.createElement("div");
+      chipList.className = "project-chip-list";
+
+      labels.forEach((label) => {
+        const chip = document.createElement("span");
+        chip.textContent = label;
+        chipList.appendChild(chip);
+      });
+
+      title.insertAdjacentElement("afterend", chipList);
+    }
+
+    const badge = card.querySelector(".project-badge");
+    if (badge && !badge.querySelector("em")) {
+      const detail = document.createElement("em");
+      detail.textContent = tier.detail;
+      badge.appendChild(detail);
+    }
+  });
+}
+
 function getSearchTerms() {
   if (!projectSearchInput) return [];
 
@@ -164,6 +261,7 @@ function applyProjectView() {
 }
 
 if (filterButtons.length && projectCards.length) {
+  enhanceProjectCards();
   createProjectSearch();
 
   filterButtons.forEach((button) => {
