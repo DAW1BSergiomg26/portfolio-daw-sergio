@@ -67,11 +67,12 @@ if ("IntersectionObserver" in window) {
   revealItems.forEach(showRevealItem);
 }
 
+const projectSection = document.querySelector("#proyectos");
 const filterButtons = document.querySelectorAll(".filter-btn");
-const projectCards = document.querySelectorAll(".project-card");
 const projectCounter = document.querySelector(".project-counter");
 const projectFilters = document.querySelector(".project-filters");
 
+let projectCards = Array.from(document.querySelectorAll(".project-card"));
 let activeProjectCategory = "todos";
 let projectSearchInput = null;
 let portfolioStatsPanel = null;
@@ -82,6 +83,88 @@ function normalizeText(text) {
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "")
     .trim();
+}
+
+function createProjectCard(project) {
+  const article = document.createElement("article");
+  article.className = "project-card";
+
+  const content = document.createElement("div");
+
+  const kicker = document.createElement("p");
+  kicker.className = "project-kicker";
+  kicker.textContent = project.kicker;
+
+  const title = document.createElement("h3");
+  title.textContent = project.title;
+
+  const description = document.createElement("p");
+  description.textContent = project.description;
+
+  const links = document.createElement("div");
+  links.className = "project-links";
+
+  project.links.forEach((link) => {
+    const anchor = document.createElement("a");
+    anchor.href = link.url;
+    anchor.target = "_blank";
+    anchor.rel = "noopener noreferrer";
+    anchor.textContent = link.label;
+    links.appendChild(anchor);
+  });
+
+  content.append(kicker, title, description, links);
+
+  const badge = document.createElement("div");
+  badge.className = "project-badge";
+
+  const badgeLabel = document.createElement("span");
+  badgeLabel.textContent = project.badge.label;
+
+  const badgeStatus = document.createElement("strong");
+  badgeStatus.textContent = project.badge.status;
+
+  badge.append(badgeLabel, badgeStatus);
+  article.append(content, badge);
+
+  return article;
+}
+
+function renderProjects(projects) {
+  if (!projectSection || !projectCounter) return;
+
+  projectSection.querySelectorAll(".project-card").forEach((card) => card.remove());
+
+  const fragment = document.createDocumentFragment();
+  projects.forEach((project) => {
+    fragment.appendChild(createProjectCard(project));
+  });
+
+  projectCounter.insertAdjacentElement("afterend", fragment.firstElementChild);
+
+  let lastInsertedCard = projectCounter.nextElementSibling;
+  while (fragment.firstElementChild) {
+    lastInsertedCard.insertAdjacentElement("afterend", fragment.firstElementChild);
+    lastInsertedCard = lastInsertedCard.nextElementSibling;
+  }
+
+  projectCards = Array.from(projectSection.querySelectorAll(".project-card"));
+}
+
+async function loadProjectsFromJson() {
+  try {
+    const response = await fetch("data/projects.json?v=1.7.0");
+
+    if (!response.ok) {
+      throw new Error("No se pudo cargar data/projects.json");
+    }
+
+    const projects = await response.json();
+    renderProjects(projects);
+  } catch (error) {
+    console.warn("Usando proyectos estáticos como respaldo:", error);
+    projectCards = Array.from(document.querySelectorAll(".project-card"));
+  }
 }
 
 function createProjectSearch() {
@@ -250,10 +333,20 @@ function createPortfolioStats() {
 function updatePortfolioStats(visibleCount) {
   if (!portfolioStatsPanel) return;
 
-  const visibleStat = portfolioStatsPanel.querySelector('[data-stat="visible"]');
-  if (visibleStat) {
-    visibleStat.textContent = visibleCount;
-  }
+  const stats = getPortfolioStats();
+  const values = {
+    total: stats.total,
+    published: stats.published,
+    academic: stats.academic,
+    practice: stats.practice,
+    tech: stats.technologies.size,
+    visible: visibleCount,
+  };
+
+  Object.entries(values).forEach(([key, value]) => {
+    const stat = portfolioStatsPanel.querySelector(`[data-stat="${key}"]`);
+    if (stat) stat.textContent = value;
+  });
 }
 
 function enhanceProjectCards() {
@@ -347,11 +440,7 @@ function applyProjectView() {
   updatePortfolioStats(visibleCount);
 }
 
-if (filterButtons.length && projectCards.length) {
-  enhanceProjectCards();
-  createPortfolioStats();
-  createProjectSearch();
-
+function bindProjectFilters() {
   filterButtons.forEach((button) => {
     button.addEventListener("click", () => {
       activeProjectCategory = button.dataset.filter || "todos";
@@ -361,9 +450,23 @@ if (filterButtons.length && projectCards.length) {
       applyProjectView();
     });
   });
+}
 
+async function initProjectsCatalog() {
+  if (!projectFilters) return;
+
+  await loadProjectsFromJson();
+
+  if (!projectCards.length) return;
+
+  enhanceProjectCards();
+  createPortfolioStats();
+  createProjectSearch();
+  bindProjectFilters();
   applyProjectView();
 }
+
+initProjectsCatalog();
 
 window.addEventListener("scroll", markActiveSection, { passive: true });
 window.addEventListener("hashchange", markActiveSection);
