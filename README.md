@@ -169,8 +169,8 @@ Portfolio DAW publicado en GitHub Pages con base premium, SEO inicial, proyectos
 
 Para evitar problemas de cache en GitHub Pages, los archivos CSS y JavaScript se cargan con parametro de version.
 
-- css/styles.css?v=1.6.1
-- css/filters.css?v=1.6.1
-- js/app.js?v=1.6.1
+- css/styles.css?v=1.7.0
+- css/filters.css?v=1.7.0
+- js/app.js?v=1.7.0
 
 Asi, cuando se publica una nueva version, el navegador carga los archivos actualizados y no conserva estilos o scripts antiguos.
