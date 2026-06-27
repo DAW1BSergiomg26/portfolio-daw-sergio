@@ -93,6 +93,21 @@ const tierMap = {
   },
 };
 
+const filterLabelMap = {
+  todos: "catálogo completo",
+  published: "publicados",
+  academic: "académicos",
+  practice: "prácticas",
+  featured: "destacados",
+  web: "web",
+  javascript: "javascript",
+  python: "python",
+  bbdd: "bbdd",
+  grupo: "grupo",
+  religioso: "religioso",
+  apps: "apps",
+};
+
 function normalizeText(text) {
   return text
     .toLowerCase()
@@ -174,7 +189,7 @@ function renderProjects(projects) {
 
 async function loadProjectsFromJson() {
   try {
-    const response = await fetch("data/projects.json?v=1.8.0");
+    const response = await fetch("data/projects.json?v=1.9.0");
 
     if (!response.ok) {
       throw new Error("No se pudo cargar data/projects.json");
@@ -437,10 +452,14 @@ function getSearchTerms() {
     .filter(Boolean);
 }
 
+function getCurrentFilterLabel() {
+  return filterLabelMap[activeProjectCategory] || activeProjectCategory;
+}
+
 function updateProjectCounter(visibleCount, total, searchTerms) {
   if (!projectCounter) return;
 
-  const filterLabel = activeProjectCategory === "todos" ? "catálogo completo" : `filtro: ${activeProjectCategory}`;
+  const filterLabel = activeProjectCategory === "todos" ? "catálogo completo" : `filtro: ${getCurrentFilterLabel()}`;
   const searchLabel = searchTerms.length ? ` · búsqueda: ${projectSearchInput.value.trim()}` : "";
 
   projectCounter.textContent = `${visibleCount} de ${total} proyectos visibles (${filterLabel}${searchLabel})`;
@@ -459,14 +478,23 @@ function getProjectSearchText(card) {
   ].join(" "));
 }
 
+function matchesActiveFilter(card) {
+  if (activeProjectCategory === "todos") return true;
+  if (activeProjectCategory === "featured") return card.dataset.featured === "true";
+  if (["published", "academic", "practice"].includes(activeProjectCategory)) {
+    return card.dataset.status === activeProjectCategory;
+  }
+
+  return getProjectCategories(card).includes(activeProjectCategory);
+}
+
 function applyProjectView() {
   const searchTerms = getSearchTerms();
   let visibleCount = 0;
 
   projectCards.forEach((card) => {
     const text = getProjectSearchText(card);
-    const categories = getProjectCategories(card);
-    const matchesCategory = activeProjectCategory === "todos" || categories.includes(activeProjectCategory);
+    const matchesCategory = matchesActiveFilter(card);
     const matchesSearch = searchTerms.every((term) => text.includes(term));
     const isVisible = matchesCategory && matchesSearch;
 
