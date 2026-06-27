@@ -58,8 +58,6 @@ if ("IntersectionObserver" in window) {
 
   revealItems.forEach((item) => revealObserver.observe(item));
 
-  // Fallback defensivo: evita espacios vacíos si el navegador salta a un ancla
-  // antes de que IntersectionObserver pinte las secciones.
   window.setTimeout(() => {
     revealItems.forEach(showRevealItem);
   }, 350);
@@ -77,6 +75,24 @@ let activeProjectCategory = "todos";
 let projectSearchInput = null;
 let portfolioStatsPanel = null;
 
+const tierMap = {
+  published: {
+    className: "tier-published",
+    label: "Publicado",
+    detail: "Entrega estable",
+  },
+  academic: {
+    className: "tier-team",
+    label: "Académico",
+    detail: "Trabajo de grupo",
+  },
+  practice: {
+    className: "tier-practice",
+    label: "Práctica",
+    detail: "Repositorio en evolución",
+  },
+};
+
 function normalizeText(text) {
   return text
     .toLowerCase()
@@ -85,9 +101,21 @@ function normalizeText(text) {
     .trim();
 }
 
+function setProjectMetadata(card, project) {
+  card.dataset.projectId = project.id || "";
+  card.dataset.status = project.status || "practice";
+  card.dataset.type = project.type || "practice";
+  card.dataset.version = project.version || "";
+  card.dataset.year = project.year || "";
+  card.dataset.featured = String(Boolean(project.featured));
+  card.dataset.categories = ["todos", ...(project.categories || [])].join(",");
+  card.dataset.technologies = (project.technologies || []).join(",");
+}
+
 function createProjectCard(project) {
   const article = document.createElement("article");
   article.className = "project-card";
+  setProjectMetadata(article, project);
 
   const content = document.createElement("div");
 
@@ -140,20 +168,13 @@ function renderProjects(projects) {
     fragment.appendChild(createProjectCard(project));
   });
 
-  projectCounter.insertAdjacentElement("afterend", fragment.firstElementChild);
-
-  let lastInsertedCard = projectCounter.nextElementSibling;
-  while (fragment.firstElementChild) {
-    lastInsertedCard.insertAdjacentElement("afterend", fragment.firstElementChild);
-    lastInsertedCard = lastInsertedCard.nextElementSibling;
-  }
-
+  projectCounter.after(fragment);
   projectCards = Array.from(projectSection.querySelectorAll(".project-card"));
 }
 
 async function loadProjectsFromJson() {
   try {
-    const response = await fetch("data/projects.json?v=1.7.0");
+    const response = await fetch("data/projects.json?v=1.8.0");
 
     if (!response.ok) {
       throw new Error("No se pudo cargar data/projects.json");
@@ -194,6 +215,10 @@ function createProjectSearch() {
 }
 
 function getProjectCategories(card) {
+  if (card.dataset.categories) {
+    return card.dataset.categories.split(",").filter(Boolean);
+  }
+
   const text = normalizeText(card.textContent);
   const categories = ["todos"];
 
@@ -210,29 +235,21 @@ function getProjectCategories(card) {
 }
 
 function getProjectTier(card) {
+  if (card.dataset.status && tierMap[card.dataset.status]) {
+    return tierMap[card.dataset.status];
+  }
+
   const text = normalizeText(card.textContent);
 
   if (text.includes("publicado") || text.includes("release") || text.includes("github pages")) {
-    return {
-      className: "tier-published",
-      label: "Publicado",
-      detail: "Entrega estable",
-    };
+    return tierMap.published;
   }
 
   if (text.includes("grupo") || text.includes("intermodular") || text.includes("auri") || text.includes("naranco")) {
-    return {
-      className: "tier-team",
-      label: "Académico",
-      detail: "Trabajo de grupo",
-    };
+    return tierMap.academic;
   }
 
-  return {
-    className: "tier-practice",
-    label: "Práctica",
-    detail: "Repositorio en evolución",
-  };
+  return tierMap.practice;
 }
 
 function getCategoryLabels(categories) {
@@ -254,6 +271,14 @@ function getCategoryLabels(categories) {
     .slice(0, 4);
 }
 
+function getProjectTechnologies(card) {
+  if (card.dataset.technologies) {
+    return card.dataset.technologies.split(",").filter(Boolean);
+  }
+
+  return getProjectCategories(card).filter((category) => !["todos", "publicados", "grupo"].includes(category));
+}
+
 function getPortfolioStats() {
   const stats = {
     total: projectCards.length,
@@ -265,16 +290,19 @@ function getPortfolioStats() {
   };
 
   projectCards.forEach((card) => {
-    const tier = getProjectTier(card);
-    const categories = getProjectCategories(card);
+    const status = card.dataset.status;
 
-    if (tier.className === "tier-published") stats.published += 1;
-    if (tier.className === "tier-team") stats.academic += 1;
-    if (tier.className === "tier-practice") stats.practice += 1;
+    if (status === "published") stats.published += 1;
+    else if (status === "academic") stats.academic += 1;
+    else if (status === "practice") stats.practice += 1;
+    else {
+      const tier = getProjectTier(card);
+      if (tier.className === "tier-published") stats.published += 1;
+      if (tier.className === "tier-team") stats.academic += 1;
+      if (tier.className === "tier-practice") stats.practice += 1;
+    }
 
-    categories
-      .filter((category) => !["todos", "publicados", "grupo"].includes(category))
-      .forEach((category) => stats.technologies.add(category));
+    getProjectTechnologies(card).forEach((technology) => stats.technologies.add(technology));
   });
 
   return stats;
@@ -418,12 +446,25 @@ function updateProjectCounter(visibleCount, total, searchTerms) {
   projectCounter.textContent = `${visibleCount} de ${total} proyectos visibles (${filterLabel}${searchLabel})`;
 }
 
+function getProjectSearchText(card) {
+  return normalizeText([
+    card.textContent,
+    card.dataset.projectId,
+    card.dataset.status,
+    card.dataset.type,
+    card.dataset.version,
+    card.dataset.year,
+    card.dataset.categories,
+    card.dataset.technologies,
+  ].join(" "));
+}
+
 function applyProjectView() {
   const searchTerms = getSearchTerms();
   let visibleCount = 0;
 
   projectCards.forEach((card) => {
-    const text = normalizeText(card.textContent);
+    const text = getProjectSearchText(card);
     const categories = getProjectCategories(card);
     const matchesCategory = activeProjectCategory === "todos" || categories.includes(activeProjectCategory);
     const matchesSearch = searchTerms.every((term) => text.includes(term));
