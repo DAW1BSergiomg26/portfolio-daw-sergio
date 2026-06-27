@@ -1,5 +1,13 @@
 [
   {
+    "id": "archivo-moonwalk",
+    "status": "published",
+    "type": "web",
+    "version": "v1.0.0",
+    "year": 2026,
+    "featured": true,
+    "technologies": ["HTML", "CSS", "JavaScript", "GitHub Pages"],
+    "categories": ["publicados", "web", "javascript"],
     "kicker": "Web cultural · legal · documentada",
     "title": "Archivo Moonwalk v1.0.0",
     "description": "Web estática publicada en GitHub Pages como homenaje cultural y documentado a Michael Jackson. Incluye secciones de biografía, discografía, videos, conciertos, documentales, curiosidades, museo visual, fuentes legales, portfolio interno y memoria técnica DAW.",
@@ -12,6 +20,14 @@
     ]
   },
   {
+    "id": "gestor-tareas-daw",
+    "status": "published",
+    "type": "app",
+    "version": "v1.0.0",
+    "year": 2026,
+    "featured": true,
+    "technologies": ["HTML", "CSS", "JavaScript", "DOM", "localStorage", "GitHub Pages"],
+    "categories": ["publicados", "web", "javascript", "apps"],
     "kicker": "JavaScript · DOM · localStorage",
     "title": "Gestor de Tareas DAW v1.0.0",
     "description": "Mini aplicación funcional para crear, completar, filtrar y borrar tareas. El proyecto practica manipulación del DOM, eventos, arrays, objetos y almacenamiento local con localStorage, usando una interfaz responsive publicada en GitHub Pages.",
@@ -23,6 +39,14 @@
     ]
   },
   {
+    "id": "web-servicios-informaticos",
+    "status": "published",
+    "type": "web",
+    "version": "v1.0.0",
+    "year": 2026,
+    "featured": true,
+    "technologies": ["HTML", "CSS", "JavaScript", "SEO", "GitHub Pages"],
+    "categories": ["publicados", "web", "javascript"],
     "kicker": "Servicios reales · soporte · SEO base",
     "title": "Web Servicios Informáticos v1.0.0",
     "description": "Landing profesional para presentar servicios informáticos básicos: instalación de Windows, limpieza, optimización, copias de seguridad, soporte remoto y mantenimiento preventivo. Publicada en GitHub Pages con SEO base, favicon, sitemap y release estable.",
@@ -34,6 +58,14 @@
     ]
   },
   {
+    "id": "web-mio-divina",
+    "status": "practice",
+    "type": "religious-web",
+    "version": "repo",
+    "year": 2026,
+    "featured": true,
+    "technologies": ["HTML", "CSS", "JavaScript", "Content Design"],
+    "categories": ["web", "javascript", "religioso"],
     "kicker": "Proyecto religioso · contenido · diseño web",
     "title": "Web-Mio-Divina",
     "description": "Proyecto web religioso y cultural orientado a organizar secciones, contenidos devocionales, navegación responsive y documentación visual.",
@@ -43,6 +75,14 @@
     ]
   },
   {
+    "id": "menu-ciberpunk-multicolores",
+    "status": "practice",
+    "type": "frontend",
+    "version": "ui",
+    "year": 2026,
+    "featured": false,
+    "technologies": ["HTML", "CSS", "JavaScript", "Responsive Design"],
+    "categories": ["web", "javascript"],
     "kicker": "HTML · CSS · menú responsive",
     "title": "Menú Ciberpunk Multicolores",
     "description": "Práctica de interfaz responsive con estética ciberpunk, navegación visual y trabajo de diseño frontal con HTML, CSS y JavaScript.",
@@ -52,6 +92,14 @@
     ]
   },
   {
+    "id": "envios-paraguay-cms",
+    "status": "practice",
+    "type": "cms",
+    "version": "cms",
+    "year": 2026,
+    "featured": false,
+    "technologies": ["CMS", "Data Structure", "Panels"],
+    "categories": ["web"],
     "kicker": "CMS · envíos · Paraguay",
     "title": "Envios Paraguay CMS",
     "description": "Proyecto orientado a practicar una solución tipo CMS para gestión de envíos, estructura de datos, paneles y organización de información.",
@@ -61,6 +109,14 @@
     ]
   },
   {
+    "id": "naranco-grupo-b-2",
+    "status": "academic",
+    "type": "team",
+    "version": "grupo",
+    "year": 2026,
+    "featured": false,
+    "technologies": ["GitHub", "Documentation", "Teamwork"],
+    "categories": ["grupo"],
     "kicker": "Trabajo grupal · DAW · documentación",
     "title": "NARANCO GRUPO B 2",
     "description": "Repositorio de trabajo en grupo para practicar organización de proyecto, colaboración, entregas y uso de GitHub en contexto académico.",
@@ -70,6 +126,14 @@
     ]
   },
   {
+    "id": "auri-grupo-sergio-juan-juanca-luis-oscar-hector",
+    "status": "academic",
+    "type": "team",
+    "version": "auri",
+    "year": 2026,
+    "featured": false,
+    "technologies": ["GitHub", "Project Planning", "Documentation"],
+    "categories": ["grupo"],
     "kicker": "Intermodular · equipo · Auri",
     "title": "Proyecto Intermodular Auri - Grupo Sergio, Juan, Juanca, Luis, Óscar y Héctor",
     "description": "Proyecto intermodular de equipo para practicar planificación, reparto de tareas, documentación y desarrollo de una propuesta completa.",
@@ -79,6 +143,14 @@
     ]
   },
   {
+    "id": "auri-grupo-sergio-mateo-juanca",
+    "status": "academic",
+    "type": "team",
+    "version": "auri",
+    "year": 2026,
+    "featured": false,
+    "technologies": ["GitHub", "Project Planning", "Documentation"],
+    "categories": ["grupo"],
     "kicker": "Intermodular · equipo · Auri",
     "title": "Proyecto Intermodular Auri - Grupo Sergio, Mateo y Juanca",
     "description": "Repositorio de evolución del proyecto Auri, centrado en colaboración, estructura de trabajo, entregas y mejora progresiva del proyecto.",
@@ -88,6 +160,14 @@
     ]
   },
   {
+    "id": "mi-juego-dinogamer",
+    "status": "practice",
+    "type": "game",
+    "version": "game",
+    "year": 2026,
+    "featured": false,
+    "technologies": ["HTML", "CSS", "JavaScript", "Game Logic"],
+    "categories": ["web", "javascript"],
     "kicker": "Juego · JavaScript · práctica",
     "title": "Mi Juego DinoGamer",
     "description": "Proyecto de juego web para practicar lógica básica, interacción, eventos, estado de partida y comportamiento dinámico con JavaScript.",
@@ -97,6 +177,14 @@
     ]
   },
   {
+    "id": "divina-misericordia-app",
+    "status": "practice",
+    "type": "app",
+    "version": "app",
+    "year": 2026,
+    "featured": true,
+    "technologies": ["HTML", "CSS", "JavaScript", "Content Design"],
+    "categories": ["web", "javascript", "religioso", "apps"],
     "kicker": "App religiosa · contenido · frontend",
     "title": "Divina Misericordia App",
     "description": "Aplicación/webapp devocional dedicada a la Divina Misericordia, pensada para practicar estructura, contenido, diseño y experiencia de usuario.",
@@ -106,6 +194,14 @@
     ]
   },
   {
+    "id": "100-ejercicios-practicos",
+    "status": "practice",
+    "type": "practice",
+    "version": "100",
+    "year": 2026,
+    "featured": false,
+    "technologies": ["Programming Logic", "Exercises", "Practice"],
+    "categories": ["javascript", "python"],
     "kicker": "Ejercicios · práctica · aprendizaje",
     "title": "100 Ejercicios Prácticos de Todo un Poco",
     "description": "Colección de ejercicios para practicar fundamentos, resolver problemas pequeños y reforzar lógica, sintaxis y pensamiento de programador.",
@@ -115,6 +211,14 @@
     ]
   },
   {
+    "id": "aprende-python-java",
+    "status": "practice",
+    "type": "learning",
+    "version": "python-java",
+    "year": 2026,
+    "featured": false,
+    "technologies": ["Python", "Java", "Exercises"],
+    "categories": ["python"],
     "kicker": "Python · Java · formación",
     "title": "Aprende a Programar con Python y Java",
     "description": "Repositorio de aprendizaje para organizar práctica, teoría y ejercicios de programación usando Python y Java como lenguajes principales.",
@@ -124,6 +228,14 @@
     ]
   },
   {
+    "id": "python-de-0-a-100",
+    "status": "practice",
+    "type": "learning",
+    "version": "ruta",
+    "year": 2026,
+    "featured": false,
+    "technologies": ["Python", "Exercises", "Documentation"],
+    "categories": ["python"],
     "kicker": "Python · ruta práctica · progreso",
     "title": "Python de 0 a 100",
     "description": "Ruta personal de aprendizaje Python para avanzar desde la base hasta ejercicios más completos, documentando progreso y práctica constante.",
@@ -133,6 +245,14 @@
     ]
   },
   {
+    "id": "mi-app",
+    "status": "practice",
+    "type": "app",
+    "version": "app",
+    "year": 2026,
+    "featured": false,
+    "technologies": ["App Prototype", "Components", "Frontend"],
+    "categories": ["apps"],
     "kicker": "App · práctica · prototipo",
     "title": "Mi App",
     "description": "Repositorio de aplicación experimental para practicar estructura de proyecto, componentes básicos y evolución progresiva de una idea propia.",
@@ -142,6 +262,14 @@
     ]
   },
   {
+    "id": "ejercicios-bbdd-2026-03-10",
+    "status": "practice",
+    "type": "database",
+    "version": "sql",
+    "year": 2026,
+    "featured": false,
+    "technologies": ["SQL", "Database", "Data Modeling"],
+    "categories": ["bbdd"],
     "kicker": "Bases de datos · SQL · ejercicios",
     "title": "Ejercicios de BBDD - 10/03/2026",
     "description": "Repositorio de ejercicios de bases de datos para practicar consultas, estructura de datos y fundamentos de trabajo con información organizada.",
