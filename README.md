@@ -85,6 +85,20 @@ Cada proyecto del JSON incorpora o refuerza metadatos como:
 El objetivo de esta curaduría es que el portfolio no sea solo una lista de repositorios, sino un catálogo profesional con intención, jerarquía y lectura clara.
 
 
+
+## Pulido UX del detalle profesional
+
+La versión v2.6.0 mejora el bloque desplegable de cada proyecto para convertirlo en una pequeña defensa académica y profesional.
+
+El detalle queda organizado con una lógica más clara:
+
+- Qué hice.
+- Qué aprendí.
+- Por qué importa dentro del portfolio.
+- Estado real del proyecto.
+- Tecnologías principales.
+
+El objetivo es que cada tarjeta ayude a explicar el trabajo en una revisión con profesor, empresa o entrevista inicial.
 ## Sistema de detalle expandido por proyecto
 
 La versión v2.5.0 añade un bloque desplegable en cada tarjeta del catálogo.
@@ -232,13 +246,13 @@ Portfolio DAW publicado en GitHub Pages con base premium, SEO avanzado, Open Gra
 
 Para evitar problemas de caché en GitHub Pages, los archivos CSS, JavaScript y JSON se cargan con parámetro de versión.
 
-Versión actual estable: `v2.5.0`.
+Versión actual estable: `v2.6.0`.
 
 Ejemplo:
 
-- `css/styles.css?v=2.5.0`
-- `css/filters.css?v=2.5.0`
-- `js/app.js?v=2.5.0`
-- `data/projects.json?v=2.5.0`
+- `css/styles.css?v=2.6.0`
+- `css/filters.css?v=2.6.0`
+- `js/app.js?v=2.6.0`
+- `data/projects.json?v=2.6.0`
 
 Así, cuando se publica una nueva versión, el navegador carga los archivos actualizados y no conserva estilos, scripts o datos antiguos.

@@ -140,27 +140,33 @@ function createProjectDetail(project) {
   details.className = "project-detail";
 
   const summary = document.createElement("summary");
-  summary.textContent = "Ver detalle profesional";
+  summary.textContent = "Abrir defensa técnica";
   details.appendChild(summary);
 
   const body = document.createElement("div");
   body.className = "project-detail-body";
 
+  if (project.description) {
+    const done = document.createElement("p");
+    done.innerHTML = `<strong>1. Qué hice:</strong> ${project.description}`;
+    body.appendChild(done);
+  }
+
   if (project.learning) {
     const learning = document.createElement("p");
-    learning.innerHTML = `<strong>Qué aprendí:</strong> ${project.learning}`;
+    learning.innerHTML = `<strong>2. Qué aprendí:</strong> ${project.learning}`;
     body.appendChild(learning);
   }
 
   if (project.portfolioRole) {
     const role = document.createElement("p");
-    role.innerHTML = `<strong>Rol en el portfolio:</strong> ${project.portfolioRole}`;
+    role.innerHTML = `<strong>3. Por qué importa:</strong> ${project.portfolioRole}`;
     body.appendChild(role);
   }
 
   if (project.level) {
     const level = document.createElement("p");
-    level.innerHTML = `<strong>Estado:</strong> ${project.level}`;
+    level.innerHTML = `<strong>Estado real:</strong> ${project.level}`;
     body.appendChild(level);
   }
 
@@ -252,7 +258,7 @@ function renderProjects(projects) {
 
 async function loadProjectsFromJson() {
   try {
-    const response = await fetch("data/projects.json?v=2.5.0");
+    const response = await fetch("data/projects.json?v=2.6.0");
 
     if (!response.ok) {
       throw new Error("No se pudo cargar data/projects.json");
