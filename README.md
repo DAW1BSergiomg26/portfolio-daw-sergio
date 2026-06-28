@@ -68,6 +68,22 @@ Ventajas de esta estructura:
 - Filtros, buscador, estadísticas y tarjetas premium siguen funcionando sobre las tarjetas generadas dinámicamente.
 - Existe respaldo defensivo: si el JSON no carga, el script puede usar las tarjetas estáticas existentes.
 
+## Curaduría profesional del catálogo
+
+La versión v2.4.0 mejora el catálogo para que cada proyecto sea más defendible y fácil de evaluar.
+
+Cada proyecto del JSON incorpora o refuerza metadatos como:
+
+- `priority`: orden recomendado de presentación.
+- `level`: nivel o estado real del proyecto.
+- `learning`: aprendizaje principal que demuestra.
+- `portfolioRole`: papel del proyecto dentro del portfolio.
+- `featured`: selección más intencional de proyectos destacados.
+- `technologies`: tecnologías y áreas más precisas.
+- `categories`: categorías compatibles con filtros avanzados.
+
+El objetivo de esta curaduría es que el portfolio no sea solo una lista de repositorios, sino un catálogo profesional con intención, jerarquía y lectura clara.
+
 ## Filtros, buscador, estadísticas y tarjetas premium
 
 La sección de proyectos incluye filtros interactivos, buscador por texto libre, dashboard de estadísticas y tarjetas premium generadas con JavaScript.
@@ -196,18 +212,19 @@ portfolio-daw-sergio/
 
 ## Estado
 
-Portfolio DAW publicado en GitHub Pages con base premium, SEO avanzado, Open Graph, PWA ligera, catálogo dinámico en JSON, filtros avanzados, buscador combinado, tarjetas premium, dashboard de estadísticas, panel profesional de proyectos destacados y auditoría de calidad documentada.
+Portfolio DAW publicado en GitHub Pages con base premium, SEO avanzado, Open Graph, PWA ligera, catálogo dinámico en JSON, filtros avanzados, buscador combinado, tarjetas premium, dashboard de estadísticas, panel profesional de proyectos destacados, auditoría de calidad documentada y curaduría profesional del catálogo.
 
 ## Versionado de assets
 
-Para evitar problemas de caché en GitHub Pages, los archivos CSS y JavaScript se cargan con parámetro de versión.
+Para evitar problemas de caché en GitHub Pages, los archivos CSS, JavaScript y JSON se cargan con parámetro de versión.
 
-Versión actual estable: `v2.3.0`.
+Versión actual estable: `v2.4.0`.
 
 Ejemplo:
 
-- `css/styles.css?v=2.2.0`
-- `css/filters.css?v=2.2.0`
-- `js/app.js?v=2.2.0`
+- `css/styles.css?v=2.4.0`
+- `css/filters.css?v=2.4.0`
+- `js/app.js?v=2.4.0`
+- `data/projects.json?v=2.4.0`
 
-Así, cuando se publica una nueva versión, el navegador carga los archivos actualizados y no conserva estilos o scripts antiguos.
+Así, cuando se publica una nueva versión, el navegador carga los archivos actualizados y no conserva estilos, scripts o datos antiguos.
