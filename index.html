@@ -89,8 +89,36 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/styles.css?v=2.1.0">
-  <link rel="stylesheet" href="css/filters.css?v=2.1.0">
+  <link rel="stylesheet" href="css/styles.css?v=2.2.0">
+  <link rel="stylesheet" href="css/filters.css?v=2.2.0">
+
+  <style>
+    .skip-link {
+      position: fixed;
+      left: 1rem;
+      top: 1rem;
+      z-index: 999;
+      transform: translateY(-140%);
+      padding: 0.8rem 1rem;
+      border-radius: 999px;
+      background: #f7d774;
+      color: #050712;
+      font-weight: 900;
+      text-decoration: none;
+      transition: transform 180ms ease;
+    }
+
+    .skip-link:focus {
+      transform: translateY(0);
+      outline: 3px solid #7dd3fc;
+      outline-offset: 3px;
+    }
+
+    :focus-visible {
+      outline: 3px solid #7dd3fc;
+      outline-offset: 4px;
+    }
+  </style>
 </head>
 <body>
   <header class="site-header">
@@ -114,10 +142,10 @@
   </header>
 
   <main id="inicio">
-    <section class="hero section-grid">
+    <section class="hero section-grid" aria-labelledby="titulo-principal">
       <div class="hero-content reveal">
         <p class="eyebrow">Alumno DAW · Desarrollo Web · GitHub Pages</p>
-        <h1>Sergio Daniel Martínez Gómez</h1>
+        <h1 id="titulo-principal">Sergio Daniel Martínez Gómez</h1>
         <p class="hero-lead">
           Portfolio personal para reunir mis proyectos, prácticas y avances como alumno de Desarrollo de Aplicaciones Web.
           Aquí documento lo que voy construyendo, lo que aprendo y cómo organizo mi progreso con Git, HTML, CSS y JavaScript.
@@ -129,7 +157,7 @@
       </div>
 
       <aside class="hero-card reveal" aria-label="Resumen profesional">
-        <div class="card-icon">⌘</div>
+        <div class="card-icon" aria-hidden="true">⌘</div>
         <h2>Portfolio en construcción profesional</h2>
         <p>
           Un espacio vivo para presentar proyectos reales, publicados, documentados y versionados con un flujo Git limpio.
@@ -168,9 +196,9 @@
       </div>
     </section>
 
-    <section id="proyectos" class="content-section reveal">
+    <section id="proyectos" class="content-section reveal" aria-labelledby="titulo-proyectos">
       <p class="eyebrow">Proyectos y repositorios</p>
-      <h2>Trabajos DAW en producción</h2>
+      <h2 id="titulo-proyectos">Trabajos DAW en producción</h2>
 
       <div class="project-filters" aria-label="Filtros avanzados del catálogo de proyectos">
         <button class="filter-btn is-active" type="button" data-filter="todos">Todos</button>
@@ -256,6 +284,6 @@
     <p>Portfolio DAW · Sergio Daniel Martínez Gómez · Hecho con HTML, CSS, JavaScript y Git.</p>
   </footer>
 
-  <script src="js/app.js?v=2.1.0"></script>
+  <script src="js/app.js?v=2.2.0"></script>
 </body>
 </html>
