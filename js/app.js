@@ -190,7 +190,7 @@ function renderProjects(projects) {
 
 async function loadProjectsFromJson() {
   try {
-    const response = await fetch("data/projects.json?v=2.0.0");
+    const response = await fetch("data/projects.json?v=2.4.0");
 
     if (!response.ok) {
       throw new Error("No se pudo cargar data/projects.json");
