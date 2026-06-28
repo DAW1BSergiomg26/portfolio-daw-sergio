@@ -1,10 +1,22 @@
 {
-  "name": "Portfolio DAW - Sergio Daniel",
+  "name": "Portfolio DAW - Sergio Daniel Martínez Gómez",
   "short_name": "Portfolio DAW",
-  "description": "Portfolio personal de Sergio Daniel Martínez Gómez como alumno de Desarrollo de Aplicaciones Web.",
-  "start_url": "/portfolio-daw-sergio/",
+  "description": "Portfolio profesional de Sergio Daniel Martínez Gómez con proyectos web publicados, catálogo JSON, filtros avanzados y panel de destacados.",
+  "id": "/portfolio-daw-sergio/",
+  "start_url": "/portfolio-daw-sergio/?source=pwa",
+  "scope": "/portfolio-daw-sergio/",
   "display": "standalone",
   "background_color": "#070911",
   "theme_color": "#070911",
-  "lang": "es"
+  "lang": "es-ES",
+  "dir": "ltr",
+  "orientation": "portrait-primary",
+  "categories": ["education", "portfolio", "productivity"],
+  "icons": [
+    {
+      "src": "favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
 }
