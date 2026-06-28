@@ -76,6 +76,9 @@ Filtros disponibles:
 
 - Todos
 - Publicados
+- Académicos
+- Prácticas
+- Destacados
 - Web
 - JavaScript
 - Python
@@ -84,7 +87,7 @@ Filtros disponibles:
 - Religioso
 - Apps
 
-El buscador permite encontrar proyectos por texto libre. Por ejemplo: `Python`, `Auri`, `BBDD`, `Divina`, `CMS`, `JavaScript`, `Naranco` o `DinoGamer`.
+El buscador permite encontrar proyectos por texto libre y por metadatos internos. Por ejemplo: `Python`, `Auri`, `BBDD`, `Divina`, `CMS`, `JavaScript`, `Naranco` o `DinoGamer`.
 
 El dashboard de estadísticas muestra:
 
@@ -102,6 +105,43 @@ Las tarjetas premium añaden:
 - Diferenciación entre proyectos publicados, trabajos académicos y prácticas.
 - Estados más claros para presentar el catálogo a profesores, compañeros o empresas.
 - Mejor hover visual sin romper filtros ni buscador.
+
+## Panel profesional de proyectos destacados
+
+El portfolio incluye un panel superior de proyectos destacados generado desde el campo `featured: true` del catálogo JSON.
+
+Este panel usa profundidad visual con CSS 3D ligero, sin WebGL obligatorio y sin librerías externas. La decisión técnica es mantener una experiencia visual premium, pero rápida, accesible y preparada para móvil.
+
+## PWA ligera y SEO avanzado
+
+El proyecto incluye una configuración ligera para presentación profesional:
+
+- SEO avanzado.
+- Open Graph.
+- Twitter Card `summary_large_image`.
+- Imagen social `og-image.svg`.
+- JSON-LD con `ProfilePage`, `Person` e `ItemList`.
+- Manifest PWA básico.
+- Robots y sitemap publicados.
+- Skip link accesible.
+- Foco visible para navegación por teclado.
+
+## Auditoría de calidad
+
+La versión v2.3.0 incorpora el archivo `QUALITY_CHECK.md`, que documenta una auditoría técnica del portfolio.
+
+La auditoría revisa:
+
+- Rendimiento.
+- Accesibilidad.
+- SEO y presentación externa.
+- PWA ligera.
+- Catálogo JSON.
+- Responsive.
+- Enlaces principales.
+- Criterio 3D aplicado.
+
+Este archivo sirve como checklist profesional antes de publicar nuevas versiones estables.
 
 ## Próximos proyectos
 
@@ -123,6 +163,7 @@ La sección **Próximos proyectos** prepara futuras entregas DAW:
 - GitHub Pages
 - Responsive Design
 - SEO básico
+- PWA ligera
 
 ## Estructura
 
@@ -130,9 +171,11 @@ La sección **Próximos proyectos** prepara futuras entregas DAW:
 portfolio-daw-sergio/
 ├─ index.html
 ├─ favicon.svg
+├─ og-image.svg
 ├─ robots.txt
 ├─ sitemap.xml
 ├─ site.webmanifest
+├─ QUALITY_CHECK.md
 ├─ css/
 │  ├─ styles.css
 │  └─ filters.css
@@ -143,34 +186,28 @@ portfolio-daw-sergio/
 └─ README.md
 ```
 
-## SEO base
-
-La fase SEO añade:
-
-- `favicon.svg`
-- `site.webmanifest`
-- `robots.txt`
-- `sitemap.xml`
-- Metadatos básicos Open Graph y Twitter Card
-- URL canonical
-
 ## Flujo Git
 
 - `main` se mantiene como rama estable.
 - Las mejoras se trabajan en ramas `feature/*`.
 - Se prueba antes de hacer merge.
 - Los checkpoints importantes se guardan con tags.
+- Cada versión estable se publica como release.
 
 ## Estado
 
-Portfolio DAW publicado en GitHub Pages con base premium, SEO inicial, proyectos publicados, catálogo ampliado de repositorios, filtros interactivos por categoría, buscador combinado por texto libre, tarjetas premium con etiquetas visuales automáticas, dashboard de estadísticas del portfolio y catálogo dinámico de proyectos en JSON.
+Portfolio DAW publicado en GitHub Pages con base premium, SEO avanzado, Open Graph, PWA ligera, catálogo dinámico en JSON, filtros avanzados, buscador combinado, tarjetas premium, dashboard de estadísticas, panel profesional de proyectos destacados y auditoría de calidad documentada.
 
 ## Versionado de assets
 
-Para evitar problemas de cache en GitHub Pages, los archivos CSS y JavaScript se cargan con parametro de version.
+Para evitar problemas de caché en GitHub Pages, los archivos CSS y JavaScript se cargan con parámetro de versión.
 
-- css/styles.css?v=1.7.0
-- css/filters.css?v=1.7.0
-- js/app.js?v=1.7.0
+Versión actual estable: `v2.3.0`.
 
-Asi, cuando se publica una nueva version, el navegador carga los archivos actualizados y no conserva estilos o scripts antiguos.
+Ejemplo:
+
+- `css/styles.css?v=2.2.0`
+- `css/filters.css?v=2.2.0`
+- `js/app.js?v=2.2.0`
+
+Así, cuando se publica una nueva versión, el navegador carga los archivos actualizados y no conserva estilos o scripts antiguos.
