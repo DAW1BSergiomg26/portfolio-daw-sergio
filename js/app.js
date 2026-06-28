@@ -124,10 +124,66 @@ function setProjectMetadata(card, project) {
   card.dataset.version = project.version || "";
   card.dataset.year = project.year || "";
   card.dataset.featured = String(Boolean(project.featured));
+  card.dataset.priority = project.priority || "";
+  card.dataset.level = project.level || "";
+  card.dataset.learning = project.learning || "";
+  card.dataset.portfolioRole = project.portfolioRole || "";
   card.dataset.categories = ["todos", ...(project.categories || [])].join(",");
   card.dataset.technologies = (project.technologies || []).join(",");
 }
 
+function createProjectDetail(project) {
+  const hasDetail = project.learning || project.portfolioRole || project.level || project.technologies?.length;
+  if (!hasDetail) return null;
+
+  const details = document.createElement("details");
+  details.className = "project-detail";
+
+  const summary = document.createElement("summary");
+  summary.textContent = "Ver detalle profesional";
+  details.appendChild(summary);
+
+  const body = document.createElement("div");
+  body.className = "project-detail-body";
+
+  if (project.learning) {
+    const learning = document.createElement("p");
+    learning.innerHTML = `<strong>Qué aprendí:</strong> ${project.learning}`;
+    body.appendChild(learning);
+  }
+
+  if (project.portfolioRole) {
+    const role = document.createElement("p");
+    role.innerHTML = `<strong>Rol en el portfolio:</strong> ${project.portfolioRole}`;
+    body.appendChild(role);
+  }
+
+  if (project.level) {
+    const level = document.createElement("p");
+    level.innerHTML = `<strong>Estado:</strong> ${project.level}`;
+    body.appendChild(level);
+  }
+
+  if (project.technologies?.length) {
+    const techTitle = document.createElement("strong");
+    techTitle.textContent = "Tecnologías principales:";
+    body.appendChild(techTitle);
+
+    const techList = document.createElement("div");
+    techList.className = "project-detail-tech";
+
+    project.technologies.slice(0, 8).forEach((technology) => {
+      const chip = document.createElement("span");
+      chip.textContent = technology;
+      techList.appendChild(chip);
+    });
+
+    body.appendChild(techList);
+  }
+
+  details.appendChild(body);
+  return details;
+}
 function createProjectCard(project) {
   const article = document.createElement("article");
   article.className = "project-card";
@@ -145,6 +201,8 @@ function createProjectCard(project) {
   const description = document.createElement("p");
   description.textContent = project.description;
 
+  const detail = createProjectDetail(project);
+
   const links = document.createElement("div");
   links.className = "project-links";
 
@@ -157,7 +215,11 @@ function createProjectCard(project) {
     links.appendChild(anchor);
   });
 
-  content.append(kicker, title, description, links);
+  if (detail) {
+    content.append(kicker, title, description, detail, links);
+  } else {
+    content.append(kicker, title, description, links);
+  }
 
   const badge = document.createElement("div");
   badge.className = "project-badge";
@@ -190,7 +252,7 @@ function renderProjects(projects) {
 
 async function loadProjectsFromJson() {
   try {
-    const response = await fetch("data/projects.json?v=2.4.0");
+    const response = await fetch("data/projects.json?v=2.5.0");
 
     if (!response.ok) {
       throw new Error("No se pudo cargar data/projects.json");
@@ -543,6 +605,10 @@ function getProjectSearchText(card) {
     card.dataset.year,
     card.dataset.categories,
     card.dataset.technologies,
+    card.dataset.priority,
+    card.dataset.level,
+    card.dataset.learning,
+    card.dataset.portfolioRole,
   ].join(" "));
 }
 
