@@ -190,6 +190,159 @@ function createProjectDetail(project) {
   details.appendChild(body);
   return details;
 }
+function createModalTextBlock(title, text) {
+  if (!text) return null;
+
+  const block = document.createElement("section");
+  block.className = "project-modal-block";
+
+  const heading = document.createElement("h4");
+  heading.textContent = title;
+
+  const paragraph = document.createElement("p");
+  paragraph.textContent = text;
+
+  block.append(heading, paragraph);
+  return block;
+}
+
+function createProjectModalShell() {
+  if (projectModal) return projectModal;
+
+  const overlay = document.createElement("div");
+  overlay.className = "project-modal";
+  overlay.setAttribute("role", "dialog");
+  overlay.setAttribute("aria-modal", "true");
+  overlay.setAttribute("aria-hidden", "true");
+  overlay.setAttribute("aria-labelledby", "project-modal-title");
+
+  overlay.innerHTML = `
+    <div class="project-modal-panel" role="document">
+      <button class="project-modal-close" type="button" aria-label="Cerrar ficha del proyecto">Cerrar</button>
+      <div class="project-modal-content"></div>
+    </div>
+  `;
+
+  overlay.addEventListener("click", (event) => {
+    if (event.target === overlay) {
+      closeProjectModal();
+    }
+  });
+
+  overlay.querySelector(".project-modal-close").addEventListener("click", closeProjectModal);
+
+  document.body.appendChild(overlay);
+  projectModal = overlay;
+
+  return projectModal;
+}
+
+function closeProjectModal() {
+  if (!projectModal) return;
+
+  projectModal.classList.remove("is-open");
+  projectModal.setAttribute("aria-hidden", "true");
+  document.body.classList.remove("modal-open");
+
+  if (lastModalFocus) {
+    lastModalFocus.focus();
+  }
+}
+
+function openProjectModal(project) {
+  const modal = createProjectModalShell();
+  const content = modal.querySelector(".project-modal-content");
+
+  lastModalFocus = document.activeElement;
+  content.innerHTML = "";
+
+  const kicker = document.createElement("p");
+  kicker.className = "project-modal-kicker";
+  kicker.textContent = project.kicker || "Proyecto del portfolio";
+
+  const title = document.createElement("h3");
+  title.id = "project-modal-title";
+  title.textContent = project.title || "Proyecto";
+
+  const summary = document.createElement("p");
+  summary.className = "project-modal-summary";
+  summary.textContent = project.description || "";
+
+  const meta = document.createElement("div");
+  meta.className = "project-modal-meta";
+
+  [
+    project.status ? `Estado: ${project.status}` : "",
+    project.level ? `Nivel: ${project.level}` : "",
+    project.version ? `Versión: ${project.version}` : "",
+    project.year ? `Año: ${project.year}` : "",
+  ].filter(Boolean).forEach((item) => {
+    const chip = document.createElement("span");
+    chip.textContent = item;
+    meta.appendChild(chip);
+  });
+
+  const grid = document.createElement("div");
+  grid.className = "project-modal-grid";
+
+  [
+    createModalTextBlock("1. Qué hice", project.description),
+    createModalTextBlock("2. Qué aprendí", project.learning),
+    createModalTextBlock("3. Por qué importa", project.portfolioRole),
+    createModalTextBlock("Estado real", project.level),
+  ].filter(Boolean).forEach((block) => grid.appendChild(block));
+
+  const techBlock = document.createElement("section");
+  techBlock.className = "project-modal-block project-modal-tech-block";
+
+  const techTitle = document.createElement("h4");
+  techTitle.textContent = "Tecnologías principales";
+
+  const techList = document.createElement("div");
+  techList.className = "project-modal-tech";
+
+  (project.technologies || []).forEach((technology) => {
+    const chip = document.createElement("span");
+    chip.textContent = technology;
+    techList.appendChild(chip);
+  });
+
+  techBlock.append(techTitle, techList);
+
+  const linksBlock = document.createElement("section");
+  linksBlock.className = "project-modal-links";
+
+  const linksTitle = document.createElement("h4");
+  linksTitle.textContent = "Enlaces del proyecto";
+
+  const links = document.createElement("div");
+  links.className = "project-modal-link-list";
+
+  (project.links || []).forEach((link) => {
+    const anchor = document.createElement("a");
+    anchor.href = link.url;
+    anchor.target = "_blank";
+    anchor.rel = "noopener noreferrer";
+    anchor.textContent = link.label;
+    links.appendChild(anchor);
+  });
+
+  linksBlock.append(linksTitle, links);
+
+  content.append(kicker, title, summary, meta, grid, techBlock, linksBlock);
+
+  modal.classList.add("is-open");
+  modal.setAttribute("aria-hidden", "false");
+  document.body.classList.add("modal-open");
+
+  modal.querySelector(".project-modal-close").focus();
+}
+
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape" && projectModal?.classList.contains("is-open")) {
+    closeProjectModal();
+  }
+});
 function createProjectCard(project) {
   const article = document.createElement("article");
   article.className = "project-card";
@@ -258,7 +411,7 @@ function renderProjects(projects) {
 
 async function loadProjectsFromJson() {
   try {
-    const response = await fetch("data/projects.json?v=2.6.0");
+    const response = await fetch("data/projects.json?v=2.7.0");
 
     if (!response.ok) {
       throw new Error("No se pudo cargar data/projects.json");

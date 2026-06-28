@@ -86,6 +86,23 @@ El objetivo de esta curaduría es que el portfolio no sea solo una lista de repo
 
 
 
+
+## Modal profesional de detalle por proyecto
+
+La versión v2.7.0 añade una ficha completa en formato modal para cada proyecto del catálogo.
+
+El modal permite consultar la defensa completa sin saturar las tarjetas principales:
+
+- Título del proyecto.
+- Qué hice.
+- Qué aprendí.
+- Por qué importa dentro del portfolio.
+- Estado real y metadatos.
+- Tecnologías principales.
+- Enlaces del proyecto.
+- Cierre con botón, tecla Escape o clic fuera del panel.
+
+Esta mejora refuerza la presentación profesional del portfolio sin añadir WebGL pesado ni dependencias externas.
 ## Pulido UX del detalle profesional
 
 La versión v2.6.0 mejora el bloque desplegable de cada proyecto para convertirlo en una pequeña defensa académica y profesional.
@@ -246,13 +263,13 @@ Portfolio DAW publicado en GitHub Pages con base premium, SEO avanzado, Open Gra
 
 Para evitar problemas de caché en GitHub Pages, los archivos CSS, JavaScript y JSON se cargan con parámetro de versión.
 
-Versión actual estable: `v2.6.0`.
+Versión actual estable: `v2.7.0`.
 
 Ejemplo:
 
-- `css/styles.css?v=2.6.0`
-- `css/filters.css?v=2.6.0`
-- `js/app.js?v=2.6.0`
-- `data/projects.json?v=2.6.0`
+- `css/styles.css?v=2.7.0`
+- `css/filters.css?v=2.7.0`
+- `js/app.js?v=2.7.0`
+- `data/projects.json?v=2.7.0`
 
 Así, cuando se publica una nueva versión, el navegador carga los archivos actualizados y no conserva estilos, scripts o datos antiguos.
