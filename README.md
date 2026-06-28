@@ -202,7 +202,7 @@ Portfolio DAW publicado en GitHub Pages con base premium, SEO avanzado, Open Gra
 
 Para evitar problemas de caché en GitHub Pages, los archivos CSS y JavaScript se cargan con parámetro de versión.
 
-Versión actual estable: `v2.2.0`.
+Versión actual estable: `v2.3.0`.
 
 Ejemplo:
 
