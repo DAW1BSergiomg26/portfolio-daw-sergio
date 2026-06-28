@@ -2,3 +2,4 @@ User-agent: *
 Allow: /
 
 Sitemap: https://daw1bsergiomg26.github.io/portfolio-daw-sergio/sitemap.xml
+Host: https://daw1bsergiomg26.github.io
