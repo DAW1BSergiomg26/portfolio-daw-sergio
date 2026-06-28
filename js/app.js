@@ -74,6 +74,7 @@ let projectCards = Array.from(document.querySelectorAll(".project-card"));
 let activeProjectCategory = "todos";
 let projectSearchInput = null;
 let portfolioStatsPanel = null;
+let featuredProjectsPanel = null;
 
 const tierMap = {
   published: {
@@ -189,7 +190,7 @@ function renderProjects(projects) {
 
 async function loadProjectsFromJson() {
   try {
-    const response = await fetch("data/projects.json?v=1.9.0");
+    const response = await fetch("data/projects.json?v=2.0.0");
 
     if (!response.ok) {
       throw new Error("No se pudo cargar data/projects.json");
@@ -197,6 +198,7 @@ async function loadProjectsFromJson() {
 
     const projects = await response.json();
     renderProjects(projects);
+    createFeaturedProjectsPanel(projects);
   } catch (error) {
     console.warn("Usando proyectos estáticos como respaldo:", error);
     projectCards = Array.from(document.querySelectorAll(".project-card"));
@@ -390,6 +392,72 @@ function updatePortfolioStats(visibleCount) {
     const stat = portfolioStatsPanel.querySelector(`[data-stat="${key}"]`);
     if (stat) stat.textContent = value;
   });
+}
+
+function getFeaturedProjects(projects) {
+  return projects.filter((project) => project.featured).slice(0, 5);
+}
+
+function createFeaturedCard(project, index) {
+  const card = document.createElement("article");
+  card.className = "featured-project-card";
+  card.style.setProperty("--featured-order", String(index + 1).padStart(2, "0"));
+
+  const categories = (project.categories || []).slice(0, 3);
+  const technologies = (project.technologies || []).slice(0, 3);
+  const primaryLink = project.links?.[0];
+
+  card.innerHTML = `
+    <div class="featured-card-glow" aria-hidden="true"></div>
+    <div class="featured-card-content">
+      <span class="featured-index">#${String(index + 1).padStart(2, "0")}</span>
+      <p class="featured-kicker">${project.kicker}</p>
+      <h3>${project.title}</h3>
+      <p>${project.description}</p>
+      <div class="featured-meta">
+        <span>${project.status === "published" ? "Publicado" : "Destacado"}</span>
+        <span>${project.version || "Portfolio"}</span>
+        <span>${project.year || "DAW"}</span>
+      </div>
+      <div class="featured-tech-list">
+        ${[...categories, ...technologies].slice(0, 5).map((item) => `<span>${item}</span>`).join("")}
+      </div>
+      ${primaryLink ? `<a class="featured-link" href="${primaryLink.url}" target="_blank" rel="noopener noreferrer">Abrir proyecto</a>` : ""}
+    </div>
+  `;
+
+  return card;
+}
+
+function createFeaturedProjectsPanel(projects) {
+  if (!projectFilters || featuredProjectsPanel) return;
+
+  const featuredProjects = getFeaturedProjects(projects);
+  if (!featuredProjects.length) return;
+
+  const panel = document.createElement("section");
+  panel.className = "featured-projects-panel";
+  panel.setAttribute("aria-label", "Proyectos destacados del portfolio");
+
+  const cards = document.createElement("div");
+  cards.className = "featured-projects-grid";
+  featuredProjects.forEach((project, index) => {
+    cards.appendChild(createFeaturedCard(project, index));
+  });
+
+  panel.innerHTML = `
+    <div class="featured-panel-heading">
+      <div>
+        <span>Showcase 3D ligero</span>
+        <h3>Proyectos destacados</h3>
+      </div>
+      <p>Una capa visual premium sin WebGL pesado: profundidad CSS, carga inmediata y foco en proyectos reales del catálogo.</p>
+    </div>
+  `;
+  panel.appendChild(cards);
+
+  projectFilters.before(panel);
+  featuredProjectsPanel = panel;
 }
 
 function enhanceProjectCards() {
