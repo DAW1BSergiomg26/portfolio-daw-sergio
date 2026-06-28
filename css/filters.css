@@ -598,12 +598,12 @@
   content: "+";
   margin-left: auto;
   color: var(--accent);
-  font-size: 1.25rem;
+  font-size: 0.78rem;
   font-weight: 900;
 }
 
 .project-detail[open] summary::after {
-  content: "−";
+  content: "Cerrar";
 }
 
 .project-detail-body {
@@ -645,5 +645,83 @@
 @media (max-width: 560px) {
   .project-detail summary {
     min-height: 48px;
+  }
+}
+/* project-detail-polish-v260 */
+.project-detail {
+  position: relative;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.project-detail::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 4px;
+  background: linear-gradient(180deg, var(--accent), var(--gold));
+  opacity: 0.85;
+}
+
+.project-detail summary {
+  gap: 0.65rem;
+  padding-left: 1.1rem;
+}
+
+.project-detail summary::before {
+  content: "Defensa";
+  display: inline-flex;
+  min-height: 24px;
+  align-items: center;
+  padding: 0.25rem 0.55rem;
+  border: 1px solid rgba(247, 215, 116, 0.24);
+  border-radius: 999px;
+  background: rgba(247, 215, 116, 0.09);
+  color: var(--gold);
+  font-size: 0.68rem;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.project-detail[open] {
+  border-color: rgba(247, 215, 116, 0.34);
+  background:
+    radial-gradient(circle at top left, rgba(247, 215, 116, 0.08), transparent 12rem),
+    rgba(125, 211, 252, 0.065);
+}
+
+.project-detail[open] summary {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.project-detail-body {
+  padding-left: 1.1rem;
+}
+
+.project-detail-body p {
+  line-height: 1.65;
+}
+
+.project-detail-body p + p {
+  padding-top: 0.65rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.065);
+}
+
+.project-detail-tech {
+  padding-top: 0.15rem;
+}
+
+@media (max-width: 560px) {
+  .project-detail summary {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .project-detail summary::after {
+    margin-left: 0;
+  }
+
+  .project-detail-body {
+    font-size: 0.88rem;
   }
 }
