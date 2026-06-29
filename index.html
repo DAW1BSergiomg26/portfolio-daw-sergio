@@ -99,8 +99,8 @@
   <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" fetchpriority="high">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
   <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet"></noscript>
-  <link rel="stylesheet" href="css/styles.css?v=3.2.0">
-  <link rel="stylesheet" href="css/filters.css?v=3.2.0">
+  <link rel="stylesheet" href="css/styles.css?v=3.3.0">
+  <link rel="stylesheet" href="css/filters.css?v=3.3.0">
 
   <style>
     .skip-link {
@@ -147,6 +147,7 @@
       <a href="#tecnologias" data-i18n="nav_tecnologias">Tecnologías</a>
       <a href="#proyectos" data-i18n="nav_proyectos">Proyectos</a>
       <a href="#proximos-proyectos" data-i18n="nav_proximos">Próximos</a>
+      <a href="#blog" data-i18n="nav_blog">Blog</a>
       <a href="#ruta" data-i18n="nav_ruta">Ruta DAW</a>
       <a href="#contacto" data-i18n="nav_contacto">Contacto</a>
       <div class="lang-switcher" role="group" aria-label="Selector de idioma">
@@ -262,6 +263,15 @@
       </div>
     </section>
 
+    <section id="blog" class="content-section reveal" aria-labelledby="titulo-blog">
+      <p class="eyebrow" data-i18n="blog_eyebrow">Blog técnico</p>
+      <h2 id="titulo-blog" data-i18n="blog_title">Apuntes y aprendizajes</h2>
+      <p data-i18n="blog_subtitle">Notas sobre desarrollo web, DAW y buenas prácticas.</p>
+      <div id="blog-list" class="blog-list-container" aria-live="polite">
+        <p class="blog-loading" data-i18n="blog_loading">Cargando entradas...</p>
+      </div>
+    </section>
+
     <section id="ruta" class="content-section reveal" aria-labelledby="titulo-ruta">
       <p class="eyebrow" data-i18n="route_eyebrow">Ruta DAW</p>
       <h2 id="titulo-ruta" data-i18n="route_title">Evolución profesional</h2>
@@ -311,7 +321,8 @@
     <p data-i18n="footer_text">Portfolio DAW · Sergio Daniel Martínez Gómez · Hecho con HTML, CSS, JavaScript y Git.</p>
   </footer>
 
-  <script src="js/app.js?v=3.2.0" defer></script>
+  <script src="js/app.js?v=3.3.0" defer></script>
+  <script src="js/blog.js?v=3.3.0" defer></script>
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
