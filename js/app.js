@@ -4,27 +4,53 @@ let translations = {};
 
 async function loadTranslations() {
   try {
-    const response = await fetch("data/lang.json?v=2.9.0");
+    const response = await fetch("data/lang.json?v=3.1.1");
     translations = await response.json();
+    updateLangButtons();
     applyTranslations();
   } catch (error) {
     console.error("Error loading translations:", error);
   }
 }
 
+function t(key, replacements = {}) {
+  const text = translations[currentLang]?.[key] || translations["es"]?.[key] || key;
+  return Object.entries(replacements).reduce((result, [key, value]) => {
+    return result.replace(new RegExp(`{{${key}}}`, "g"), value);
+  }, text);
+}
+
 function applyTranslations() {
   document.querySelectorAll("[data-i18n]").forEach((el) => {
     const key = el.getAttribute("data-i18n");
-    if (translations[currentLang] && translations[currentLang][key]) {
-      el.textContent = translations[currentLang][key];
+    const text = translations[currentLang]?.[key] || translations["es"]?.[key];
+    if (!text) return;
+
+    if (el.hasAttribute("placeholder")) {
+      el.setAttribute("placeholder", text);
+    } else if (el.hasAttribute("aria-label")) {
+      el.setAttribute("aria-label", text);
+    } else {
+      el.textContent = text;
     }
   });
+
+  document.documentElement.lang = currentLang;
 }
 
-function toggleLanguage() {
-  currentLang = currentLang === "es" ? "en" : "es";
+function setLanguage(lang) {
+  if (!["es", "en"].includes(lang)) return;
+  currentLang = lang;
   localStorage.setItem("lang", currentLang);
+  updateLangButtons();
   applyTranslations();
+  applyDynamicTranslations();
+}
+
+function updateLangButtons() {
+  document.querySelectorAll(".lang-btn").forEach((btn) => {
+    btn.classList.toggle("is-active", btn.dataset.lang === currentLang);
+  });
 }
 
 const menuButton = document.querySelector(".menu-toggle");
@@ -125,21 +151,6 @@ const tierMap = {
   },
 };
 
-const filterLabelMap = {
-  todos: "catálogo completo",
-  published: "publicados",
-  academic: "académicos",
-  practice: "prácticas",
-  featured: "destacados",
-  web: "web",
-  javascript: "javascript",
-  python: "python",
-  bbdd: "bbdd",
-  grupo: "grupo",
-  religioso: "religioso",
-  apps: "apps",
-};
-
 function normalizeText(text) {
   return text
     .toLowerCase()
@@ -163,53 +174,71 @@ function setProjectMetadata(card, project) {
   card.dataset.technologies = (project.technologies || []).join(",");
 }
 
+function getProjectTitle(project) {
+  return currentLang === "en" && project.title_en ? project.title_en : project.title;
+}
+
+function getProjectDescription(project) {
+  return currentLang === "en" && project.description_en ? project.description_en : project.description;
+}
+
+function getProjectKicker(project) {
+  return currentLang === "en" && project.kicker_en ? project.kicker_en : project.kicker;
+}
+
 function createProjectDetail(project) {
-  const hasDetail = project.learning || project.portfolioRole || project.level || project.technologies?.length;
+  const description = getProjectDescription(project);
+  const learning = project.learning_en && currentLang === "en" ? project.learning_en : project.learning;
+  const portfolioRole = project.portfolioRole_en && currentLang === "en" ? project.portfolioRole_en : project.portfolioRole;
+  const level = project.level;
+  const technologies = project.technologies;
+
+  const hasDetail = learning || portfolioRole || level || technologies?.length;
   if (!hasDetail) return null;
 
   const details = document.createElement("details");
   details.className = "project-detail";
 
   const summary = document.createElement("summary");
-  summary.textContent = "Abrir defensa técnica";
+  summary.textContent = t("detail_summary");
   details.appendChild(summary);
 
   const body = document.createElement("div");
   body.className = "project-detail-body";
 
-  if (project.description) {
+  if (description) {
     const done = document.createElement("p");
-    done.innerHTML = `<strong>1. Qué hice:</strong> ${project.description}`;
+    done.innerHTML = `<strong>${t("detail_what")}:</strong> ${description}`;
     body.appendChild(done);
   }
 
-  if (project.learning) {
-    const learning = document.createElement("p");
-    learning.innerHTML = `<strong>2. Qué aprendí:</strong> ${project.learning}`;
-    body.appendChild(learning);
+  if (learning) {
+    const learningEl = document.createElement("p");
+    learningEl.innerHTML = `<strong>${t("detail_learned")}:</strong> ${learning}`;
+    body.appendChild(learningEl);
   }
 
-  if (project.portfolioRole) {
+  if (portfolioRole) {
     const role = document.createElement("p");
-    role.innerHTML = `<strong>3. Por qué importa:</strong> ${project.portfolioRole}`;
+    role.innerHTML = `<strong>${t("detail_why")}:</strong> ${portfolioRole}`;
     body.appendChild(role);
   }
 
-  if (project.level) {
-    const level = document.createElement("p");
-    level.innerHTML = `<strong>Estado real:</strong> ${project.level}`;
-    body.appendChild(level);
+  if (level) {
+    const levelEl = document.createElement("p");
+    levelEl.innerHTML = `<strong>${t("detail_status")}:</strong> ${level}`;
+    body.appendChild(levelEl);
   }
 
-  if (project.technologies?.length) {
+  if (technologies?.length) {
     const techTitle = document.createElement("strong");
-    techTitle.textContent = "Tecnologías principales:";
+    techTitle.textContent = t("detail_tech") + ":";
     body.appendChild(techTitle);
 
     const techList = document.createElement("div");
     techList.className = "project-detail-tech";
 
-    project.technologies.slice(0, 8).forEach((technology) => {
+    technologies.slice(0, 8).forEach((technology) => {
       const chip = document.createElement("span");
       chip.textContent = technology;
       techList.appendChild(chip);
@@ -221,6 +250,7 @@ function createProjectDetail(project) {
   details.appendChild(body);
   return details;
 }
+
 function createModalTextBlock(title, text) {
   if (!text) return null;
 
@@ -249,7 +279,7 @@ function createProjectModalShell() {
 
   overlay.innerHTML = `
     <div class="project-modal-panel" role="document">
-      <button class="project-modal-close" type="button" aria-label="Cerrar ficha del proyecto">Cerrar</button>
+      <button class="project-modal-close" type="button" aria-label="${t("modal_close")}">${t("modal_close_text")}</button>
       <div class="project-modal-content"></div>
     </div>
   `;
@@ -288,26 +318,31 @@ function openProjectModal(project) {
   lastModalFocus = document.activeElement;
   content.innerHTML = "";
 
+  const titleText = getProjectTitle(project);
+  const descriptionText = getProjectDescription(project);
+  const learningText = project.learning_en && currentLang === "en" ? project.learning_en : project.learning;
+  const portfolioRoleText = project.portfolioRole_en && currentLang === "en" ? project.portfolioRole_en : project.portfolioRole;
+
   const kicker = document.createElement("p");
   kicker.className = "project-modal-kicker";
-  kicker.textContent = project.kicker || "Proyecto del portfolio";
+  kicker.textContent = getProjectKicker(project) || t("modal_default_kicker");
 
   const title = document.createElement("h3");
   title.id = "project-modal-title";
-  title.textContent = project.title || "Proyecto";
+  title.textContent = titleText || t("modal_default_kicker");
 
   const summary = document.createElement("p");
   summary.className = "project-modal-summary";
-  summary.textContent = project.description || "";
+  summary.textContent = descriptionText || "";
 
   const meta = document.createElement("div");
   meta.className = "project-modal-meta";
 
   [
-    project.status ? `Estado: ${project.status}` : "",
-    project.level ? `Nivel: ${project.level}` : "",
-    project.version ? `Versión: ${project.version}` : "",
-    project.year ? `Año: ${project.year}` : "",
+    project.status ? `${t("project_meta_status")}: ${project.status}` : "",
+    project.level ? `${t("project_meta_level")}: ${project.level}` : "",
+    project.version ? `${t("project_meta_version")}: ${project.version}` : "",
+    project.year ? `${t("project_meta_year")}: ${project.year}` : "",
   ].filter(Boolean).forEach((item) => {
     const chip = document.createElement("span");
     chip.textContent = item;
@@ -318,17 +353,17 @@ function openProjectModal(project) {
   grid.className = "project-modal-grid";
 
   [
-    createModalTextBlock("1. Qué hice", project.description),
-    createModalTextBlock("2. Qué aprendí", project.learning),
-    createModalTextBlock("3. Por qué importa", project.portfolioRole),
-    createModalTextBlock("Estado real", project.level),
+    createModalTextBlock(t("modal_section_what"), descriptionText),
+    createModalTextBlock(t("modal_section_learned"), learningText),
+    createModalTextBlock(t("modal_section_why"), portfolioRoleText),
+    createModalTextBlock(t("modal_section_status"), project.level),
   ].filter(Boolean).forEach((block) => grid.appendChild(block));
 
   const techBlock = document.createElement("section");
   techBlock.className = "project-modal-block project-modal-tech-block";
 
   const techTitle = document.createElement("h4");
-  techTitle.textContent = "Tecnologías principales";
+  techTitle.textContent = t("modal_section_tech");
 
   const techList = document.createElement("div");
   techList.className = "project-modal-tech";
@@ -345,7 +380,7 @@ function openProjectModal(project) {
   linksBlock.className = "project-modal-links";
 
   const linksTitle = document.createElement("h4");
-  linksTitle.textContent = "Enlaces del proyecto";
+  linksTitle.textContent = t("modal_section_links");
 
   const links = document.createElement("div");
   links.className = "project-modal-link-list";
@@ -376,6 +411,7 @@ document.addEventListener("keydown", (event) => {
     closeProjectModal();
   }
 });
+
 function createProjectCard(project) {
   const article = document.createElement("article");
   article.className = "project-card";
@@ -385,13 +421,13 @@ function createProjectCard(project) {
 
   const kicker = document.createElement("p");
   kicker.className = "project-kicker";
-  kicker.textContent = project.kicker;
+  kicker.textContent = getProjectKicker(project);
 
   const title = document.createElement("h3");
-  title.textContent = project.title;
+  title.textContent = getProjectTitle(project);
 
   const description = document.createElement("p");
-  description.textContent = project.description;
+  description.textContent = getProjectDescription(project);
 
   const detail = createProjectDetail(project);
 
@@ -410,7 +446,7 @@ function createProjectCard(project) {
   const modalButton = document.createElement("button");
   modalButton.className = "project-modal-button";
   modalButton.type = "button";
-  modalButton.textContent = "Ver ficha completa";
+  modalButton.textContent = t("btn_view_full_card");
   modalButton.addEventListener("click", (event) => {
     event.preventDefault();
     event.stopPropagation();
@@ -421,7 +457,7 @@ function createProjectCard(project) {
   const pageLink = document.createElement("a");
   pageLink.className = "project-page-link";
   pageLink.href = `proyecto.html?id=${project.id}`;
-  pageLink.textContent = "Ver detalle";
+  pageLink.textContent = t("btn_view_detail");
   links.appendChild(pageLink);
 
   if (detail) {
@@ -461,7 +497,7 @@ function renderProjects(projects) {
 
 async function loadProjectsFromJson() {
   try {
-    const response = await fetch("data/projects.json?v=2.7.0");
+    const response = await fetch("data/projects.json?v=3.1.1");
 
     if (!response.ok) {
       throw new Error("No se pudo cargar data/projects.json");
@@ -482,10 +518,10 @@ function createProjectSearch() {
   const searchBox = document.createElement("div");
   searchBox.className = "project-search";
   searchBox.innerHTML = `
-    <label for="project-search-input">Buscar proyecto</label>
+    <label for="project-search-input">${t("search_label")}</label>
     <div class="project-search-control">
-      <input id="project-search-input" type="search" placeholder="Buscar: Python, Auri, BBDD, Divina, CMS..." autocomplete="off">
-      <button class="clear-search" type="button" aria-label="Limpiar búsqueda">×</button>
+      <input id="project-search-input" type="search" placeholder="${t("search_placeholder")}" autocomplete="off" data-i18n="search_placeholder">
+      <button class="clear-search" type="button" aria-label="${t("search_clear")}">×</button>
     </div>
   `;
 
@@ -602,42 +638,42 @@ function createPortfolioStats() {
   const stats = getPortfolioStats();
   const panel = document.createElement("div");
   panel.className = "portfolio-stats-panel";
-  panel.setAttribute("aria-label", "Estadísticas del portfolio");
+  panel.setAttribute("aria-label", t("dashboard_title"));
   panel.innerHTML = `
     <div class="stats-heading">
-      <span>Dashboard DAW</span>
-      <strong>Resumen vivo del portfolio</strong>
+      <span>${t("dashboard_title")}</span>
+      <strong>${t("dashboard_subtitle")}</strong>
     </div>
     <div class="stats-grid">
       <article class="stat-card">
-        <span>Total</span>
+        <span>${t("stat_total")}</span>
         <strong data-stat="total">${stats.total}</strong>
-        <small>proyectos catalogados</small>
+        <small>${t("stat_total_label")}</small>
       </article>
       <article class="stat-card">
-        <span>Publicados</span>
+        <span>${t("stat_published")}</span>
         <strong data-stat="published">${stats.published}</strong>
-        <small>entregas estables</small>
+        <small>${t("stat_published_label")}</small>
       </article>
       <article class="stat-card">
-        <span>Académicos</span>
+        <span>${t("stat_academic")}</span>
         <strong data-stat="academic">${stats.academic}</strong>
-        <small>trabajos de grupo</small>
+        <small>${t("stat_academic_label")}</small>
       </article>
       <article class="stat-card">
-        <span>Prácticas</span>
+        <span>${t("stat_practice")}</span>
         <strong data-stat="practice">${stats.practice}</strong>
-        <small>repos en evolución</small>
+        <small>${t("stat_practice_label")}</small>
       </article>
       <article class="stat-card">
-        <span>Tecnologías</span>
+        <span>${t("stat_tech")}</span>
         <strong data-stat="tech">${stats.technologies.size}</strong>
-        <small>áreas usadas</small>
+        <small>${t("stat_tech_label")}</small>
       </article>
       <article class="stat-card stat-card-live">
-        <span>Visibles</span>
+        <span>${t("stat_visible")}</span>
         <strong data-stat="visible">${stats.visible}</strong>
-        <small>según filtro actual</small>
+        <small>${t("stat_visible_label")}</small>
       </article>
     </div>
   `;
@@ -677,16 +713,18 @@ function createFeaturedCard(project, index) {
   const categories = (project.categories || []).slice(0, 3);
   const technologies = (project.technologies || []).slice(0, 3);
   const primaryLink = project.links?.[0];
+  const titleText = getProjectTitle(project);
+  const descriptionText = getProjectDescription(project);
 
   card.innerHTML = `
     <div class="featured-card-glow" aria-hidden="true"></div>
     <div class="featured-card-content">
       <span class="featured-index">#${String(index + 1).padStart(2, "0")}</span>
-      <p class="featured-kicker">${project.kicker}</p>
-      <h3>${project.title}</h3>
-      <p>${project.description}</p>
+      <p class="featured-kicker">${getProjectKicker(project)}</p>
+      <h3>${titleText}</h3>
+      <p>${descriptionText}</p>
       <div class="featured-meta">
-        <span>${project.status === "published" ? "Publicado" : "Destacado"}</span>
+        <span>${project.status === "published" ? t("featured_status_published") : t("featured_status_default")}</span>
         <span>${project.version || "Portfolio"}</span>
         <span>${project.year || "DAW"}</span>
       </div>
@@ -694,17 +732,17 @@ function createFeaturedCard(project, index) {
         ${[...categories, ...technologies].slice(0, 5).map((item) => `<span>${item}</span>`).join("")}
       </div>
       <div class="featured-actions">
-        ${primaryLink ? `<a class="featured-link" href="${primaryLink.url}" target="_blank" rel="noopener noreferrer">Abrir proyecto</a>` : ""}
+        ${primaryLink ? `<a class="featured-link" href="${primaryLink.url}" target="_blank" rel="noopener noreferrer">${t("featured_open_project")}</a>` : ""}
       </div>
     </div>
   `;
 
   const actionsContainer = card.querySelector(".featured-actions");
-  
+
   const modalButton = document.createElement("button");
   modalButton.className = "project-modal-button";
   modalButton.type = "button";
-  modalButton.textContent = "Ver ficha completa";
+  modalButton.textContent = t("btn_view_full_card");
   modalButton.addEventListener("click", (event) => {
     event.preventDefault();
     event.stopPropagation();
@@ -715,7 +753,7 @@ function createFeaturedCard(project, index) {
   const pageLink = document.createElement("a");
   pageLink.className = "project-page-link";
   pageLink.href = `proyecto.html?id=${project.id}`;
-  pageLink.textContent = "Ver detalle";
+  pageLink.textContent = t("btn_view_detail");
   actionsContainer.appendChild(pageLink);
 
   return card;
@@ -729,7 +767,7 @@ function createFeaturedProjectsPanel(projects) {
 
   const panel = document.createElement("section");
   panel.className = "featured-projects-panel";
-  panel.setAttribute("aria-label", "Proyectos destacados del portfolio");
+  panel.setAttribute("aria-label", t("featured_panel_subtitle"));
 
   const cards = document.createElement("div");
   cards.className = "featured-projects-grid";
@@ -740,10 +778,10 @@ function createFeaturedProjectsPanel(projects) {
   panel.innerHTML = `
     <div class="featured-panel-heading">
       <div>
-        <span>Showcase 3D ligero</span>
-        <h3>Proyectos destacados</h3>
+        <span>${t("featured_panel_title")}</span>
+        <h3>${t("featured_panel_subtitle")}</h3>
       </div>
-      <p>Una capa visual premium sin WebGL pesado: profundidad CSS, carga inmediata y foco en proyectos reales del catálogo.</p>
+      <p>${t("featured_panel_text")}</p>
     </div>
   `;
   panel.appendChild(cards);
@@ -813,16 +851,21 @@ function getSearchTerms() {
 }
 
 function getCurrentFilterLabel() {
-  return filterLabelMap[activeProjectCategory] || activeProjectCategory;
+  const key = `filter_${activeProjectCategory}`;
+  return t(key) || activeProjectCategory;
 }
 
 function updateProjectCounter(visibleCount, total, searchTerms) {
   if (!projectCounter) return;
 
-  const filterLabel = activeProjectCategory === "todos" ? "catálogo completo" : `filtro: ${getCurrentFilterLabel()}`;
-  const searchLabel = searchTerms.length ? ` · búsqueda: ${projectSearchInput.value.trim()}` : "";
+  const filterLabel = activeProjectCategory === "todos" ? t("counter_all") : `${t("counter_filter")}${getCurrentFilterLabel()}`;
+  const searchLabel = searchTerms.length ? `${t("counter_search")}${projectSearchInput.value.trim()}` : "";
 
-  projectCounter.textContent = `${visibleCount} de ${total} proyectos visibles (${filterLabel}${searchLabel})`;
+  projectCounter.textContent = t("counter_text", {
+    visible: visibleCount,
+    total: total,
+    filter: `${filterLabel}${searchLabel}`
+  });
 }
 
 function getProjectSearchText(card) {
@@ -885,11 +928,40 @@ function bindProjectFilters() {
   });
 }
 
+function applyDynamicTranslations() {
+  if (projectSearchInput) {
+    const searchBox = projectSearchInput.closest(".project-search");
+    if (searchBox) {
+      searchBox.querySelector("label").textContent = t("search_label");
+      projectSearchInput.setAttribute("placeholder", t("search_placeholder"));
+      searchBox.querySelector(".clear-search").setAttribute("aria-label", t("search_clear"));
+    }
+  }
+
+  if (portfolioStatsPanel) {
+    portfolioStatsPanel.remove();
+    portfolioStatsPanel = null;
+    createPortfolioStats();
+  }
+
+  if (featuredProjectsPanel) {
+    const panel = featuredProjectsPanel;
+    featuredProjectsPanel = null;
+    panel.remove();
+  }
+
+  applyProjectView();
+}
+
 async function initProjectsCatalog() {
   if (!projectFilters) return;
 
   await loadTranslations();
   await loadProjectsFromJson();
+
+  if (projectSection) {
+    projectSection.classList.remove("is-loading");
+  }
 
   if (!projectCards.length) return;
 

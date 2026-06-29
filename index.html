@@ -14,6 +14,9 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <link rel="canonical" href="https://daw1bsergiomg26.github.io/portfolio-daw-sergio/">
+  <link rel="alternate" hreflang="es" href="https://daw1bsergiomg26.github.io/portfolio-daw-sergio/">
+  <link rel="alternate" hreflang="en" href="https://daw1bsergiomg26.github.io/portfolio-daw-sergio/?lang=en">
+  <link rel="alternate" hreflang="x-default" href="https://daw1bsergiomg26.github.io/portfolio-daw-sergio/">
 
   <meta property="og:type" content="website">
   <meta property="og:title" content="Portfolio DAW - Sergio Daniel Martínez Gómez">
@@ -93,10 +96,11 @@
   <link rel="manifest" href="site.webmanifest">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap">
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" fetchpriority="high">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
-  <link rel="stylesheet" href="css/styles.css?v=2.8.0">
-  <link rel="stylesheet" href="css/filters.css?v=2.8.0">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet"></noscript>
+  <link rel="stylesheet" href="css/styles.css?v=3.1.1">
+  <link rel="stylesheet" href="css/filters.css?v=3.1.1">
 
   <style>
     .skip-link {
@@ -127,7 +131,7 @@
   </style>
 </head>
 <body>
-  <a class="skip-link" href="#proyectos">Saltar al catálogo de proyectos</a>
+  <a class="skip-link" href="#proyectos" data-i18n="skip_to_projects">Saltar al catálogo de proyectos</a>
   <header class="site-header">
     <a class="brand" href="#inicio" aria-label="Ir al inicio">
       <span class="brand-mark">SD</span>
@@ -145,7 +149,10 @@
       <a href="#proximos-proyectos" data-i18n="nav_proximos">Próximos</a>
       <a href="#ruta" data-i18n="nav_ruta">Ruta DAW</a>
       <a href="#contacto" data-i18n="nav_contacto">Contacto</a>
-      <button onclick="toggleLanguage()" class="btn ghost" style="padding: 0.5rem 0.8rem; font-size: 0.8rem;">ES/EN</button>
+      <div class="lang-switcher" role="group" aria-label="Selector de idioma">
+        <button type="button" class="lang-btn" data-lang="es" onclick="setLanguage('es')" data-i18n="lang_es">ES</button>
+        <button type="button" class="lang-btn" data-lang="en" onclick="setLanguage('en')" data-i18n="lang_en">EN</button>
+      </div>
     </nav>
   </header>
 
@@ -160,37 +167,37 @@
         </p>
         <div class="hero-actions">
           <a class="btn primary" href="#proyectos" data-i18n="btn_ver_proyectos">Ver proyectos</a>
-          <a class="btn ghost" href="https://github.com/DAW1BSergiomg26" target="_blank" rel="noopener noreferrer">Ver GitHub</a>
+          <a class="btn ghost" href="https://github.com/DAW1BSergiomg26" target="_blank" rel="noopener noreferrer" data-i18n="btn_ver_github">Ver GitHub</a>
         </div>
       </div>
 
       <aside class="hero-card reveal" aria-label="Resumen profesional">
         <div class="card-icon" aria-hidden="true">⌘</div>
-        <h2>Portfolio en construcción profesional</h2>
-        <p>
+        <h2 data-i18n="hero_card_title">Portfolio en construcción profesional</h2>
+        <p data-i18n="hero_card_text">
           Un espacio vivo para presentar proyectos reales, publicados, documentados y versionados con un flujo Git limpio.
         </p>
         <ul class="mini-list">
-          <li>HTML5 semántico</li>
-          <li>CSS responsive</li>
-          <li>JavaScript básico</li>
-          <li>Git y GitHub</li>
+          <li data-i18n="hero_card_item_1">HTML5 semántico</li>
+          <li data-i18n="hero_card_item_2">CSS responsive</li>
+          <li data-i18n="hero_card_item_3">JavaScript básico</li>
+          <li data-i18n="hero_card_item_4">Git y GitHub</li>
         </ul>
       </aside>
     </section>
 
     <section id="sobre-mi" class="content-section reveal">
-      <p class="eyebrow">Sobre mí</p>
-      <h2>Aprendiendo a construir con orden, paciencia y criterio</h2>
-      <p>
+      <p class="eyebrow" data-i18n="about_eyebrow">Sobre mí</p>
+      <h2 data-i18n="about_title">Aprendiendo a construir con orden, paciencia y criterio</h2>
+      <p data-i18n="about_text">
         Soy Sergio Daniel, alumno de DAW. Este portfolio nace para enseñar mi evolución real: desde ejercicios sencillos hasta proyectos completos publicados en GitHub Pages.
         Mi objetivo es aprender bien la base, practicar mucho y crear trabajos que pueda defender con claridad.
       </p>
     </section>
 
     <section id="tecnologias" class="content-section reveal">
-      <p class="eyebrow">Stack actual</p>
-      <h2>Tecnologías que estoy practicando</h2>
+      <p class="eyebrow" data-i18n="tech_eyebrow">Stack actual</p>
+      <h2 data-i18n="tech_title">Tecnologías que estoy practicando</h2>
       <div class="tag-grid">
         <span>HTML5</span>
         <span>CSS3</span>
@@ -204,106 +211,106 @@
       </div>
     </section>
 
-    <section id="proyectos" class="content-section reveal" aria-labelledby="titulo-proyectos">
-      <p class="eyebrow">Proyectos y repositorios</p>
-      <h2 id="titulo-proyectos">Trabajos DAW en producción</h2>
+    <section id="proyectos" class="content-section reveal is-loading" aria-labelledby="titulo-proyectos">
+      <p class="eyebrow" data-i18n="projects_eyebrow">Proyectos y repositorios</p>
+      <h2 id="titulo-proyectos" data-i18n="projects_title">Trabajos DAW en producción</h2>
 
       <div class="project-filters" aria-label="Filtros avanzados del catálogo de proyectos">
-        <button class="filter-btn is-active" type="button" data-filter="todos">Todos</button>
-        <button class="filter-btn" type="button" data-filter="published">Publicados</button>
-        <button class="filter-btn" type="button" data-filter="academic">Académicos</button>
-        <button class="filter-btn" type="button" data-filter="practice">Prácticas</button>
-        <button class="filter-btn" type="button" data-filter="featured">Destacados</button>
-        <button class="filter-btn" type="button" data-filter="web">Web</button>
-        <button class="filter-btn" type="button" data-filter="javascript">JavaScript</button>
-        <button class="filter-btn" type="button" data-filter="python">Python</button>
-        <button class="filter-btn" type="button" data-filter="bbdd">BBDD</button>
-        <button class="filter-btn" type="button" data-filter="grupo">Grupo</button>
-        <button class="filter-btn" type="button" data-filter="religioso">Religioso</button>
-        <button class="filter-btn" type="button" data-filter="apps">Apps</button>
+        <button class="filter-btn is-active" type="button" data-filter="todos" data-i18n="filter_todos">Todos</button>
+        <button class="filter-btn" type="button" data-filter="published" data-i18n="filter_published">Publicados</button>
+        <button class="filter-btn" type="button" data-filter="academic" data-i18n="filter_academic">Académicos</button>
+        <button class="filter-btn" type="button" data-filter="practice" data-i18n="filter_practice">Prácticas</button>
+        <button class="filter-btn" type="button" data-filter="featured" data-i18n="filter_featured">Destacados</button>
+        <button class="filter-btn" type="button" data-filter="web" data-i18n="filter_web">Web</button>
+        <button class="filter-btn" type="button" data-filter="javascript" data-i18n="filter_javascript">JavaScript</button>
+        <button class="filter-btn" type="button" data-filter="python" data-i18n="filter_python">Python</button>
+        <button class="filter-btn" type="button" data-filter="bbdd" data-i18n="filter_bbdd">BBDD</button>
+        <button class="filter-btn" type="button" data-filter="grupo" data-i18n="filter_grupo">Grupo</button>
+        <button class="filter-btn" type="button" data-filter="religioso" data-i18n="filter_religioso">Religioso</button>
+        <button class="filter-btn" type="button" data-filter="apps" data-i18n="filter_apps">Apps</button>
       </div>
-      <p class="project-counter" aria-live="polite">Cargando catálogo de proyectos...</p>
+      <p class="project-counter" aria-live="polite" data-i18n="projects_loading">Cargando catálogo de proyectos...</p>
     </section>
 
     <section id="proximos-proyectos" class="content-section reveal">
-      <p class="eyebrow">Próximos proyectos</p>
-      <h2>Ideas que quiero convertir en entregas reales</h2>
-      <p>
+      <p class="eyebrow" data-i18n="future_eyebrow">Próximos proyectos</p>
+      <h2 data-i18n="future_title">Ideas que quiero convertir en entregas reales</h2>
+      <p data-i18n="future_text">
         Esta sección deja el portfolio vivo. Cada idea puede convertirse en un repositorio independiente, con README, versión estable y publicación real.
       </p>
       <div class="future-grid">
         <article class="future-card">
           <span>01</span>
-          <h3>Mini tienda web</h3>
-          <p>Un escaparate simple con productos, filtros básicos y carrito simulado para practicar lógica JavaScript.</p>
+          <h3 data-i18n="future_card_1_title">Mini tienda web</h3>
+          <p data-i18n="future_card_1_text">Un escaparate simple con productos, filtros básicos y carrito simulado para practicar lógica JavaScript.</p>
         </article>
         <article class="future-card">
           <span>02</span>
-          <h3>Laboratorio JavaScript</h3>
-          <p>Pequeños ejercicios interactivos para mejorar eventos, DOM, arrays, objetos y lógica básica.</p>
+          <h3 data-i18n="future_card_2_title">Laboratorio JavaScript</h3>
+          <p data-i18n="future_card_2_text">Pequeños ejercicios interactivos para mejorar eventos, DOM, arrays, objetos y lógica básica.</p>
         </article>
         <article class="future-card">
           <span>03</span>
-          <h3>Memoria de proyectos DAW</h3>
-          <p>Una sección documental para explicar qué hice, cómo lo hice, qué aprendí y qué mejoraría en cada entrega.</p>
+          <h3 data-i18n="future_card_3_title">Memoria de proyectos DAW</h3>
+          <p data-i18n="future_card_3_text">Una sección documental para explicar qué hice, cómo lo hice, qué aprendí y qué mejoraría en cada entrega.</p>
         </article>
         <article class="future-card">
           <span>04</span>
-          <h3>Mejora visual del portfolio</h3>
-          <p>Optimizar tarjetas, filtros por tecnología y una navegación más cómoda cuando el catálogo siga creciendo.</p>
+          <h3 data-i18n="future_card_4_title">Mejora visual del portfolio</h3>
+          <p data-i18n="future_card_4_text">Optimizar tarjetas, filtros por tecnología y una navegación más cómoda cuando el catálogo siga creciendo.</p>
         </article>
       </div>
     </section>
 
     <section id="ruta" class="content-section reveal" aria-labelledby="titulo-ruta">
-      <p class="eyebrow">Ruta DAW</p>
-      <h2 id="titulo-ruta">Evolución profesional</h2>
+      <p class="eyebrow" data-i18n="route_eyebrow">Ruta DAW</p>
+      <h2 id="titulo-ruta" data-i18n="route_title">Evolución profesional</h2>
       <div class="timeline">
         <article class="timeline-item">
           <div class="timeline-marker">1</div>
           <div class="timeline-content">
-            <strong>Fundamentos</strong>
-            <p>Creación de proyectos pequeños, semántica HTML, CSS y primeros pasos con JS.</p>
+            <strong data-i18n="route_1_title">Fundamentos</strong>
+            <p data-i18n="route_1_text">Creación de proyectos pequeños, semántica HTML, CSS y primeros pasos con JS.</p>
           </div>
         </article>
         <article class="timeline-item">
           <div class="timeline-marker">2</div>
           <div class="timeline-content">
-            <strong>Documentación Técnica</strong>
-            <p>Implementación de buenas prácticas con README, memorias técnicas y control de versiones.</p>
+            <strong data-i18n="route_2_title">Documentación Técnica</strong>
+            <p data-i18n="route_2_text">Implementación de buenas prácticas con README, memorias técnicas y control de versiones.</p>
           </div>
         </article>
         <article class="timeline-item">
           <div class="timeline-marker">3</div>
           <div class="timeline-content">
-            <strong>Producción Estable</strong>
-            <p>Publicación de proyectos reales en GitHub Pages con PWA y SEO avanzado.</p>
+            <strong data-i18n="route_3_title">Producción Estable</strong>
+            <p data-i18n="route_3_text">Publicación de proyectos reales en GitHub Pages con PWA y SEO avanzado.</p>
           </div>
         </article>
         <article class="timeline-item">
           <div class="timeline-marker">4</div>
           <div class="timeline-content">
-            <strong>Arquitectura Premium</strong>
-            <p>Refactorización, catálogo dinámico JSON, diseño glassmorphism y enfoque profesional.</p>
+            <strong data-i18n="route_4_title">Arquitectura Premium</strong>
+            <p data-i18n="route_4_text">Refactorización, catálogo dinámico JSON, diseño glassmorphism y enfoque profesional.</p>
           </div>
         </article>
       </div>
     </section>
 
     <section id="contacto" class="content-section contact-section reveal">
-      <p class="eyebrow">Contacto</p>
-      <h2>Repositorio y perfil</h2>
-      <p>
+      <p class="eyebrow" data-i18n="contact_eyebrow">Contacto</p>
+      <h2 data-i18n="contact_title">Repositorio y perfil</h2>
+      <p data-i18n="contact_text">
         Este portfolio irá creciendo con nuevos proyectos y prácticas. La idea es que cada entrega tenga una historia clara: qué hice, cómo lo hice y qué aprendí.
       </p>
-      <a class="btn primary" href="https://github.com/DAW1BSergiomg26/portfolio-daw-sergio" target="_blank" rel="noopener noreferrer">Repositorio del portfolio</a>
+      <a class="btn primary" href="https://github.com/DAW1BSergiomg26/portfolio-daw-sergio" target="_blank" rel="noopener noreferrer" data-i18n="btn_repo_portfolio">Repositorio del portfolio</a>
     </section>
   </main>
 
   <footer class="site-footer">
-    <p>Portfolio DAW · Sergio Daniel Martínez Gómez · Hecho con HTML, CSS, JavaScript y Git.</p>
+    <p data-i18n="footer_text">Portfolio DAW · Sergio Daniel Martínez Gómez · Hecho con HTML, CSS, JavaScript y Git.</p>
   </footer>
 
-  <script src="js/app.js?v=2.8.0" defer></script>
+  <script src="js/app.js?v=3.1.1" defer></script>
 </body>
 </html>
