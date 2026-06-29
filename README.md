@@ -271,12 +271,13 @@ Características:
 - Contenido dinámico traducible: contador, filtros, dashboard, modal y detalles de proyectos.
 - Arquitectura preparada para proyectos bilingües mediante campos opcionales `_en` en `data/projects.json`.
 - Todos los proyectos del catálogo traducidos al inglés (v3.1.1).
+- Optimizaciones Lighthouse (v3.1.2): carga prioritaria de fuentes, reserva de espacio contra CLS, atributos hreflang y etiquetas ARIA mejoradas.
 
 ## Versionado de assets
 
 Para evitar problemas de caché en GitHub Pages, los archivos CSS, JavaScript y JSON se cargan con parámetro de versión.
 
-Versión actual estable: `v3.1.1`.
+Versión actual estable: `v3.1.2`.
 
 Ejemplo:
 
