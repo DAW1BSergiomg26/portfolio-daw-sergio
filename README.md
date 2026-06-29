@@ -257,19 +257,32 @@ portfolio-daw-sergio/
 
 ## Estado
 
-Portfolio DAW publicado en GitHub Pages con base premium, SEO avanzado, Open Graph, PWA ligera, catálogo dinámico en JSON, filtros avanzados, buscador combinado, tarjetas premium, dashboard de estadísticas, panel profesional de proyectos destacados, auditoría de calidad documentada y curaduría profesional del catálogo.
+Portfolio DAW publicado en GitHub Pages con base premium, SEO avanzado, Open Graph, PWA ligera, catálogo dinámico en JSON, filtros avanzados, buscador combinado, tarjetas premium, dashboard de estadísticas, panel profesional de proyectos destacados, auditoría de calidad documentada, curaduría profesional del catálogo, páginas individuales de proyecto, timeline profesional e internacionalización completa ES/EN.
+
+## Internacionalización (i18n)
+
+La versión v3.1.0 convierte el portfolio en una plataforma bilingüe preparada para mercado global.
+
+Características:
+
+- Selector de idioma integrado en la cabecera (ES/EN).
+- Traducción completa de toda la interfaz estática.
+- Motor de traducción basado en `data/lang.json`.
+- Contenido dinámico traducible: contador, filtros, dashboard, modal y detalles de proyectos.
+- Arquitectura preparada para proyectos bilingües mediante campos opcionales `_en` en `data/projects.json`.
 
 ## Versionado de assets
 
 Para evitar problemas de caché en GitHub Pages, los archivos CSS, JavaScript y JSON se cargan con parámetro de versión.
 
-Versión actual estable: `v2.7.0`.
+Versión actual estable: `v3.1.0`.
 
 Ejemplo:
 
-- `css/styles.css?v=2.7.0`
-- `css/filters.css?v=2.7.0`
-- `js/app.js?v=2.7.0`
-- `data/projects.json?v=2.7.0`
+- `css/styles.css?v=3.1.0`
+- `css/filters.css?v=3.1.0`
+- `js/app.js?v=3.1.0`
+- `data/projects.json?v=3.1.0`
+- `data/lang.json?v=3.1.0`
 
 Así, cuando se publica una nueva versión, el navegador carga los archivos actualizados y no conserva estilos, scripts o datos antiguos.
