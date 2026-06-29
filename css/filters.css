@@ -922,3 +922,22 @@ body.modal-open {
     font-size: clamp(1.8rem, 12vw, 3rem);
   }
 }
+.featured-actions {
+  display: flex;
+  gap: 0.8rem;
+  margin-top: 1rem;
+}
+.featured-actions .project-modal-button {
+  padding: 0.6rem 1rem;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  border: none;
+  color: var(--text);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 180ms ease;
+}
+.featured-actions .project-modal-button:hover {
+  background: rgba(255, 255, 255, 0.1);
+}

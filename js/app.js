@@ -388,6 +388,13 @@ function createProjectCard(project) {
     openProjectModal(project);
   });
   links.appendChild(modalButton);
+
+  const pageLink = document.createElement("a");
+  pageLink.className = "project-page-link";
+  pageLink.href = `proyecto.html?id=${project.id}`;
+  pageLink.textContent = "Ver detalle";
+  links.appendChild(pageLink);
+
   if (detail) {
     content.append(kicker, title, description, detail, links);
   } else {
@@ -657,9 +664,30 @@ function createFeaturedCard(project, index) {
       <div class="featured-tech-list">
         ${[...categories, ...technologies].slice(0, 5).map((item) => `<span>${item}</span>`).join("")}
       </div>
-      ${primaryLink ? `<a class="featured-link" href="${primaryLink.url}" target="_blank" rel="noopener noreferrer">Abrir proyecto</a>` : ""}
+      <div class="featured-actions">
+        ${primaryLink ? `<a class="featured-link" href="${primaryLink.url}" target="_blank" rel="noopener noreferrer">Abrir proyecto</a>` : ""}
+      </div>
     </div>
   `;
+
+  const actionsContainer = card.querySelector(".featured-actions");
+  
+  const modalButton = document.createElement("button");
+  modalButton.className = "project-modal-button";
+  modalButton.type = "button";
+  modalButton.textContent = "Ver ficha completa";
+  modalButton.addEventListener("click", (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    openProjectModal(project);
+  });
+  actionsContainer.appendChild(modalButton);
+
+  const pageLink = document.createElement("a");
+  pageLink.className = "project-page-link";
+  pageLink.href = `proyecto.html?id=${project.id}`;
+  pageLink.textContent = "Ver detalle";
+  actionsContainer.appendChild(pageLink);
 
   return card;
 }
