@@ -10,8 +10,8 @@
   let blogTranslations = {};
   let currentLang = localStorage.getItem('lang') || 'es';
 
-  const BLOG_JSON_URL = 'data/blog.json?v=3.3.0';
-  const LANG_JSON_URL = 'data/lang.json?v=3.3.0';
+  const BLOG_JSON_URL = 'data/blog.json?v=3.4.0';
+  const LANG_JSON_URL = 'data/lang.json?v=3.4.0';
 
   async function loadBlogTranslations() {
     try {
@@ -31,6 +31,11 @@
 
   async function loadBlogData() {
     try {
+      const localBlog = localStorage.getItem('portfolio-blog');
+      if (localBlog) {
+        blogData = JSON.parse(localBlog);
+        return blogData;
+      }
       const response = await fetch(BLOG_JSON_URL);
       if (!response.ok) throw new Error('No se pudo cargar blog.json');
       blogData = await response.json();

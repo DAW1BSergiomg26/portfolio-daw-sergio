@@ -195,6 +195,20 @@ La versión v3.3.0 añade una sección de blog para documentar aprendizajes y bu
 - Etiquetas, categoría, fecha y tiempo de lectura.
 - Navegación accesible y diseño coherente con el resto del portfolio.
 
+## Panel de administración
+
+La versión v3.4.0 incluye un panel interno accesible desde `admin.html`:
+
+- Autenticación simple con contraseña hasheada (SHA-256).
+- Gestión local de proyectos y entradas de blog mediante `localStorage`.
+- Crear, editar y eliminar proyectos y posts desde una interfaz unificada.
+- Exportar todos los datos a un archivo JSON para respaldo o publicación.
+- Importar un archivo JSON para restaurar o actualizar datos.
+- Restaurar datos originales desde `data/projects.json` y `data/blog.json`.
+- La web pública lee primero `localStorage` si existe, luego los JSON originales.
+
+> Nota: al tratarse de GitHub Pages (estático), los cambios del panel se guardan solo en el navegador local. Para publicarlos hay que exportar el JSON y actualizar los archivos del repositorio.
+
 ## SEO avanzado
 
 El proyecto incluye configuración para presentación profesional:
@@ -255,6 +269,7 @@ portfolio-daw-sergio/
 ├─ index.html
 ├─ proyecto.html
 ├─ entrada.html
+├─ admin.html
 ├─ favicon.svg
 ├─ og-image.svg
 ├─ robots.txt
@@ -273,7 +288,8 @@ portfolio-daw-sergio/
 ├─ js/
 │  ├─ app.js
 │  ├─ proyecto.js
-│  └─ blog.js
+│  ├─ blog.js
+│  └─ admin.js
 └─ README.md
 ```
 
@@ -287,7 +303,7 @@ portfolio-daw-sergio/
 
 ## Estado
 
-Portfolio DAW publicado en GitHub Pages con base premium, SEO avanzado, Open Graph, PWA instalable con Service Worker, blog técnico bilingüe, catálogo dinámico en JSON, filtros avanzados, buscador combinado, tarjetas premium, dashboard de estadísticas, panel profesional de proyectos destacados, auditoría de calidad documentada, curaduría profesional del catálogo, páginas individuales de proyecto, timeline profesional e internacionalización completa ES/EN.
+Portfolio DAW publicado en GitHub Pages con base premium, SEO avanzado, Open Graph, PWA instalable con Service Worker, blog técnico bilingüe, panel de administración local, catálogo dinámico en JSON, filtros avanzados, buscador combinado, tarjetas premium, dashboard de estadísticas, panel profesional de proyectos destacados, auditoría de calidad documentada, curaduría profesional del catálogo, páginas individuales de proyecto, timeline profesional e internacionalización completa ES/EN.
 
 ## Internacionalización (i18n)
 
@@ -304,23 +320,25 @@ Características:
 - Optimizaciones Lighthouse (v3.1.2): carga prioritaria de fuentes, reserva de espacio contra CLS, atributos hreflang y etiquetas ARIA mejoradas.
 - PWA instalable con Service Worker (v3.2.0): precacheo del shell, soporte offline y caches por versión.
 - Blog técnico bilingüe (v3.3.0): sección de apuntes, artículos individuales y contenido traducido en `data/blog.json`.
+- Panel de administración (v3.4.0): gestión local de proyectos y blog, exportación/importación JSON y autenticación simple.
 
 ## Versionado de assets
 
 Para evitar problemas de caché en GitHub Pages, los archivos CSS, JavaScript y JSON se cargan con parámetro de versión.
 
-Versión actual estable: `v3.3.0`.
+Versión actual estable: `v3.4.0`.
 
 Ejemplo:
 
-- `css/styles.css?v=3.3.0`
-- `css/filters.css?v=3.3.0`
-- `js/app.js?v=3.3.0`
-- `js/proyecto.js?v=3.3.0`
-- `js/blog.js?v=3.3.0`
-- `data/projects.json?v=3.3.0`
-- `data/lang.json?v=3.3.0`
-- `data/blog.json?v=3.3.0`
+- `css/styles.css?v=3.4.0`
+- `css/filters.css?v=3.4.0`
+- `js/app.js?v=3.4.0`
+- `js/proyecto.js?v=3.4.0`
+- `js/blog.js?v=3.4.0`
+- `js/admin.js?v=3.4.0`
+- `data/projects.json?v=3.4.0`
+- `data/lang.json?v=3.4.0`
+- `data/blog.json?v=3.4.0`
 - `sw.js` (se actualiza mediante cambio de `CACHE_NAME` interno)
 
 Así, cuando se publica una nueva versión, el navegador carga los archivos actualizados y no conserva estilos, scripts o datos antiguos.
