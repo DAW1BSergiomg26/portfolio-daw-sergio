@@ -99,8 +99,8 @@
   <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" fetchpriority="high">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
   <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet"></noscript>
-  <link rel="stylesheet" href="css/styles.css?v=3.1.1">
-  <link rel="stylesheet" href="css/filters.css?v=3.1.1">
+  <link rel="stylesheet" href="css/styles.css?v=3.2.0">
+  <link rel="stylesheet" href="css/filters.css?v=3.2.0">
 
   <style>
     .skip-link {
@@ -311,6 +311,15 @@
     <p data-i18n="footer_text">Portfolio DAW · Sergio Daniel Martínez Gómez · Hecho con HTML, CSS, JavaScript y Git.</p>
   </footer>
 
-  <script src="js/app.js?v=3.1.1" defer></script>
+  <script src="js/app.js?v=3.2.0" defer></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('sw.js')
+          .then(reg => console.log('[SW] Registrado:', reg.scope))
+          .catch(err => console.error('[SW] Error al registrar:', err));
+      });
+    }
+  </script>
 </body>
 </html>

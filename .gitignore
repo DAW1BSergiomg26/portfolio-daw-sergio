@@ -1,6 +1,10 @@
 # Lighthouse reports
 lighthouse-report.json
+lighthouse-report-*.json
 *.lighthouse.report.html
+
+# Local server logs
+serve.log
 
 # Node modules (if installed locally)
 node_modules/
