@@ -241,6 +241,7 @@ function closeProjectModal() {
   if (!projectModal) return;
 
   projectModal.classList.remove("is-open");
+  projectModal.style.display = "";
   projectModal.setAttribute("aria-hidden", "true");
   document.body.classList.remove("modal-open");
 
@@ -332,6 +333,7 @@ function openProjectModal(project) {
   content.append(kicker, title, summary, meta, grid, techBlock, linksBlock);
 
   modal.classList.add("is-open");
+  modal.style.display = "grid";
   modal.setAttribute("aria-hidden", "false");
   document.body.classList.add("modal-open");
 
@@ -378,7 +380,11 @@ function createProjectCard(project) {
   modalButton.className = "project-modal-button";
   modalButton.type = "button";
   modalButton.textContent = "Ver ficha completa";
-  modalButton.addEventListener("click", () => openProjectModal(project));
+  modalButton.addEventListener("click", (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    openProjectModal(project);
+  });
   links.appendChild(modalButton);
   if (detail) {
     content.append(kicker, title, description, detail, links);
