@@ -374,6 +374,12 @@ function createProjectCard(project) {
     links.appendChild(anchor);
   });
 
+  const modalButton = document.createElement("button");
+  modalButton.className = "project-modal-button";
+  modalButton.type = "button";
+  modalButton.textContent = "Ver ficha completa";
+  modalButton.addEventListener("click", () => openProjectModal(project));
+  links.appendChild(modalButton);
   if (detail) {
     content.append(kicker, title, description, detail, links);
   } else {
