@@ -1,0 +1,538 @@
+/**
+ * Panel de administración - Portfolio DAW Sergio
+ * Gestión local de proyectos y entradas de blog mediante localStorage.
+ * Exportación/importación JSON para persistencia real en GitHub.
+ */
+(function () {
+  'use strict';
+
+  const ADMIN_LANG_KEY = 'portfolio-admin-lang';
+  const PROJECTS_KEY = 'portfolio-projects';
+  const BLOG_KEY = 'portfolio-blog';
+  const AUTH_KEY = 'portfolio-admin-auth';
+
+  // Hash SHA-256 de "DawPortfolio2026!"
+  const ADMIN_PASSWORD_HASH = 'c3ab8ff13720e8ad9047dd39466b3c8974e592c2fa383d4a3960714caef0c4f2';
+
+  let currentLang = localStorage.getItem(ADMIN_LANG_KEY) || localStorage.getItem('lang') || 'es';
+  let projects = [];
+  let blog = [];
+  let activeTab = 'projects';
+  let editingId = null;
+
+  const t = {
+    es: {
+      login_title: 'Panel de administración',
+      login_password: 'Contraseña',
+      login_button: 'Acceder',
+      login_error: 'Contraseña incorrecta',
+      logout: 'Cerrar sesión',
+      tab_projects: 'Proyectos',
+      tab_blog: 'Blog',
+      tab_stats: 'Estadísticas',
+      add_project: 'Añadir proyecto',
+      add_post: 'Añadir entrada',
+      edit: 'Editar',
+      delete: 'Eliminar',
+      save: 'Guardar',
+      cancel: 'Cancelar',
+      export_json: 'Exportar JSON',
+      import_json: 'Importar JSON',
+      reset_default: 'Restaurar originales',
+      search: 'Buscar...',
+      no_results: 'No se encontraron resultados',
+      confirm_delete: '¿Eliminar este elemento?',
+      import_success: 'Datos importados correctamente',
+      import_error: 'Error al importar el archivo',
+      saved: 'Cambios guardados',
+      total_projects: 'Proyectos',
+      total_posts: 'Entradas',
+      published_projects: 'Publicados',
+      featured_projects: 'Destacados'
+    },
+    en: {
+      login_title: 'Admin panel',
+      login_password: 'Password',
+      login_button: 'Sign in',
+      login_error: 'Incorrect password',
+      logout: 'Log out',
+      tab_projects: 'Projects',
+      tab_blog: 'Blog',
+      tab_stats: 'Statistics',
+      add_project: 'Add project',
+      add_post: 'Add post',
+      edit: 'Edit',
+      delete: 'Delete',
+      save: 'Save',
+      cancel: 'Cancel',
+      export_json: 'Export JSON',
+      import_json: 'Import JSON',
+      reset_default: 'Restore defaults',
+      search: 'Search...',
+      no_results: 'No results found',
+      confirm_delete: 'Delete this item?',
+      import_success: 'Data imported successfully',
+      import_error: 'Error importing file',
+      saved: 'Changes saved',
+      total_projects: 'Projects',
+      total_posts: 'Posts',
+      published_projects: 'Published',
+      featured_projects: 'Featured'
+    }
+  };
+
+  function txt(key) {
+    return (t[currentLang] && t[currentLang][key]) || key;
+  }
+
+  async function sha256(message) {
+    const msgBuffer = new TextEncoder().encode(message);
+    const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+  }
+
+  async function loadData() {
+    const localProjects = localStorage.getItem(PROJECTS_KEY);
+    const localBlog = localStorage.getItem(BLOG_KEY);
+
+    if (localProjects) {
+      projects = JSON.parse(localProjects);
+    } else {
+      const res = await fetch('data/projects.json?v=3.4.0');
+      projects = await res.json();
+    }
+
+    if (localBlog) {
+      blog = JSON.parse(localBlog);
+    } else {
+      const res = await fetch('data/blog.json?v=3.4.0');
+      blog = await res.json();
+    }
+  }
+
+  function persist() {
+    localStorage.setItem(PROJECTS_KEY, JSON.stringify(projects));
+    localStorage.setItem(BLOG_KEY, JSON.stringify(blog));
+  }
+
+  function updateLanguageButtons() {
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+      btn.classList.toggle('is-active', btn.dataset.lang === currentLang);
+    });
+    document.documentElement.lang = currentLang;
+  }
+
+  function renderText() {
+    document.querySelectorAll('[data-t]').forEach(el => {
+      el.textContent = txt(el.dataset.t);
+    });
+    document.querySelectorAll('[data-t-placeholder]').forEach(el => {
+      el.placeholder = txt(el.dataset.tPlaceholder);
+    });
+  }
+
+  function isAuthenticated() {
+    return sessionStorage.getItem(AUTH_KEY) === 'true';
+  }
+
+  async function handleLogin(e) {
+    e.preventDefault();
+    const input = document.getElementById('admin-password');
+    const hash = await sha256(input.value);
+    if (hash === ADMIN_PASSWORD_HASH) {
+      sessionStorage.setItem(AUTH_KEY, 'true');
+      initAdmin();
+    } else {
+      const error = document.getElementById('login-error');
+      error.textContent = txt('login_error');
+      error.hidden = false;
+    }
+  }
+
+  function logout() {
+    sessionStorage.removeItem(AUTH_KEY);
+    location.reload();
+  }
+
+  function renderStats() {
+    const stats = document.getElementById('admin-stats');
+    if (!stats) return;
+    stats.innerHTML = `
+      <div class="admin-stat-card">
+        <span class="admin-stat-value">${projects.length}</span>
+        <span class="admin-stat-label">${txt('total_projects')}</span>
+      </div>
+      <div class="admin-stat-card">
+        <span class="admin-stat-value">${blog.length}</span>
+        <span class="admin-stat-label">${txt('total_posts')}</span>
+      </div>
+      <div class="admin-stat-card">
+        <span class="admin-stat-value">${projects.filter(p => p.status === 'Publicado' || p.status === 'Published').length}</span>
+        <span class="admin-stat-label">${txt('published_projects')}</span>
+      </div>
+      <div class="admin-stat-card">
+        <span class="admin-stat-value">${projects.filter(p => p.featured).length}</span>
+        <span class="admin-stat-label">${txt('featured_projects')}</span>
+      </div>
+    `;
+  }
+
+  function renderProjects() {
+    const container = document.getElementById('admin-list');
+    const search = (document.getElementById('admin-search')?.value || '').toLowerCase();
+    const filtered = projects.filter(p =>
+      (p.title || '').toLowerCase().includes(search) ||
+      (p.title_en || '').toLowerCase().includes(search)
+    );
+
+    container.innerHTML = filtered.map(p => `
+      <div class="admin-item">
+        <div class="admin-item-info">
+          <strong>#${p.id} ${p.title || ''}</strong>
+          <span>${p.status || ''} · ${p.category || ''} · ${p.featured ? '⭐' : ''}</span>
+        </div>
+        <div class="admin-item-actions">
+          <button type="button" class="btn small" onclick="window.adminEditProject(${p.id})" data-t="edit">${txt('edit')}</button>
+          <button type="button" class="btn small ghost" onclick="window.adminDeleteProject(${p.id})" data-t="delete">${txt('delete')}</button>
+        </div>
+      </div>
+    `).join('') || `<p class="admin-empty">${txt('no_results')}</p>`;
+  }
+
+  function renderBlog() {
+    const container = document.getElementById('admin-list');
+    const search = (document.getElementById('admin-search')?.value || '').toLowerCase();
+    const filtered = blog.filter(p =>
+      (p.es?.title || '').toLowerCase().includes(search) ||
+      (p.en?.title || '').toLowerCase().includes(search)
+    );
+
+    container.innerHTML = filtered.map((p, idx) => `
+      <div class="admin-item">
+        <div class="admin-item-info">
+          <strong>${p.es?.title || p.en?.title || ''}</strong>
+          <span>${p.date || ''} · ${p.category || ''}</span>
+        </div>
+        <div class="admin-item-actions">
+          <button type="button" class="btn small" onclick="window.adminEditPost('${p.slug}')" data-t="edit">${txt('edit')}</button>
+          <button type="button" class="btn small ghost" onclick="window.adminDeletePost('${p.slug}')" data-t="delete">${txt('delete')}</button>
+        </div>
+      </div>
+    `).join('') || `<p class="admin-empty">${txt('no_results')}</p>`;
+  }
+
+  function renderList() {
+    if (activeTab === 'projects') renderProjects();
+    else if (activeTab === 'blog') renderBlog();
+    else renderStats();
+  }
+
+  function showForm(type, data = null) {
+    const panel = document.getElementById('admin-form-panel');
+    const isProject = type === 'project';
+    editingId = isProject ? (data ? data.id : null) : (data ? data.slug : null);
+
+    if (isProject) {
+      panel.innerHTML = `
+        <h3>${data ? txt('edit') : txt('add_project')}</h3>
+        <form id="admin-form" class="admin-form">
+          <label>ID</label><input type="number" name="id" value="${data ? data.id : ''}" ${data ? 'readonly' : ''} required>
+          <label>Slug</label><input type="text" name="slug" value="${data ? data.slug || '' : ''}" required>
+          <label>Título (ES)</label><input type="text" name="title" value="${data ? data.title || '' : ''}" required>
+          <label>Título (EN)</label><input type="text" name="title_en" value="${data ? data.title_en || '' : ''}">
+          <label>Kicker (ES)</label><input type="text" name="kicker" value="${data ? data.kicker || '' : ''}">
+          <label>Kicker (EN)</label><input type="text" name="kicker_en" value="${data ? data.kicker_en || '' : ''}">
+          <label>Descripción (ES)</label><textarea name="description" rows="3">${data ? data.description || '' : ''}</textarea>
+          <label>Descripción (EN)</label><textarea name="description_en" rows="3">${data ? data.description_en || '' : ''}</textarea>
+          <label>Estado</label><input type="text" name="status" value="${data ? data.status || '' : ''}">
+          <label>Categoría</label><input type="text" name="category" value="${data ? data.category || '' : ''}">
+          <label>Tecnologías (coma separadas)</label><input type="text" name="technologies" value="${data ? (data.technologies || []).join(', ') : ''}">
+          <label class="admin-checkbox"><input type="checkbox" name="featured" ${data && data.featured ? 'checked' : ''}> Destacado</label>
+          <label class="admin-checkbox"><input type="checkbox" name="published" ${data && data.published ? 'checked' : ''}> Publicado</label>
+          <label>URL Demo</label><input type="url" name="demoUrl" value="${data ? data.demoUrl || '' : ''}">
+          <label>URL Repo</label><input type="url" name="repoUrl" value="${data ? data.repoUrl || '' : ''}">
+          <label>Prioridad</label><input type="number" name="priority" value="${data ? data.priority || '' : ''}">
+          <div class="admin-form-actions">
+            <button type="submit" class="btn primary" data-t="save">${txt('save')}</button>
+            <button type="button" class="btn ghost" onclick="window.adminCloseForm()" data-t="cancel">${txt('cancel')}</button>
+          </div>
+        </form>
+      `;
+    } else {
+      panel.innerHTML = `
+        <h3>${data ? txt('edit') : txt('add_post')}</h3>
+        <form id="admin-form" class="admin-form">
+          <label>Slug</label><input type="text" name="slug" value="${data ? data.slug || '' : ''}" ${data ? 'readonly' : ''} required>
+          <label>Fecha</label><input type="date" name="date" value="${data ? data.date || '' : ''}" required>
+          <label>Categoría</label><input type="text" name="category" value="${data ? data.category || '' : ''}">
+          <label>Etiquetas (coma separadas)</label><input type="text" name="tags" value="${data ? (data.tags || []).join(', ') : ''}">
+          <label>Tiempo de lectura (min)</label><input type="number" name="readTime" value="${data ? data.readTime || '' : ''}">
+          <label>Título (ES)</label><input type="text" name="es_title" value="${data ? data.es?.title || '' : ''}" required>
+          <label>Extracto (ES)</label><textarea name="es_excerpt" rows="2">${data ? data.es?.excerpt || '' : ''}</textarea>
+          <label>Contenido HTML (ES)</label><textarea name="es_content" rows="6">${data ? data.es?.content || '' : ''}</textarea>
+          <label>Título (EN)</label><input type="text" name="en_title" value="${data ? data.en?.title || '' : ''}">
+          <label>Extracto (EN)</label><textarea name="en_excerpt" rows="2">${data ? data.en?.excerpt || '' : ''}</textarea>
+          <label>Contenido HTML (EN)</label><textarea name="en_content" rows="6">${data ? data.en?.content || '' : ''}</textarea>
+          <div class="admin-form-actions">
+            <button type="submit" class="btn primary" data-t="save">${txt('save')}</button>
+            <button type="button" class="btn ghost" onclick="window.adminCloseForm()" data-t="cancel">${txt('cancel')}</button>
+          </div>
+        </form>
+      `;
+    }
+
+    document.getElementById('admin-form').addEventListener('submit', handleFormSubmit);
+    panel.scrollIntoView({ behavior: 'smooth' });
+  }
+
+  function handleFormSubmit(e) {
+    e.preventDefault();
+    const fd = new FormData(e.target);
+    const get = name => fd.get(name)?.toString().trim() || '';
+
+    if (activeTab === 'projects') {
+      const id = parseInt(get('id'), 10);
+      const item = {
+        id,
+        slug: get('slug'),
+        title: get('title'),
+        title_en: get('title_en'),
+        kicker: get('kicker'),
+        kicker_en: get('kicker_en'),
+        description: get('description'),
+        description_en: get('description_en'),
+        status: get('status'),
+        category: get('category'),
+        technologies: get('technologies').split(',').map(s => s.trim()).filter(Boolean),
+        featured: fd.has('featured'),
+        published: fd.has('published'),
+        demoUrl: get('demoUrl'),
+        repoUrl: get('repoUrl'),
+        priority: parseInt(get('priority'), 10) || 0
+      };
+
+      const idx = projects.findIndex(p => p.id === id);
+      if (idx >= 0) projects[idx] = item;
+      else projects.push(item);
+    } else {
+      const slug = get('slug');
+      const item = {
+        id: slug,
+        slug,
+        date: get('date'),
+        category: get('category'),
+        tags: get('tags').split(',').map(s => s.trim()).filter(Boolean),
+        readTime: parseInt(get('readTime'), 10) || 3,
+        es: {
+          title: get('es_title'),
+          excerpt: get('es_excerpt'),
+          content: get('es_content')
+        },
+        en: {
+          title: get('en_title'),
+          excerpt: get('en_excerpt'),
+          content: get('en_content')
+        }
+      };
+
+      const idx = blog.findIndex(p => p.slug === slug);
+      if (idx >= 0) blog[idx] = item;
+      else blog.push(item);
+    }
+
+    persist();
+    closeForm();
+    renderList();
+    alert(txt('saved'));
+  }
+
+  function closeForm() {
+    document.getElementById('admin-form-panel').innerHTML = '';
+    editingId = null;
+  }
+
+  window.adminEditProject = function(id) {
+    activeTab = 'projects';
+    updateTabs();
+    showForm('project', projects.find(p => p.id === id));
+  };
+
+  window.adminDeleteProject = function(id) {
+    if (!confirm(txt('confirm_delete'))) return;
+    projects = projects.filter(p => p.id !== id);
+    persist();
+    renderList();
+  };
+
+  window.adminEditPost = function(slug) {
+    activeTab = 'blog';
+    updateTabs();
+    showForm('post', blog.find(p => p.slug === slug));
+  };
+
+  window.adminDeletePost = function(slug) {
+    if (!confirm(txt('confirm_delete'))) return;
+    blog = blog.filter(p => p.slug !== slug);
+    persist();
+    renderList();
+  };
+
+  window.adminCloseForm = closeForm;
+
+  function updateTabs() {
+    document.querySelectorAll('.admin-tab').forEach(tab => {
+      tab.classList.toggle('is-active', tab.dataset.tab === activeTab);
+    });
+    const addBtn = document.getElementById('admin-add');
+    addBtn.textContent = activeTab === 'projects' ? txt('add_project') : (activeTab === 'blog' ? txt('add_post') : '');
+    addBtn.hidden = activeTab === 'stats';
+    renderList();
+  }
+
+  function exportJSON() {
+    const data = { projects, blog, exportedAt: new Date().toISOString() };
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `portfolio-backup-${new Date().toISOString().slice(0, 10)}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+
+  function importJSON(file) {
+    const reader = new FileReader();
+    reader.onload = () => {
+      try {
+        const data = JSON.parse(reader.result);
+        if (data.projects) {
+          projects = data.projects;
+          localStorage.setItem(PROJECTS_KEY, JSON.stringify(projects));
+        }
+        if (data.blog) {
+          blog = data.blog;
+          localStorage.setItem(BLOG_KEY, JSON.stringify(blog));
+        }
+        renderList();
+        renderStats();
+        alert(txt('import_success'));
+      } catch (err) {
+        alert(txt('import_error'));
+      }
+    };
+    reader.readAsText(file);
+  }
+
+  async function resetDefaults() {
+    localStorage.removeItem(PROJECTS_KEY);
+    localStorage.removeItem(BLOG_KEY);
+    await loadData();
+    renderList();
+    renderStats();
+  }
+
+  function renderAdmin() {
+    document.body.innerHTML = `
+      <header class="admin-header">
+        <h1 data-t="login_title">${txt('login_title')}</h1>
+        <div class="admin-actions">
+          <div class="lang-switcher" role="group" aria-label="Selector de idioma">
+            <button type="button" class="lang-btn" data-lang="es" onclick="window.adminSetLang('es')">ES</button>
+            <button type="button" class="lang-btn" data-lang="en" onclick="window.adminSetLang('en')">EN</button>
+          </div>
+          <button type="button" class="btn ghost" onclick="window.adminLogout()" data-t="logout">${txt('logout')}</button>
+        </div>
+      </header>
+
+      <main class="admin-main">
+        <nav class="admin-tabs" aria-label="Admin tabs">
+          <button type="button" class="admin-tab" data-tab="projects" onclick="window.adminSetTab('projects')" data-t="tab_projects">${txt('tab_projects')}</button>
+          <button type="button" class="admin-tab" data-tab="blog" onclick="window.adminSetTab('blog')" data-t="tab_blog">${txt('tab_blog')}</button>
+          <button type="button" class="admin-tab" data-tab="stats" onclick="window.adminSetTab('stats')" data-t="tab_stats">${txt('tab_stats')}</button>
+        </nav>
+
+        <div class="admin-toolbar">
+          <input type="search" id="admin-search" class="admin-search" data-t-placeholder="search" placeholder="${txt('search')}">
+          <button type="button" id="admin-add" class="btn primary" data-t="add_project">${txt('add_project')}</button>
+          <button type="button" class="btn ghost" onclick="window.adminExportJSON()" data-t="export_json">${txt('export_json')}</button>
+          <label class="btn ghost" style="cursor:pointer;">
+            <span data-t="import_json">${txt('import_json')}</span>
+            <input type="file" accept="application/json" hidden onchange="window.adminImportJSON(this.files[0])">
+          </label>
+          <button type="button" class="btn ghost" onclick="window.adminResetDefaults()" data-t="reset_default">${txt('reset_default')}</button>
+        </div>
+
+        <div id="admin-list" class="admin-list"></div>
+        <div id="admin-stats" class="admin-stats"></div>
+        <div id="admin-form-panel" class="admin-form-panel"></div>
+      </main>
+    `;
+
+    updateLanguageButtons();
+    updateTabs();
+    renderStats();
+
+    document.getElementById('admin-add').addEventListener('click', () => {
+      showForm(activeTab === 'projects' ? 'project' : 'post');
+    });
+
+    document.getElementById('admin-search').addEventListener('input', renderList);
+  }
+
+  window.adminSetTab = function(tab) {
+    activeTab = tab;
+    closeForm();
+    updateTabs();
+  };
+
+  window.adminSetLang = function(lang) {
+    currentLang = lang;
+    localStorage.setItem(ADMIN_LANG_KEY, currentLang);
+    renderAdmin();
+  };
+
+  window.adminLogout = logout;
+  window.adminExportJSON = exportJSON;
+  window.adminImportJSON = importJSON;
+  window.adminResetDefaults = resetDefaults;
+
+  async function initAdmin() {
+    await loadData();
+    renderAdmin();
+  }
+
+  function renderLogin() {
+    document.body.innerHTML = `
+      <div class="admin-login">
+        <div class="admin-login-card">
+          <h1 data-t="login_title">${txt('login_title')}</h1>
+          <form id="admin-login-form">
+            <label for="admin-password" data-t="login_password">${txt('login_password')}</label>
+            <input type="password" id="admin-password" required autofocus>
+            <p id="login-error" class="admin-login-error" hidden></p>
+            <button type="submit" class="btn primary" data-t="login_button">${txt('login_button')}</button>
+          </form>
+          <p style="margin-top:1rem; font-size:0.85rem; color:var(--muted);">
+            Contraseña de demo: <code>DawPortfolio2026!</code>
+          </p>
+        </div>
+      </div>
+    `;
+    document.getElementById('admin-login-form').addEventListener('submit', handleLogin);
+  }
+
+  function init() {
+    if (isAuthenticated()) {
+      initAdmin();
+    } else {
+      renderLogin();
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();

@@ -4,7 +4,7 @@ let translations = {};
 
 async function loadTranslations() {
   try {
-    const response = await fetch("data/lang.json?v=3.3.0");
+    const response = await fetch("data/lang.json?v=3.4.0");
     translations = await response.json();
     updateLangButtons();
     applyTranslations();
@@ -498,13 +498,17 @@ function renderProjects(projects) {
 
 async function loadProjectsFromJson() {
   try {
-    const response = await fetch("data/projects.json?v=3.3.0");
+    const localProjects = localStorage.getItem("portfolio-projects");
+    let projects;
 
-    if (!response.ok) {
-      throw new Error("No se pudo cargar data/projects.json");
+    if (localProjects) {
+      projects = JSON.parse(localProjects);
+    } else {
+      const response = await fetch("data/projects.json?v=3.4.0");
+      if (!response.ok) throw new Error("No se pudo cargar data/projects.json");
+      projects = await response.json();
     }
 
-    const projects = await response.json();
     renderProjects(projects);
     createFeaturedProjectsPanel(projects);
   } catch (error) {

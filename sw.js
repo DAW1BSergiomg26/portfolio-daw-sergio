@@ -4,8 +4,8 @@
  * Estrategia: Cache-first para el shell/app, network-first para datos JSON.
  */
 
-const CACHE_NAME = 'portfolio-daw-v3.3.0';
-const DATA_CACHE_NAME = 'portfolio-daw-data-v3.3.0';
+const CACHE_NAME = 'portfolio-daw-v3.4.0';
+const DATA_CACHE_NAME = 'portfolio-daw-data-v3.4.0';
 
 // Detectar base path automáticamente (local /portfolio-daw-sergio/ o raíz)
 const BASE_PATH = self.location.pathname.replace(/\/sw\.js$/, '');
@@ -15,11 +15,13 @@ const STATIC_ASSETS = [
   `${BASE_PATH}/index.html`,
   `${BASE_PATH}/proyecto.html`,
   `${BASE_PATH}/entrada.html`,
+  `${BASE_PATH}/admin.html`,
   `${BASE_PATH}/css/styles.css`,
   `${BASE_PATH}/css/filters.css`,
   `${BASE_PATH}/js/app.js`,
   `${BASE_PATH}/js/proyecto.js`,
   `${BASE_PATH}/js/blog.js`,
+  `${BASE_PATH}/js/admin.js`,
   `${BASE_PATH}/data/projects.json`,
   `${BASE_PATH}/data/lang.json`,
   `${BASE_PATH}/data/blog.json`,
