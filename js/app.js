@@ -75,6 +75,8 @@ let activeProjectCategory = "todos";
 let projectSearchInput = null;
 let portfolioStatsPanel = null;
 let featuredProjectsPanel = null;
+let projectModal = null;
+let lastModalFocus = null;
 
 const tierMap = {
   published: {
