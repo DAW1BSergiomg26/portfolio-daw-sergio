@@ -1,0 +1,26 @@
+{
+  "es": {
+    "nav_sobre_mi": "Sobre mí",
+    "nav_tecnologias": "Tecnologías",
+    "nav_proyectos": "Proyectos",
+    "nav_proximos": "Próximos",
+    "nav_ruta": "Ruta DAW",
+    "nav_contacto": "Contacto",
+    "hero_eyebrow": "Alumno DAW · Desarrollo Web · GitHub Pages",
+    "hero_title": "Sergio Daniel Martínez Gómez",
+    "hero_lead": "Portfolio personal para reunir mis proyectos, prácticas y avances como alumno de Desarrollo de Aplicaciones Web. Aquí documento lo que voy construyendo, lo que aprendo y cómo organizo mi progreso con Git, HTML, CSS y JavaScript.",
+    "btn_ver_proyectos": "Ver proyectos"
+  },
+  "en": {
+    "nav_sobre_mi": "About Me",
+    "nav_tecnologias": "Technologies",
+    "nav_proyectos": "Projects",
+    "nav_proximos": "Upcoming",
+    "nav_ruta": "DAW Path",
+    "nav_contacto": "Contact",
+    "hero_eyebrow": "DAW Student · Web Development · GitHub Pages",
+    "hero_title": "Sergio Daniel Martínez Gómez",
+    "hero_lead": "Personal portfolio to gather my projects, practices, and progress as a Web Application Development student. Here I document what I'm building, what I learn, and how I organize my progress with Git, HTML, CSS, and JavaScript.",
+    "btn_ver_proyectos": "View projects"
+  }
+}

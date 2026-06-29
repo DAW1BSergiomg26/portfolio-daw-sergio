@@ -1,3 +1,32 @@
+// I18N Engine
+let currentLang = localStorage.getItem("lang") || "es";
+let translations = {};
+
+async function loadTranslations() {
+  try {
+    const response = await fetch("data/lang.json?v=2.9.0");
+    translations = await response.json();
+    applyTranslations();
+  } catch (error) {
+    console.error("Error loading translations:", error);
+  }
+}
+
+function applyTranslations() {
+  document.querySelectorAll("[data-i18n]").forEach((el) => {
+    const key = el.getAttribute("data-i18n");
+    if (translations[currentLang] && translations[currentLang][key]) {
+      el.textContent = translations[currentLang][key];
+    }
+  });
+}
+
+function toggleLanguage() {
+  currentLang = currentLang === "es" ? "en" : "es";
+  localStorage.setItem("lang", currentLang);
+  applyTranslations();
+}
+
 const menuButton = document.querySelector(".menu-toggle");
 const mainNav = document.querySelector(".main-nav");
 
@@ -859,6 +888,7 @@ function bindProjectFilters() {
 async function initProjectsCatalog() {
   if (!projectFilters) return;
 
+  await loadTranslations();
   await loadProjectsFromJson();
 
   if (!projectCards.length) return;
