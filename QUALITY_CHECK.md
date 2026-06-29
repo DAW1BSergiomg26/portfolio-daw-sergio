@@ -1,11 +1,11 @@
-# Auditoría de calidad - Portfolio DAW v2.3.0
+# Auditoría de calidad - Portfolio DAW v3.2.0
 
 Documento de control técnico para validar el Portfolio DAW de Sergio Daniel Martínez Gómez antes de cada versión estable.
 
 ## Estado de la auditoría
 
-- Versión objetivo: v2.3.0
-- Rama de trabajo: `feature/auditoria-calidad-v2`
+- Versión objetivo: v3.2.0
+- Rama de trabajo: `feature/pwa-service-worker-v3`
 - Estado: lista para revisión manual
 - URL pública: https://daw1bsergiomg26.github.io/portfolio-daw-sergio/
 
@@ -97,34 +97,37 @@ Invoke-WebRequest "https://daw1bsergiomg26.github.io/portfolio-daw-sergio/sitema
 Invoke-WebRequest "https://daw1bsergiomg26.github.io/portfolio-daw-sergio/robots.txt" -UseBasicParsing | Select-String "Sitemap"
 ```
 
-## 4. PWA ligera
+## 4. PWA instalable con Service Worker
 
 ### Objetivo
 
-Mantener una configuración PWA básica, limpia y compatible con GitHub Pages.
+Convertir el portfolio en una PWA instalable con soporte offline y caches versionadas.
 
 ### Checklist
 
-- [x] Manifest enlazado desde HTML.
-- [x] `name` definido.
-- [x] `short_name` definido.
-- [x] `description` definido.
-- [x] `id` definido.
-- [x] `start_url` dentro del scope del proyecto.
-- [x] `scope` definido.
+- [x] `sw.js` presente en la raíz del proyecto.
+- [x] Service Worker registrado desde `index.html` y `proyecto.html`.
+- [x] Precacheo del shell estático en el evento `install`.
+- [x] Limpieza de caches antiguas en el evento `activate`.
+- [x] Estrategia `cache-first` para assets estáticos.
+- [x] Estrategia `network-first` para datos JSON (`projects.json`, `lang.json`).
+- [x] Página offline como fallback en navegación.
+- [x] `CACHE_NAME` y `DATA_CACHE_NAME` versionados.
+- [x] `site.webmanifest` enlazado desde HTML.
+- [x] `name`, `short_name`, `description`, `id`, `scope`, `start_url` definidos.
 - [x] `display` en modo `standalone`.
-- [x] `theme_color` definido.
-- [x] `background_color` definido.
-- [x] Icono SVG definido.
+- [x] `theme_color` y `background_color` definidos.
+- [x] Icono SVG con propósito `any maskable`.
 - [x] Metadatos Apple/PWA añadidos.
-- [x] Apple touch icon configurado.
+- [x] Rutas base autodetectadas para funcionar en local y en `/portfolio-daw-sergio/`.
 
 ### Comandos útiles
 
 ```powershell
 Invoke-WebRequest "https://daw1bsergiomg26.github.io/portfolio-daw-sergio/site.webmanifest" -UseBasicParsing | Select-String '"id"'
 Invoke-WebRequest "https://daw1bsergiomg26.github.io/portfolio-daw-sergio/site.webmanifest" -UseBasicParsing | Select-String '"scope"'
-Invoke-WebRequest "https://daw1bsergiomg26.github.io/portfolio-daw-sergio/" -UseBasicParsing | Select-String "apple-mobile-web-app-title"
+Invoke-WebRequest "https://daw1bsergiomg26.github.io/portfolio-daw-sergio/sw.js" -UseBasicParsing | Select-String "portfolio-daw-v"
+Invoke-WebRequest "https://daw1bsergiomg26.github.io/portfolio-daw-sergio/" -UseBasicParsing | Select-String "navigator.serviceWorker"
 ```
 
 ## 5. Catálogo de proyectos
@@ -219,21 +222,22 @@ El portfolio incluye una capa visual con profundidad CSS 3D en el panel de desta
 
 ## Resultado de auditoría
 
-El portfolio queda preparado como entrega profesional inicial:
+El portfolio queda preparado como entrega profesional de nivel avanzado:
 
 - estable en GitHub Pages;
 - documentado con releases y checkpoints;
-- optimizado para compartir;
-- con catálogo JSON mantenible;
-- con PWA ligera;
-- con base accesible;
-- con diseño responsive;
+- optimizado para compartir (SEO/Open Graph);
+- con catálogo JSON mantenible e internacionalizado ES/EN;
+- con PWA instalable y soporte offline real;
+- con métricas Lighthouse superiores a 95 (Performance 99-100, A11y/BP/SEO 100);
+- con base accesible y diseño responsive;
 - con criterios técnicos defendibles.
 
 ## Próximo ciclo recomendado
 
-Después de esta auditoría, el siguiente crecimiento debería centrarse en añadir nuevos proyectos reales al catálogo JSON, no en añadir más efectos visuales.
+Después de esta auditoría, el siguiente crecimiento debería centrarse en añadir una sección de **Blog técnico** para documentar aprendizajes y, posteriormente, un **Panel de administración** para gestionar proyectos y publicaciones.
 
-Versión sugerida posterior:
+Versiones sugeridas posteriores:
 
-`v2.4.0 - Nuevos proyectos y curaduría del catálogo`
+- `v3.3.0 - Blog técnico`
+- `v3.4.0 - Panel de administración`

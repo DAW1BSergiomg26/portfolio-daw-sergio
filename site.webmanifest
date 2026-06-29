@@ -1,7 +1,7 @@
 {
   "name": "Portfolio DAW - Sergio Daniel Martínez Gómez",
   "short_name": "Portfolio DAW",
-  "description": "Portfolio profesional de Sergio Daniel Martínez Gómez con proyectos web publicados, catálogo JSON, filtros avanzados y panel de destacados.",
+  "description": "Portfolio profesional PWA de Sergio Daniel Martínez Gómez: proyectos web publicados, catálogo JSON offline, filtros avanzados, panel de destacados e internacionalización ES/EN.",
   "id": "/portfolio-daw-sergio/",
   "start_url": "/portfolio-daw-sergio/?source=pwa",
   "scope": "/portfolio-daw-sergio/",
@@ -16,7 +16,8 @@
     {
       "src": "favicon.svg",
       "sizes": "any",
-      "type": "image/svg+xml"
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
     }
   ]
 }

@@ -173,19 +173,31 @@ El portfolio incluye un panel superior de proyectos destacados generado desde el
 
 Este panel usa profundidad visual con CSS 3D ligero, sin WebGL obligatorio y sin librerías externas. La decisión técnica es mantener una experiencia visual premium, pero rápida, accesible y preparada para móvil.
 
-## PWA ligera y SEO avanzado
+## PWA instalable con Service Worker
 
-El proyecto incluye una configuración ligera para presentación profesional:
+La versión v3.2.0 convierte el portfolio en una Progressive Web App instalable:
+
+- `sw.js` registrado desde `index.html` y `proyecto.html`.
+- Precacheo del shell estático (`index.html`, `proyecto.html`, CSS, JS, fuentes, manifest, favicon e imagen social).
+- Estrategia `network-first` para `data/projects.json` y `data/lang.json`, con fallback a cache offline.
+- Estrategia `cache-first` para assets estáticos, con página offline como respaldo.
+- `site.webmanifest` actualizado con `id`, `scope`, `start_url`, modo `standalone` e icono maskable SVG.
+- Limpieza automática de caches antiguas en cada nueva versión.
+- Service Worker autodetecta la ruta base (`/portfolio-daw-sergio/` en producción, `/` en local).
+
+## SEO avanzado
+
+El proyecto incluye configuración para presentación profesional:
 
 - SEO avanzado.
 - Open Graph.
 - Twitter Card `summary_large_image`.
 - Imagen social `og-image.svg`.
 - JSON-LD con `ProfilePage`, `Person` e `ItemList`.
-- Manifest PWA básico.
 - Robots y sitemap publicados.
 - Skip link accesible.
 - Foco visible para navegación por teclado.
+- Atributos `hreflang` para español e inglés.
 
 ## Auditoría de calidad
 
@@ -231,19 +243,24 @@ La sección **Próximos proyectos** prepara futuras entregas DAW:
 ```text
 portfolio-daw-sergio/
 ├─ index.html
+├─ proyecto.html
 ├─ favicon.svg
 ├─ og-image.svg
 ├─ robots.txt
 ├─ sitemap.xml
 ├─ site.webmanifest
+├─ sw.js
+├─ .gitignore
 ├─ QUALITY_CHECK.md
 ├─ css/
 │  ├─ styles.css
 │  └─ filters.css
 ├─ data/
-│  └─ projects.json
+│  ├─ projects.json
+│  └─ lang.json
 ├─ js/
-│  └─ app.js
+│  ├─ app.js
+│  └─ proyecto.js
 └─ README.md
 ```
 
@@ -257,7 +274,7 @@ portfolio-daw-sergio/
 
 ## Estado
 
-Portfolio DAW publicado en GitHub Pages con base premium, SEO avanzado, Open Graph, PWA ligera, catálogo dinámico en JSON, filtros avanzados, buscador combinado, tarjetas premium, dashboard de estadísticas, panel profesional de proyectos destacados, auditoría de calidad documentada, curaduría profesional del catálogo, páginas individuales de proyecto, timeline profesional e internacionalización completa ES/EN.
+Portfolio DAW publicado en GitHub Pages con base premium, SEO avanzado, Open Graph, PWA instalable con Service Worker, catálogo dinámico en JSON, filtros avanzados, buscador combinado, tarjetas premium, dashboard de estadísticas, panel profesional de proyectos destacados, auditoría de calidad documentada, curaduría profesional del catálogo, páginas individuales de proyecto, timeline profesional e internacionalización completa ES/EN.
 
 ## Internacionalización (i18n)
 
@@ -272,19 +289,22 @@ Características:
 - Arquitectura preparada para proyectos bilingües mediante campos opcionales `_en` en `data/projects.json`.
 - Todos los proyectos del catálogo traducidos al inglés (v3.1.1).
 - Optimizaciones Lighthouse (v3.1.2): carga prioritaria de fuentes, reserva de espacio contra CLS, atributos hreflang y etiquetas ARIA mejoradas.
+- PWA instalable con Service Worker (v3.2.0): precacheo del shell, soporte offline y caches por versión.
 
 ## Versionado de assets
 
 Para evitar problemas de caché en GitHub Pages, los archivos CSS, JavaScript y JSON se cargan con parámetro de versión.
 
-Versión actual estable: `v3.1.2`.
+Versión actual estable: `v3.2.0`.
 
 Ejemplo:
 
-- `css/styles.css?v=3.1.0`
-- `css/filters.css?v=3.1.0`
-- `js/app.js?v=3.1.0`
-- `data/projects.json?v=3.1.0`
-- `data/lang.json?v=3.1.0`
+- `css/styles.css?v=3.2.0`
+- `css/filters.css?v=3.2.0`
+- `js/app.js?v=3.2.0`
+- `js/proyecto.js?v=3.2.0`
+- `data/projects.json?v=3.2.0`
+- `data/lang.json?v=3.2.0`
+- `sw.js` (se actualiza mediante cambio de `CACHE_NAME` interno)
 
 Así, cuando se publica una nueva versión, el navegador carga los archivos actualizados y no conserva estilos, scripts o datos antiguos.
