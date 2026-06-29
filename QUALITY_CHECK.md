@@ -1,11 +1,11 @@
-# Auditoría de calidad - Portfolio DAW v3.2.0
+# Auditoría de calidad - Portfolio DAW v3.3.0
 
 Documento de control técnico para validar el Portfolio DAW de Sergio Daniel Martínez Gómez antes de cada versión estable.
 
 ## Estado de la auditoría
 
-- Versión objetivo: v3.2.0
-- Rama de trabajo: `feature/pwa-service-worker-v3`
+- Versión objetivo: v3.3.0
+- Rama de trabajo: `feature/blog-tecnico-v3`
 - Estado: lista para revisión manual
 - URL pública: https://daw1bsergiomg26.github.io/portfolio-daw-sergio/
 
@@ -130,7 +130,33 @@ Invoke-WebRequest "https://daw1bsergiomg26.github.io/portfolio-daw-sergio/sw.js"
 Invoke-WebRequest "https://daw1bsergiomg26.github.io/portfolio-daw-sergio/" -UseBasicParsing | Select-String "navigator.serviceWorker"
 ```
 
-## 5. Catálogo de proyectos
+## 5. Blog técnico
+
+### Objetivo
+
+Validar que la sección de blog carga desde JSON, navega correctamente y soporta i18n.
+
+### Checklist
+
+- [x] `data/blog.json` existe y contiene entradas bilingües.
+- [x] Sección `#blog` presente en `index.html`.
+- [x] `js/blog.js` renderiza el listado dinámicamente.
+- [x] Página `entrada.html?slug=<slug>` muestra el artículo completo.
+- [x] Las entradas se ordenan por fecha descendente.
+- [x] Cada entrada tiene categoría, etiquetas, fecha y tiempo de lectura.
+- [x] Contenido traducible ES/EN dentro del JSON.
+- [x] Botón de idioma funciona en `entrada.html`.
+- [x] Enlace "Volver al blog" presente en artículo individual.
+
+### Comandos útiles
+
+```powershell
+Invoke-WebRequest "https://daw1bsergiomg26.github.io/portfolio-daw-sergio/data/blog.json" -UseBasicParsing | Select-String '"slug"'
+Invoke-WebRequest "https://daw1bsergiomg26.github.io/portfolio-daw-sergio/entrada.html?slug=por-que-daw" -UseBasicParsing | Select-String 'blog-post-container'
+Invoke-WebRequest "https://daw1bsergiomg26.github.io/portfolio-daw-sergio/" -UseBasicParsing | Select-String 'blog-list'
+```
+
+## 6. Catálogo de proyectos
 
 ### Objetivo
 
@@ -158,7 +184,7 @@ Garantizar que el catálogo JSON, filtros, dashboard, búsqueda y panel destacad
 5. Buscar `Python`, `Auri`, `BBDD`, `Divina` y confirmar resultados.
 6. Probar en ancho móvil desde DevTools.
 
-## 6. Responsive
+## 7. Responsive
 
 ### Objetivo
 
@@ -182,7 +208,7 @@ Comprobar que el portfolio no se rompe en móvil, tablet ni escritorio.
 - 1366 px: portátil.
 - 1920 px: escritorio amplio.
 
-## 7. Enlaces principales
+## 8. Enlaces principales
 
 ### Objetivo
 
@@ -200,7 +226,7 @@ Evitar enlaces rotos en las rutas más importantes del portfolio.
 - [x] `robots.txt` responde 200.
 - [x] `sitemap.xml` responde 200.
 
-## 8. Criterio 3D aplicado
+## 9. Criterio 3D aplicado
 
 ### Diagnóstico
 
@@ -228,6 +254,7 @@ El portfolio queda preparado como entrega profesional de nivel avanzado:
 - documentado con releases y checkpoints;
 - optimizado para compartir (SEO/Open Graph);
 - con catálogo JSON mantenible e internacionalizado ES/EN;
+- con blog técnico bilingüe;
 - con PWA instalable y soporte offline real;
 - con métricas Lighthouse superiores a 95 (Performance 99-100, A11y/BP/SEO 100);
 - con base accesible y diseño responsive;
@@ -235,9 +262,8 @@ El portfolio queda preparado como entrega profesional de nivel avanzado:
 
 ## Próximo ciclo recomendado
 
-Después de esta auditoría, el siguiente crecimiento debería centrarse en añadir una sección de **Blog técnico** para documentar aprendizajes y, posteriormente, un **Panel de administración** para gestionar proyectos y publicaciones.
+Después de esta auditoría, el siguiente crecimiento debería centrarse en un **Panel de administración** para gestionar proyectos y publicaciones del blog desde una interfaz interna.
 
-Versiones sugeridas posteriores:
+Versión sugerida posterior:
 
-- `v3.3.0 - Blog técnico`
 - `v3.4.0 - Panel de administración`

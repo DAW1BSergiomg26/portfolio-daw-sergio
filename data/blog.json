@@ -1,0 +1,56 @@
+[
+  {
+    "id": "por-que-daw",
+    "slug": "por-que-daw",
+    "date": "2026-06-28",
+    "category": "DAW",
+    "tags": ["DAW", "formación", "decisiones"],
+    "readTime": 3,
+    "es": {
+      "title": "Por qué elegí estudiar DAW",
+      "excerpt": "El camino que me llevó a apostar por el Desarrollo de Aplicaciones Web y por qué creo que fue una buena decisión.",
+      "content": "<p>Elegir estudiar <strong>Desarrollo de Aplicaciones Web</strong> no fue una decisión de un día. Durante años me ha gustado entender cómo funcionan las páginas que uso a diario, desde las redes sociales hasta las tiendas online.</p><p>Lo que más me atrae de esta formación es que aprendes a construir algo real desde cero: primero la estructura con HTML, después el diseño con CSS y finalmente la lógica con JavaScript. Cada pieza tiene su función y, cuando encajan, el resultado es visible inmediatamente.</p><p>Mi objetivo no es solo aprobar, sino llegar al final del ciclo con proyectos que pueda defender ante cualquier empresa. Por eso intento aplicar en cada entrega buenas prácticas: código ordenado, README claro, versionado con Git y publicación estable en GitHub Pages.</p>"
+    },
+    "en": {
+      "title": "Why I chose to study Web Development",
+      "excerpt": "The path that led me to bet on Web Application Development and why I think it was a good decision.",
+      "content": "<p>Choosing to study <strong>Web Application Development</strong> wasn't a one-day decision. For years I've liked understanding how the pages I use daily work, from social networks to online stores.</p><p>What attracts me most about this training is that you learn to build something real from scratch: first the structure with HTML, then the design with CSS, and finally the logic with JavaScript. Each piece has its function and, when they fit together, the result is immediately visible.</p><p>My goal is not just to pass, but to finish the cycle with projects I can defend before any company. That's why I try to apply good practices in every delivery: tidy code, clear README, versioning with Git, and stable publication on GitHub Pages.</p>"
+    }
+  },
+  {
+    "id": "primeros-pasos-git",
+    "slug": "primeros-pasos-git",
+    "date": "2026-06-25",
+    "category": "Git",
+    "tags": ["Git", "GitHub", "flujo de trabajo"],
+    "readTime": 4,
+    "es": {
+      "title": "Mis primeros pasos con Git y GitHub",
+      "excerpt": "Cómo aprendí a versionar mi código, crear ramas y entender que el control de versiones es imprescindible.",
+      "content": "<p>Al principio Git me parecía complicado. No entendía bien la diferencia entre <code>commit</code>, <code>push</code> y <code>pull</code>, y cada error en la terminal me daba miedo de romper algo.</p><p>Con el tiempo he aprendido que Git es como una caja fuerte para el código: siempre puedes volver atrás si algo sale mal. Lo más útil para mí ha sido trabajar con ramas <code>feature/</code> para cada mejora, probar en local, hacer <code>merge</code> a <code>main</code> y etiquetar las versiones estables.</p><p>Hoy no me imagino trabajando sin Git. Me da seguridad, orden y una historia clara de todo lo que he construido.</p>"
+    },
+    "en": {
+      "title": "My first steps with Git and GitHub",
+      "excerpt": "How I learned to version my code, create branches, and understand that version control is essential.",
+      "content": "<p>At first Git seemed complicated. I didn't quite understand the difference between <code>commit</code>, <code>push</code>, and <code>pull</code>, and every terminal error scared me into thinking I'd break something.</p><p>Over time I've learned that Git is like a safe for code: you can always go back if something goes wrong. The most useful thing for me has been working with <code>feature/</code> branches for each improvement, testing locally, merging to <code>main</code>, and tagging stable versions.</p><p>Today I can't imagine working without Git. It gives me security, order, and a clear history of everything I've built.</p>"
+    }
+  },
+  {
+    "id": "portfolio-como-proyecto",
+    "slug": "portfolio-como-proyecto",
+    "date": "2026-06-30",
+    "category": "Proyectos",
+    "tags": ["Portfolio", "PWA", "Lighthouse"],
+    "readTime": 5,
+    "es": {
+      "title": "El portfolio como proyecto principal",
+      "excerpt": "Por qué decidí convertir mi portfolio en una PWA instalable, internacional y con auditoría Lighthouse casi perfecta.",
+      "content": "<p>Este portfolio empezó como una simple página HTML para recopilar enlaces. Poco a poco se ha convertido en mi proyecto más importante porque en él aplico todo lo que voy aprendiendo.</p><p>Primero añadí un catálogo dinámico cargado desde JSON. Después implementé filtros, búsqueda, un dashboard de estadísticas y tarjetas premium. Llegó la internacionalización con soporte completo en español e inglés.</p><p>La última gran mejora ha sido convertirlo en una <strong>PWA instalable</strong> con Service Worker, precacheo del shell y soporte offline. También he perseguido una auditoría Lighthouse alta: Performance 99-100, Accessibility 100, Best Practices 100 y SEO 100.</p><p>Mi conclusión es que el portfolio no es solo una vitrina, es un laboratorio vivo donde demuestro que sé hacer las cosas bien.</p>"
+    },
+    "en": {
+      "title": "The portfolio as the main project",
+      "excerpt": "Why I decided to turn my portfolio into an installable, international PWA with near-perfect Lighthouse scores.",
+      "content": "<p>This portfolio started as a simple HTML page to collect links. Little by little it has become my most important project because I apply everything I learn in it.</p><p>First I added a dynamic catalog loaded from JSON. Then I implemented filters, search, a statistics dashboard, and premium cards. Internationalization came next with full support in Spanish and English.</p><p>The latest major improvement has been turning it into an <strong>installable PWA</strong> with a Service Worker, shell precaching, and offline support. I've also pursued a high Lighthouse audit: Performance 99-100, Accessibility 100, Best Practices 100, and SEO 100.</p><p>My conclusion is that the portfolio is not just a showcase, it's a living laboratory where I demonstrate that I can do things right.</p>"
+    }
+  }
+]

@@ -4,7 +4,7 @@
 > **Repositorio:** portfolio-daw-sergio
 > **Documento:** Handoff Maestro
 > **Versión del documento:** 1.0
-> **Estado del proyecto:** v3.2.0
+> **Estado del proyecto:** v3.3.0
 
 ---
 
@@ -12,7 +12,7 @@
 Este documento constituye la fuente oficial de contexto del proyecto. Su objetivo es permitir la continuidad del desarrollo manteniendo la arquitectura y visión.
 
 # 9. Estado actual
-v3.2.0 - PWA instalable con Service Worker activo: precachea el shell, usa estrategia network-first para datos JSON y permite funcionamiento offline. Internacionalización completa (ES/EN), optimizaciones Lighthouse (Performance 99-100, Accessibility/Best Practices/SEO 100) y catálogo dinámico con 16 proyectos.
+v3.3.0 - Blog técnico integrado en el portfolio con listado de entradas y página individual de artículo, ambas alimentadas desde `data/blog.json` con soporte i18n ES/EN. PWA instalable con Service Worker, internacionalización completa, optimizaciones Lighthouse (Performance 99-100, Accessibility/Best Practices/SEO 100) y catálogo dinámico con 16 proyectos.
 
 # 15. Catálogo de proyectos - Nota sobre i18n
 El catálogo `data/projects.json` incluye campos `_en` para cada uno de los 16 proyectos:

@@ -4,7 +4,7 @@ let translations = {};
 
 async function loadTranslations() {
   try {
-    const response = await fetch("data/lang.json?v=3.2.0");
+    const response = await fetch("data/lang.json?v=3.3.0");
     translations = await response.json();
     updateLangButtons();
     applyTranslations();
@@ -45,6 +45,7 @@ function setLanguage(lang) {
   updateLangButtons();
   applyTranslations();
   applyDynamicTranslations();
+  if (typeof window.refreshBlog === 'function') window.refreshBlog();
 }
 
 function updateLangButtons() {
@@ -497,7 +498,7 @@ function renderProjects(projects) {
 
 async function loadProjectsFromJson() {
   try {
-    const response = await fetch("data/projects.json?v=3.2.0");
+    const response = await fetch("data/projects.json?v=3.3.0");
 
     if (!response.ok) {
       throw new Error("No se pudo cargar data/projects.json");

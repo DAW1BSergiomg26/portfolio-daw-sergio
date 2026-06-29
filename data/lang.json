@@ -125,7 +125,21 @@
     "project_page_back_home": "Volver al inicio",
     "project_page_tech": "Tecnologías aplicadas",
     "project_page_links": "Enlaces directos",
-    "project_page_default_kicker": "Proyecto profesional"
+    "project_page_default_kicker": "Proyecto profesional",
+    "nav_blog": "Blog",
+    "blog_eyebrow": "Blog técnico",
+    "blog_title": "Apuntes y aprendizajes",
+    "blog_subtitle": "Notas sobre desarrollo web, DAW y buenas prácticas.",
+    "blog_loading": "Cargando entradas...",
+    "blog_empty": "No hay entradas publicadas todavía.",
+    "blog_read_more": "Leer entrada",
+    "blog_back": "← Volver al blog",
+    "blog_post_loading": "Cargando artículo...",
+    "blog_post_not_found": "Artículo no encontrado",
+    "blog_post_error": "Error al cargar el artículo.",
+    "blog_post_published": "Publicado",
+    "blog_post_tags": "Etiquetas",
+    "blog_min_read": "min de lectura"
   },
   "en": {
     "lang_es": "ES",
@@ -253,6 +267,20 @@
     "project_page_back_home": "Back to home",
     "project_page_tech": "Applied technologies",
     "project_page_links": "Direct links",
-    "project_page_default_kicker": "Professional project"
+    "project_page_default_kicker": "Professional project",
+    "nav_blog": "Blog",
+    "blog_eyebrow": "Technical blog",
+    "blog_title": "Notes and learnings",
+    "blog_subtitle": "Notes on web development, DAW, and best practices.",
+    "blog_loading": "Loading posts...",
+    "blog_empty": "No posts published yet.",
+    "blog_read_more": "Read post",
+    "blog_back": "← Back to blog",
+    "blog_post_loading": "Loading article...",
+    "blog_post_not_found": "Article not found",
+    "blog_post_error": "Error loading article.",
+    "blog_post_published": "Published",
+    "blog_post_tags": "Tags",
+    "blog_min_read": "min read"
   }
 }
