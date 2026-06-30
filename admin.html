@@ -109,7 +109,23 @@
       border-radius: var(--radius-lg);
       background: var(--panel);
     }
-    .admin-form { display: grid; gap: 1rem; }
+    .admin-form { display: grid; gap: 1.5rem; }
+    .admin-form fieldset {
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      padding: 1.25rem;
+      margin: 0;
+      display: grid;
+      gap: 1rem;
+    }
+    .admin-form legend {
+      padding: 0 0.6rem;
+      color: var(--accent);
+      font-weight: 800;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
     .admin-form label { color: var(--muted); font-weight: 600; font-size: 0.9rem; }
     .admin-form input, .admin-form textarea, .admin-form select {
       width: 100%;
@@ -119,10 +135,58 @@
       background: rgba(255,255,255,0.05);
       color: var(--text);
       font-family: inherit;
+      font-size: 1rem;
+      transition: border-color 180ms ease, box-shadow 180ms ease, background 180ms ease;
     }
-    .admin-form textarea { resize: vertical; }
+    .admin-form input:focus, .admin-form textarea:focus, .admin-form select:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 4px rgba(125, 211, 252, 0.18);
+      background: rgba(255,255,255,0.08);
+    }
+    .admin-form input[aria-invalid="true"], .admin-form textarea[aria-invalid="true"], .admin-form select[aria-invalid="true"] { border-color: #ff6b6b; }
+    .admin-form textarea { resize: vertical; min-height: 80px; }
+    .admin-form textarea[name$="_content"] { min-height: 160px; }
+    .admin-form .field-hint { color: var(--muted); font-size: 0.8rem; margin-top: 0.2rem; }
+    .admin-form .field-error { color: #ff6b6b; font-size: 0.85rem; font-weight: 700; min-height: 1.2em; }
     .admin-checkbox { display: flex; align-items: center; gap: 0.5rem; }
-    .admin-form-actions { display: flex; gap: 0.8rem; margin-top: 1rem; }
+    .admin-form-actions { display: flex; gap: 0.8rem; margin-top: 0.5rem; }
+    .admin-toast {
+      position: fixed;
+      bottom: 1.5rem;
+      right: 1.5rem;
+      z-index: 1000;
+      padding: 1rem 1.25rem;
+      border-radius: var(--radius-md);
+      background: var(--panel-strong);
+      border: 1px solid var(--line);
+      color: var(--text);
+      font-weight: 700;
+      box-shadow: var(--shadow);
+      transform: translateY(120%);
+      opacity: 0;
+      transition: transform 300ms ease, opacity 300ms ease;
+    }
+    .admin-toast.is-visible { transform: translateY(0); opacity: 1; }
+    .admin-toast.is-success { border-color: #86efac; color: #86efac; }
+    .admin-toast.is-error { border-color: #ff6b6b; color: #ff6b6b; }
+    .admin-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.2rem 0.6rem;
+      border-radius: 8px;
+      font-size: 0.75rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      background: rgba(125, 211, 252, 0.15);
+      color: var(--accent);
+      border: 1px solid rgba(125, 211, 252, 0.3);
+    }
+    .admin-badge.gold { background: rgba(247, 215, 116, 0.15); color: var(--gold); border-color: rgba(247, 215, 116, 0.3); }
+    .admin-badge.purple { background: rgba(167, 139, 250, 0.15); color: var(--accent-2); border-color: rgba(167, 139, 250, 0.3); }
+    .admin-item-meta { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.3rem; }
     .admin-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
     .admin-stat-card {
       padding: 1.5rem;
