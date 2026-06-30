@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="es">
+<script>
+  (function() {
+    const savedTheme = localStorage.getItem('portfolio-theme');
+    const prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
+    if (savedTheme === 'light' || (!savedTheme && prefersLight)) {
+      document.documentElement.setAttribute('data-theme', 'light');
+    }
+  })();
+</script>
+<head>
+  <script src="js/theme.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>404 · Página no encontrada | Portfolio DAW</title>
+  <meta name="description" content="La página que buscas no existe. Vuelve al portfolio de Sergio Daniel Martínez Gómez.">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#070911">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css?v=3.5.0">
+  <style>
+    body {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      margin: 0;
+      background:
+        radial-gradient(circle at top left, rgba(125, 211, 252, 0.15), transparent 30rem),
+        radial-gradient(circle at top right, rgba(167, 139, 250, 0.12), transparent 30rem),
+        #070911;
+    }
+    :root[data-theme="light"] body {
+      background:
+        radial-gradient(circle at top left, rgba(125, 211, 252, 0.30), transparent 30rem),
+        radial-gradient(circle at top right, rgba(167, 139, 250, 0.25), transparent 30rem),
+        #f6f7fb;
+    }
+    .error-page {
+      width: min(560px, calc(100% - 2rem));
+      text-align: center;
+      padding: 3rem 2rem;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      background: linear-gradient(145deg, var(--panel), rgba(255,255,255,0.03));
+      box-shadow: var(--shadow);
+    }
+    .error-code {
+      font-size: clamp(5rem, 15vw, 8rem);
+      font-weight: 900;
+      line-height: 1;
+      margin: 0;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .error-title {
+      font-size: clamp(1.5rem, 4vw, 2rem);
+      margin: 1.5rem 0 1rem;
+      color: var(--text);
+    }
+    .error-text {
+      color: var(--muted);
+      font-size: 1.1rem;
+      line-height: 1.7;
+      margin: 0 0 2rem;
+    }
+    .error-actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.8rem;
+    }
+    .error-header {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="error-header">
+    <div class="lang-switcher" role="group" aria-label="Selector de idioma">
+      <button type="button" class="lang-btn is-active" data-lang="es" onclick="setErrorLang('es')">ES</button>
+      <button type="button" class="lang-btn" data-lang="en" onclick="setErrorLang('en')">EN</button>
+    </div>
+    <button type="button" class="theme-toggle" aria-label="Cambiar tema" onclick="toggleTheme()">
+      <span class="theme-icon-light" aria-hidden="true">☀️</span>
+      <span class="theme-icon-dark" aria-hidden="true">🌙</span>
+    </button>
+  </div>
+
+  <main class="error-page">
+    <p class="error-code" aria-hidden="true">404</p>
+    <h1 class="error-title" data-i18n="title">Página no encontrada</h1>
+    <p class="error-text" data-i18n="text">
+      La página que buscas no existe o ha cambiado de dirección. Puedes volver al inicio o explorar el catálogo de proyectos.
+    </p>
+    <div class="error-actions">
+      <a class="btn primary" href="index.html" data-i18n="home">Volver al inicio</a>
+      <a class="btn ghost" href="index.html#proyectos" data-i18n="projects">Ver proyectos</a>
+    </div>
+  </main>
+
+  <script>
+    const translations = {
+      es: {
+        title: 'Página no encontrada',
+        text: 'La página que buscas no existe o ha cambiado de dirección. Puedes volver al inicio o explorar el catálogo de proyectos.',
+        home: 'Volver al inicio',
+        projects: 'Ver proyectos'
+      },
+      en: {
+        title: 'Page not found',
+        text: 'The page you are looking for does not exist or has changed address. You can go back home or explore the project catalog.',
+        home: 'Back to home',
+        projects: 'View projects'
+      }
+    };
+
+    let currentLang = localStorage.getItem('lang') || 'es';
+
+    function setErrorLang(lang) {
+      currentLang = lang;
+      localStorage.setItem('lang', currentLang);
+      document.documentElement.lang = currentLang;
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (translations[currentLang][key]) {
+          el.textContent = translations[currentLang][key];
+        }
+      });
+      document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.classList.toggle('is-active', btn.dataset.lang === currentLang);
+      });
+    }
+
+    setErrorLang(currentLang);
+  </script>
+</body>
+</html>
