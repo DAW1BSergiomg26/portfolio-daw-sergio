@@ -16,6 +16,7 @@ const STATIC_ASSETS = [
   `${BASE_PATH}/proyecto.html`,
   `${BASE_PATH}/entrada.html`,
   `${BASE_PATH}/admin.html`,
+  `${BASE_PATH}/404.html`,
   `${BASE_PATH}/css/styles.css`,
   `${BASE_PATH}/css/filters.css`,
   `${BASE_PATH}/js/app.js`,
