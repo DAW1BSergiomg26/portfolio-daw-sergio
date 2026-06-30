@@ -99,14 +99,14 @@
     if (localProjects) {
       projects = JSON.parse(localProjects);
     } else {
-      const res = await fetch('data/projects.json?v=3.4.0');
+      const res = await fetch('data/projects.json?v=3.4.1');
       projects = await res.json();
     }
 
     if (localBlog) {
       blog = JSON.parse(localBlog);
     } else {
-      const res = await fetch('data/blog.json?v=3.4.0');
+      const res = await fetch('data/blog.json?v=3.4.1');
       blog = await res.json();
     }
   }

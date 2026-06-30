@@ -1,11 +1,11 @@
-# Auditoría de calidad - Portfolio DAW v3.4.0
+# Auditoría de calidad - Portfolio DAW v3.4.1
 
 Documento de control técnico para validar el Portfolio DAW de Sergio Daniel Martínez Gómez antes de cada versión estable.
 
 ## Estado de la auditoría
 
-- Versión objetivo: v3.4.0
-- Rama de trabajo: `feature/panel-administracion-v3`
+- Versión objetivo: v3.4.1
+- Rama de trabajo: `feature/admin-footer-link-v3`
 - Estado: lista para revisión manual
 - URL pública: https://daw1bsergiomg26.github.io/portfolio-daw-sergio/
 
@@ -165,6 +165,7 @@ Validar que el panel interno permite gestionar proyectos y blog de forma local.
 ### Checklist
 
 - [x] `admin.html` accesible y con `noindex`.
+- [x] Enlace a `admin.html` presente en el footer de `index.html`.
 - [x] `js/admin.js` implementa autenticación por contraseña hasheada.
 - [x] Permite listar, crear, editar y eliminar proyectos.
 - [x] Permite listar, crear, editar y eliminar entradas de blog.

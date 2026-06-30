@@ -326,19 +326,19 @@ Características:
 
 Para evitar problemas de caché en GitHub Pages, los archivos CSS, JavaScript y JSON se cargan con parámetro de versión.
 
-Versión actual estable: `v3.4.0`.
+Versión actual estable: `v3.4.1`.
 
 Ejemplo:
 
-- `css/styles.css?v=3.4.0`
-- `css/filters.css?v=3.4.0`
-- `js/app.js?v=3.4.0`
-- `js/proyecto.js?v=3.4.0`
-- `js/blog.js?v=3.4.0`
-- `js/admin.js?v=3.4.0`
-- `data/projects.json?v=3.4.0`
-- `data/lang.json?v=3.4.0`
-- `data/blog.json?v=3.4.0`
+- `css/styles.css?v=3.4.1`
+- `css/filters.css?v=3.4.1`
+- `js/app.js?v=3.4.1`
+- `js/proyecto.js?v=3.4.1`
+- `js/blog.js?v=3.4.1`
+- `js/admin.js?v=3.4.1`
+- `data/projects.json?v=3.4.1`
+- `data/lang.json?v=3.4.1`
+- `data/blog.json?v=3.4.1`
 - `sw.js` (se actualiza mediante cambio de `CACHE_NAME` interno)
 
 Así, cuando se publica una nueva versión, el navegador carga los archivos actualizados y no conserva estilos, scripts o datos antiguos.
