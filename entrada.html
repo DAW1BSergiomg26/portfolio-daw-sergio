@@ -19,8 +19,8 @@
   <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" fetchpriority="high">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
   <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet"></noscript>
-  <link rel="stylesheet" href="css/styles.css?v=3.4.1">
-  <link rel="stylesheet" href="css/filters.css?v=3.4.1">
+  <link rel="stylesheet" href="css/styles.css?v=3.4.2">
+  <link rel="stylesheet" href="css/filters.css?v=3.4.2">
   <style>
     body {
       background: radial-gradient(circle at top left, rgba(125, 211, 252, 0.1), transparent 30rem),
@@ -127,12 +127,24 @@
       <div class="blog-loading" data-i18n="blog_post_loading">Cargando artículo...</div>
     </main>
   </div>
-  <script src="js/blog.js?v=3.4.1" defer></script>
+  <script src="js/blog.js?v=3.4.2" defer></script>
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
         navigator.serviceWorker.register('sw.js')
-          .then(reg => console.log('[SW] Registrado:', reg.scope))
+          .then(reg => {
+            console.log('[SW] Registrado:', reg.scope);
+            reg.addEventListener('updatefound', () => {
+              const newWorker = reg.installing;
+              if (!newWorker) return;
+              newWorker.addEventListener('statechange', () => {
+                if (newWorker.state === 'activated' && navigator.serviceWorker.controller) {
+                  console.log('[SW] Nueva versión activada, recargando...');
+                  window.location.reload();
+                }
+              });
+            });
+          })
           .catch(err => console.error('[SW] Error al registrar:', err));
       });
     }

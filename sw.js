@@ -4,7 +4,7 @@
  * Estrategia: Cache-first para el shell/app, network-first para datos JSON.
  */
 
-const CACHE_NAME = 'portfolio-daw-v3.4.1';
+const CACHE_NAME = 'portfolio-daw-v3.4.2';
 const DATA_CACHE_NAME = 'portfolio-daw-data-v3.4.1';
 
 // Detectar base path automáticamente (local /portfolio-daw-sergio/ o raíz)

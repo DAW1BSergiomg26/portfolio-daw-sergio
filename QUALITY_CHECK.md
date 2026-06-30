@@ -1,10 +1,10 @@
-# Auditoría de calidad - Portfolio DAW v3.4.1
+# Auditoría de calidad - Portfolio DAW v3.4.2
 
 Documento de control técnico para validar el Portfolio DAW de Sergio Daniel Martínez Gómez antes de cada versión estable.
 
 ## Estado de la auditoría
 
-- Versión objetivo: v3.4.1
+- Versión objetivo: v3.4.2
 - Rama de trabajo: `feature/admin-footer-link-v3`
 - Estado: lista para revisión manual
 - URL pública: https://daw1bsergiomg26.github.io/portfolio-daw-sergio/

@@ -4,7 +4,7 @@
 > **Repositorio:** portfolio-daw-sergio
 > **Documento:** Handoff Maestro
 > **Versión del documento:** 1.0
-> **Estado del proyecto:** v3.4.1
+> **Estado del proyecto:** v3.4.2
 
 ---
 
@@ -12,7 +12,7 @@
 Este documento constituye la fuente oficial de contexto del proyecto. Su objetivo es permitir la continuidad del desarrollo manteniendo la arquitectura y visión.
 
 # 9. Estado actual
-v3.4.1 - Acceso directo al panel de administración añadido en el footer. Panel en `admin.html` para gestionar proyectos y entradas de blog de forma local (localStorage), con exportación/importación JSON. Blog técnico integrado, PWA instalable con Service Worker, internacionalización completa ES/EN, optimizaciones Lighthouse (Performance 99-100, Accessibility/Best Practices/SEO 100) y catálogo dinámico con 16 proyectos.
+v3.4.2 - Acceso directo al panel de administración añadido en el footer. Panel en `admin.html` para gestionar proyectos y entradas de blog de forma local (localStorage), con exportación/importación JSON. Blog técnico integrado, PWA instalable con Service Worker, internacionalización completa ES/EN, optimizaciones Lighthouse (Performance 99-100, Accessibility/Best Practices/SEO 100) y catálogo dinámico con 16 proyectos.
 
 # 15. Catálogo de proyectos - Nota sobre i18n
 El catálogo `data/projects.json` incluye campos `_en` para cada uno de los 16 proyectos:

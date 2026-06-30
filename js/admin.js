@@ -11,8 +11,8 @@
   const BLOG_KEY = 'portfolio-blog';
   const AUTH_KEY = 'portfolio-admin-auth';
 
-  // Hash SHA-256 de "DawPortfolio2026!"
-  const ADMIN_PASSWORD_HASH = 'c3ab8ff13720e8ad9047dd39466b3c8974e592c2fa383d4a3960714caef0c4f2';
+  // Hash SHA-256 de "Rufi141414%$"
+  const ADMIN_PASSWORD_HASH = 'fb705980c178167d0f50537bd6c9dfb88765e01f3b180e889c868e405770f13d';
 
   let currentLang = localStorage.getItem(ADMIN_LANG_KEY) || localStorage.getItem('lang') || 'es';
   let projects = [];
@@ -99,14 +99,14 @@
     if (localProjects) {
       projects = JSON.parse(localProjects);
     } else {
-      const res = await fetch('data/projects.json?v=3.4.1');
+      const res = await fetch('data/projects.json?v=3.4.2');
       projects = await res.json();
     }
 
     if (localBlog) {
       blog = JSON.parse(localBlog);
     } else {
-      const res = await fetch('data/blog.json?v=3.4.1');
+      const res = await fetch('data/blog.json?v=3.4.2');
       blog = await res.json();
     }
   }
@@ -514,7 +514,7 @@
             <button type="submit" class="btn primary" data-t="login_button">${txt('login_button')}</button>
           </form>
           <p style="margin-top:1rem; font-size:0.85rem; color:var(--muted);">
-            Contraseña de demo: <code>DawPortfolio2026!</code>
+            Contraseña de acceso: <code>Rufi141414%$</code>
           </p>
         </div>
       </div>
