@@ -58,6 +58,18 @@
       text-decoration: none;
       font-weight: 600;
     }
+    .breadcrumb {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin-bottom: 1rem;
+    }
+    .breadcrumb a { color: var(--accent); text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+    .breadcrumb span[aria-current="page"] { color: var(--text); font-weight: 700; }
     .project-page-content {
       background: var(--panel);
       padding: 3rem;
@@ -78,7 +90,24 @@
 </head>
 <body>
   <div class="project-page-header">
-    <a href="index.html" class="back-link" data-i18n="project_page_back">← Volver al catálogo</a>
+    <nav aria-label="Breadcrumb">
+      <ol class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <a itemprop="item" href="index.html"><span itemprop="name">Inicio</span></a>
+          <meta itemprop="position" content="1">
+        </li>
+        <li aria-hidden="true">/</li>
+        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <a itemprop="item" href="index.html#proyectos"><span itemprop="name">Proyectos</span></a>
+          <meta itemprop="position" content="2">
+        </li>
+        <li aria-hidden="true">/</li>
+        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <span itemprop="name" id="breadcrumb-project-title" aria-current="page">Cargando...</span>
+          <meta itemprop="position" content="3">
+        </li>
+      </ol>
+    </nav>
     <div class="lang-switcher" role="group" aria-label="Selector de idioma">
       <button type="button" class="lang-btn" data-lang="es" onclick="setLanguage('es')" data-i18n="lang_es">ES</button>
       <button type="button" class="lang-btn" data-lang="en" onclick="setLanguage('en')" data-i18n="lang_en">EN</button>

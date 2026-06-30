@@ -68,6 +68,8 @@ async function loadProject() {
 
     renderProject(project, container);
     document.title = `${getProjectTitle(project)} | Portfolio DAW`;
+    const breadcrumbTitle = document.getElementById("breadcrumb-project-title");
+    if (breadcrumbTitle) breadcrumbTitle.textContent = getProjectTitle(project);
   } catch (error) {
     container.innerHTML = `
       <h1 style="color:var(--accent)">${t("project_page_error")}</h1>

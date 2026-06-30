@@ -122,6 +122,10 @@
       const content = getPostContent(post);
       const tags = (post.tags || []).map(tag => `<span class="blog-tag">${tag}</span>`).join('');
 
+      const breadcrumbTitle = document.getElementById('breadcrumb-post-title');
+      if (breadcrumbTitle) breadcrumbTitle.textContent = content.title || '';
+      document.title = `${content.title || 'Blog'} | Portfolio DAW`;
+
       container.innerHTML = `
         <article class="blog-post">
           <header class="blog-post-header">
