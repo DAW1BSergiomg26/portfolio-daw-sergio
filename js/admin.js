@@ -34,6 +34,9 @@
       add_post: 'Añadir entrada',
       edit: 'Editar',
       delete: 'Eliminar',
+      view: 'Ver',
+      copy_link: 'Copiar enlace',
+      link_copied: 'Enlace copiado',
       save: 'Guardar',
       cancel: 'Cancelar',
       export_json: 'Exportar JSON',
@@ -63,6 +66,9 @@
       add_post: 'Add post',
       edit: 'Edit',
       delete: 'Delete',
+      view: 'View',
+      copy_link: 'Copy link',
+      link_copied: 'Link copied',
       save: 'Save',
       cancel: 'Cancel',
       export_json: 'Export JSON',
@@ -236,6 +242,8 @@
           </div>
         </div>
         <div class="admin-item-actions">
+          <a class="btn small" href="proyecto.html?id=${encodeURIComponent(p.id)}" target="_blank" rel="noopener noreferrer" data-t="view">${txt('view')}</a>
+          <button type="button" class="btn small ghost" onclick="window.adminCopyProjectLink(${JSON.stringify(p.id).replace(/"/g, '&quot;')})" data-t="copy_link">${txt('copy_link')}</button>
           <button type="button" class="btn small" onclick="window.adminEditProject(${p.id})" data-t="edit">${txt('edit')}</button>
           <button type="button" class="btn small ghost" onclick="window.adminDeleteProject(${p.id})" data-t="delete">${txt('delete')}</button>
         </div>
@@ -266,6 +274,8 @@
           </div>
         </div>
         <div class="admin-item-actions">
+          <a class="btn small" href="entrada.html?slug=${encodeURIComponent(p.slug)}" target="_blank" rel="noopener noreferrer" data-t="view">${txt('view')}</a>
+          <button type="button" class="btn small ghost" onclick="window.adminCopyPostLink(${JSON.stringify(p.slug).replace(/"/g, '&quot;')})" data-t="copy_link">${txt('copy_link')}</button>
           <button type="button" class="btn small" onclick="window.adminEditPost('${p.slug}')" data-t="edit">${txt('edit')}</button>
           <button type="button" class="btn small ghost" onclick="window.adminDeletePost('${p.slug}')" data-t="delete">${txt('delete')}</button>
         </div>
@@ -559,10 +569,46 @@
     editingId = null;
   }
 
+  function getBaseUrl() {
+    const { protocol, host, pathname } = window.location;
+    const path = pathname.replace(/\/[^/]*$/, '/');
+    return `${protocol}//${host}${path}`;
+  }
+
+  function copyToClipboard(url) {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(url)
+        .then(() => showToast(txt('link_copied'), 'success'))
+        .catch(() => showToast(txt('import_error'), 'error'));
+    } else {
+      const textarea = document.createElement('textarea');
+      textarea.value = url;
+      textarea.style.position = 'fixed';
+      textarea.style.opacity = '0';
+      document.body.appendChild(textarea);
+      textarea.select();
+      try {
+        document.execCommand('copy');
+        showToast(txt('link_copied'), 'success');
+      } catch (err) {
+        showToast(txt('import_error'), 'error');
+      }
+      document.body.removeChild(textarea);
+    }
+  }
+
   window.adminEditProject = function(id) {
     activeTab = 'projects';
     updateTabs();
     showForm('project', projects.find(p => p.id === id));
+  };
+
+  window.adminCopyProjectLink = function(id) {
+    copyToClipboard(`${getBaseUrl()}proyecto.html?id=${encodeURIComponent(id)}`);
+  };
+
+  window.adminCopyPostLink = function(slug) {
+    copyToClipboard(`${getBaseUrl()}entrada.html?slug=${encodeURIComponent(slug)}`);
   };
 
   window.adminDeleteProject = function(id) {
