@@ -3,7 +3,7 @@ let translations = {};
 
 async function loadTranslations() {
   try {
-    const response = await fetch("data/lang.json?v=3.5.11");
+    const response = await fetch("data/lang.json?v=3.5.12");
     translations = await response.json();
     updateLangButtons();
     applyTranslations();
@@ -55,7 +55,7 @@ async function loadProject() {
   }
 
   try {
-    const response = await fetch("data/projects.json?v=3.5.11");
+    const response = await fetch("data/projects.json?v=3.5.12");
     if (!response.ok) throw new Error("No se pudo cargar el catálogo");
 
     const projects = await response.json();
@@ -70,6 +70,7 @@ async function loadProject() {
     document.title = `${getProjectTitle(project)} | Portfolio DAW`;
     const breadcrumbTitle = document.getElementById("breadcrumb-project-title");
     if (breadcrumbTitle) breadcrumbTitle.textContent = getProjectTitle(project);
+    updateMeta(project);
   } catch (error) {
     container.innerHTML = `
       <h1 style="color:var(--accent)">${t("project_page_error")}</h1>
@@ -81,6 +82,26 @@ async function loadProject() {
 
 function getProjectTitle(project) {
   return currentLang === "en" && project.title_en ? project.title_en : project.title;
+}
+
+function updateMeta(project) {
+  const title = getProjectTitle(project);
+  const description = getProjectDescription(project) || "Ficha profesional de un proyecto del Portfolio DAW de Sergio Daniel Martínez Gómez.";
+  const url = `https://daw1bsergiomg26.github.io/portfolio-daw-sergio/proyecto.html?id=${encodeURIComponent(project.id)}`;
+  const image = "https://daw1bsergiomg26.github.io/portfolio-daw-sergio/og-image.svg";
+
+  function setMeta(selector, attr, value) {
+    const el = document.querySelector(selector);
+    if (el) el.setAttribute(attr, value);
+  }
+
+  setMeta('meta[name="description"]', "content", description);
+  setMeta('meta[property="og:title"]', "content", title);
+  setMeta('meta[property="og:description"]', "content", description);
+  setMeta('meta[property="og:url"]', "content", url);
+  setMeta('meta[name="twitter:title"]', "content", title);
+  setMeta('meta[name="twitter:description"]', "content", description);
+  setMeta('meta[name="twitter:image"]', "content", image);
 }
 
 function getProjectDescription(project) {
