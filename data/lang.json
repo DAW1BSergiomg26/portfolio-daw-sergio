@@ -2,6 +2,7 @@
   "es": {
     "lang_es": "ES",
     "lang_en": "EN",
+    "theme_toggle": "Cambiar tema",
     "skip_to_projects": "Saltar al catálogo de proyectos",
     "brand_label": "Ir al inicio",
     "menu_open": "Abrir menú",
@@ -162,6 +163,7 @@
   "en": {
     "lang_es": "ES",
     "lang_en": "EN",
+    "theme_toggle": "Toggle theme",
     "skip_to_projects": "Skip to project catalog",
     "brand_label": "Go to home",
     "menu_open": "Open menu",

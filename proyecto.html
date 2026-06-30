@@ -1,6 +1,16 @@
 <!DOCTYPE html>
 <html lang="es">
+<script>
+  (function() {
+    const savedTheme = localStorage.getItem('portfolio-theme');
+    const prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
+    if (savedTheme === 'light' || (!savedTheme && prefersLight)) {
+      document.documentElement.setAttribute('data-theme', 'light');
+    }
+  })();
+</script>
 <head>
+  <script src="js/theme.js"></script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Proyecto | Portfolio DAW | Sergio Daniel Martínez Gómez</title>
@@ -21,6 +31,11 @@
       font-family: "Inter", sans-serif;
       margin: 0;
       padding: 0;
+    }
+    :root[data-theme="light"] body {
+      background: radial-gradient(circle at top left, rgba(125, 211, 252, 0.25), transparent 30rem),
+                  radial-gradient(circle at top right, rgba(167, 139, 250, 0.20), transparent 30rem),
+                  #f6f7fb;
     }
     .project-page-header {
       display: flex;
@@ -68,6 +83,10 @@
       <button type="button" class="lang-btn" data-lang="es" onclick="setLanguage('es')" data-i18n="lang_es">ES</button>
       <button type="button" class="lang-btn" data-lang="en" onclick="setLanguage('en')" data-i18n="lang_en">EN</button>
     </div>
+    <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Cambiar tema" data-i18n="theme_toggle" onclick="toggleTheme()">
+      <span class="theme-icon-light" aria-hidden="true">☀️</span>
+      <span class="theme-icon-dark" aria-hidden="true">🌙</span>
+    </button>
   </div>
   <div class="project-page-container">
     <main id="project-container" class="project-page-content">
