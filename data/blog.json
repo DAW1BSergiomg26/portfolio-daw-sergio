@@ -52,5 +52,59 @@
       "excerpt": "Why I decided to turn my portfolio into an installable, international PWA with near-perfect Lighthouse scores.",
       "content": "<p>This portfolio started as a simple HTML page to collect links. Little by little it has become my most important project because I apply everything I learn in it.</p><p>First I added a dynamic catalog loaded from JSON. Then I implemented filters, search, a statistics dashboard, and premium cards. Internationalization came next with full support in Spanish and English.</p><p>The latest major improvement has been turning it into an <strong>installable PWA</strong> with a Service Worker, shell precaching, and offline support. I've also pursued a high Lighthouse audit: Performance 99-100, Accessibility 100, Best Practices 100, and SEO 100.</p><p>My conclusion is that the portfolio is not just a showcase, it's a living laboratory where I demonstrate that I can do things right.</p>"
     }
+  },
+  {
+    "id": "formulario-formspree-github-pages",
+    "slug": "formulario-formspree-github-pages",
+    "date": "2026-07-01",
+    "category": "Tutorial",
+    "tags": ["Formspree", "GitHub Pages", "Contacto", "HTML", "JavaScript"],
+    "readTime": 4,
+    "es": {
+      "title": "Cómo integré un formulario de contacto en GitHub Pages con Formspree",
+      "excerpt": "GitHub Pages es estático, pero eso no impide recibir mensajes. Explico cómo conecté un formulario funcional con Formspree en minutos.",
+      "content": "<p>Una de las limitaciones de <strong>GitHub Pages</strong> es que no puedes ejecutar backend. Eso significa que, de forma nativa, no puedes procesar formularios de contacto. Sin embargo, existen servicios como <strong>Formspree</strong> que hacen el trabajo pesado por ti.</p><p>Lo primero fue crear una cuenta en Formspree y generar un nuevo formulario. Al hacerlo, obtienes un endpoint como <code>https://formspree.io/f/TU_ID</code>. Esa URL es la que recibe los datos.</p><p>En el HTML creé un formulario sencillo con los campos <code>name</code>, <code>email</code>, <code>subject</code> y <code>message</code>. En JavaScript capturé el evento <code>submit</code>, evité la acción por defecto y envié los datos mediante <code>fetch</code> usando <code>FormData</code>.</p><p>Finalmente añadí validación personalizada, mensajes traducidos al inglés y al español, y un estado de carga. El resultado es un formulario profesional que envía correos reales sin necesidad de servidor propio.</p>"
+    },
+    "en": {
+      "title": "How I integrated a contact form in GitHub Pages with Formspree",
+      "excerpt": "GitHub Pages is static, but that doesn't stop you from receiving messages. Here's how I connected a functional form with Formspree in minutes.",
+      "content": "<p>One of the limitations of <strong>GitHub Pages</strong> is that you can't run a backend. That means you can't natively process contact forms. However, services like <strong>Formspree</strong> do the heavy lifting for you.</p><p>The first step was creating a Formspree account and generating a new form. When you do that, you get an endpoint like <code>https://formspree.io/f/YOUR_ID</code>. That URL receives the data.</p><p>In HTML I created a simple form with the fields <code>name</code>, <code>email</code>, <code>subject</code>, and <code>message</code>. In JavaScript I captured the <code>submit</code> event, prevented the default action, and sent the data using <code>fetch</code> with <code>FormData</code>.</p><p>Finally I added custom validation, messages translated into English and Spanish, and a loading state. The result is a professional form that sends real emails without needing your own server.</p>"
+    }
+  },
+  {
+    "id": "json-catalogo-proyectos",
+    "slug": "json-catalogo-proyectos",
+    "date": "2026-07-02",
+    "category": "Arquitectura",
+    "tags": ["JSON", "JavaScript", "Catálogo", "Arquitectura"],
+    "readTime": 5,
+    "es": {
+      "title": "De JSON a catálogo interactivo: cómo organizo mis proyectos",
+      "excerpt": "Cómo convertí un listado estático de proyectos en un catálogo dinámico con filtros, búsqueda y estadísticas.",
+      "content": "<p>Al principio, cada proyecto del portfolio estaba escrito directamente en HTML. Eso funcionaba, pero añadir uno nuevo significaba copiar bloques, modificar textos y repetir estructura. Era fácil cometer errores y difícil mantener la coherencia.</p><p>Decidí mover todo a un archivo <code>data/projects.json</code>. Cada proyecto se convirtió en un objeto con propiedades como <code>title</code>, <code>description</code>, <code>status</code>, <code>technologies</code>, <code>categories</code> y <code>links</code>.</p><p>Con JavaScript leo ese JSON, genero las tarjetas dinámicamente y aprovecho los metadatos para crear filtros por categoría, un buscador por texto libre y un dashboard de estadísticas. Si quiero añadir un proyecto, solo edito el JSON.</p><p>Además, preparé campos <code>_en</code> para que el catálogo funcione en inglés sin duplicar archivos. Esta arquitectura hace que el portfolio sea mantenible, escalable y profesional.</p>"
+    },
+    "en": {
+      "title": "From JSON to interactive catalog: how I organize my projects",
+      "excerpt": "How I turned a static project list into a dynamic catalog with filters, search, and statistics.",
+      "content": "<p>At first, every project in the portfolio was written directly in HTML. That worked, but adding a new one meant copying blocks, editing text, and repeating structure. It was easy to make mistakes and hard to keep things consistent.</p><p>I decided to move everything to a <code>data/projects.json</code> file. Each project became an object with properties like <code>title</code>, <code>description</code>, <code>status</code>, <code>technologies</code>, <code>categories</code>, and <code>links</code>.</p><p>With JavaScript I read that JSON, generate the cards dynamically, and use the metadata to create category filters, free-text search, and a statistics dashboard. If I want to add a project, I just edit the JSON.</p><p>I also prepared <code>_en</code> fields so the catalog works in English without duplicating files. This architecture makes the portfolio maintainable, scalable, and professional.</p>"
+    }
+  },
+  {
+    "id": "accesibilidad-web-daw",
+    "slug": "accesibilidad-web-daw",
+    "date": "2026-07-03",
+    "category": "Accesibilidad",
+    "tags": ["Accesibilidad", "Lighthouse", "HTML Semántico", "A11y"],
+    "readTime": 4,
+    "es": {
+      "title": "Accesibilidad web: pequeños cambios, gran diferencia",
+      "excerpt": "Por qué la accesibilidad no es un extra y qué prácticas básicas aplico en cada proyecto para que sea usable por más personas.",
+      "content": "<p>Durante mucho tiempo pensé que la accesibilidad web era algo opcional que solo necesitaban webs grandes. Con el tiempo he entendido que es una parte esencial del buen desarrollo: una web accesible es una web mejor para todos.</p><p>En mis proyectos aplico prácticas básicas pero efectivas: uso HTML semántico con etiquetas como <code>header</code>, <code>main</code>, <code>section</code> y <code>footer</code>; añado atributos <code>aria-label</code> y <code>aria-live</code> donde es necesario; garantizo que el foco del teclado sea visible; y incluyo un <em>skip link</em> para saltar contenido repetido.</p><p>También reviso los resultados de <strong>Lighthouse</strong>, especialmente la categoría de accesibilidad. En este portfolio he conseguido <strong>100/100 en Accessibility</strong>, lo que no significa que sea perfecto, pero sí que cumple una base sólida de buenas prácticas.</p><p>La accesibilidad no es solo cumplir normas: es respeto por el usuario y profesionalidad en el trabajo.</p>"
+    },
+    "en": {
+      "title": "Web accessibility: small changes, big difference",
+      "excerpt": "Why accessibility is not an extra and what basic practices I apply in every project to make it usable by more people.",
+      "content": "<p>For a long time I thought web accessibility was something optional that only large websites needed. Over time I've understood that it's an essential part of good development: an accessible website is a better website for everyone.</p><p>In my projects I apply basic but effective practices: I use semantic HTML with tags like <code>header</code>, <code>main</code>, <code>section</code>, and <code>footer</code>; I add <code>aria-label</code> and <code>aria-live</code> attributes where needed; I ensure keyboard focus is visible; and I include a <em>skip link</em> to bypass repeated content.</p><p>I also review <strong>Lighthouse</strong> results, especially the accessibility category. In this portfolio I've achieved <strong>100/100 in Accessibility</strong>, which doesn't mean it's perfect, but it does mean it meets a solid base of good practices.</p><p>Accessibility isn't just about complying with rules: it's about respect for the user and professionalism in your work.</p>"
+    }
   }
 ]
