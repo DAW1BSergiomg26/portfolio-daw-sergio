@@ -10,8 +10,8 @@
   let blogTranslations = {};
   let currentLang = localStorage.getItem('lang') || 'es';
 
-  const BLOG_JSON_URL = 'data/blog.json?v=3.5.11';
-  const LANG_JSON_URL = 'data/lang.json?v=3.5.11';
+  const BLOG_JSON_URL = 'data/blog.json?v=3.5.12';
+  const LANG_JSON_URL = 'data/lang.json?v=3.5.12';
 
   async function loadBlogTranslations() {
     try {
@@ -59,6 +59,26 @@
 
   function getPostContent(post) {
     return post[currentLang] || post.es || post.en || {};
+  }
+
+  function updatePostMeta(post, content) {
+    const title = content.title || 'Blog | Portfolio DAW';
+    const description = content.excerpt || 'Blog técnico del Portfolio DAW de Sergio Daniel Martínez Gómez.';
+    const url = `https://daw1bsergiomg26.github.io/portfolio-daw-sergio/entrada.html?slug=${encodeURIComponent(post.slug)}`;
+    const image = 'https://daw1bsergiomg26.github.io/portfolio-daw-sergio/og-image.svg';
+
+    function setMeta(selector, attr, value) {
+      const el = document.querySelector(selector);
+      if (el) el.setAttribute(attr, value);
+    }
+
+    setMeta('meta[name="description"]', 'content', description);
+    setMeta('meta[property="og:title"]', 'content', title);
+    setMeta('meta[property="og:description"]', 'content', description);
+    setMeta('meta[property="og:url"]', 'content', url);
+    setMeta('meta[name="twitter:title"]', 'content', title);
+    setMeta('meta[name="twitter:description"]', 'content', description);
+    setMeta('meta[name="twitter:image"]', 'content', image);
   }
 
   function renderBlogList(container) {
@@ -125,6 +145,7 @@
       const breadcrumbTitle = document.getElementById('breadcrumb-post-title');
       if (breadcrumbTitle) breadcrumbTitle.textContent = content.title || '';
       document.title = `${content.title || 'Blog'} | Portfolio DAW`;
+      updatePostMeta(post, content);
 
       container.innerHTML = `
         <article class="blog-post">
