@@ -23,8 +23,8 @@
   <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" fetchpriority="high">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
   <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet"></noscript>
-  <link rel="stylesheet" href="css/styles.css?v=3.5.10">
-  <link rel="stylesheet" href="css/filters.css?v=3.5.10">
+  <link rel="stylesheet" href="css/styles.css?v=3.5.11">
+  <link rel="stylesheet" href="css/filters.css?v=3.5.11">
   <style>
     body {
       background: #070911;
@@ -76,6 +76,19 @@
       z-index: 10;
     }
     .admin-header h1 { font-size: 1.3rem; color: var(--accent); }
+    .admin-title { display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap; }
+    .admin-version {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.25rem 0.6rem;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      background: rgba(125, 211, 252, 0.15);
+      color: var(--accent);
+      border: 1px solid rgba(125, 211, 252, 0.3);
+    }
     .admin-actions { display: flex; align-items: center; gap: 1rem; }
     .admin-main { width: min(1160px, calc(100% - 2rem)); margin: 2rem auto; }
     .admin-tabs { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; }
@@ -216,7 +229,7 @@
   </style>
 </head>
 <body>
-  <script src="js/admin.js?v=3.5.10" defer></script>
+  <script src="js/admin.js?v=3.5.11" defer></script>
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {

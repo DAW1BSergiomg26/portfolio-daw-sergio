@@ -10,6 +10,7 @@
   const PROJECTS_KEY = 'portfolio-projects';
   const BLOG_KEY = 'portfolio-blog';
   const AUTH_KEY = 'portfolio-admin-auth';
+  const APP_VERSION = 'v3.5.11';
 
   // Hash SHA-256 de "Rufi141414%$"
   const ADMIN_PASSWORD_HASH = 'fb705980c178167d0f50537bd6c9dfb88765e01f3b180e889c868e405770f13d';
@@ -105,14 +106,14 @@
     if (localProjects) {
       projects = JSON.parse(localProjects);
     } else {
-      const res = await fetch('data/projects.json?v=3.5.10');
+      const res = await fetch('data/projects.json?v=3.5.11');
       projects = await res.json();
     }
 
     if (localBlog) {
       blog = JSON.parse(localBlog);
     } else {
-      const res = await fetch('data/blog.json?v=3.5.10');
+      const res = await fetch('data/blog.json?v=3.5.11');
       blog = await res.json();
     }
   }
@@ -688,7 +689,10 @@
   function renderAdmin() {
     document.body.innerHTML = `
       <header class="admin-header">
-        <h1 data-t="login_title">${txt('login_title')}</h1>
+        <div class="admin-title">
+          <h1 data-t="login_title">${txt('login_title')}</h1>
+          <span class="admin-version" title="Versión actual">${APP_VERSION}</span>
+        </div>
         <div class="admin-actions">
           <div class="lang-switcher" role="group" aria-label="Selector de idioma">
             <button type="button" class="lang-btn" data-lang="es" onclick="window.adminSetLang('es')">ES</button>
