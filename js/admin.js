@@ -116,6 +116,40 @@
     localStorage.setItem(BLOG_KEY, JSON.stringify(blog));
   }
 
+  function showToast(message, type = 'success') {
+    let toast = document.getElementById('admin-toast');
+    if (!toast) {
+      toast = document.createElement('div');
+      toast.id = 'admin-toast';
+      toast.className = 'admin-toast';
+      toast.setAttribute('role', 'status');
+      toast.setAttribute('aria-live', 'polite');
+      document.body.appendChild(toast);
+    }
+    toast.textContent = message;
+    toast.className = `admin-toast is-${type}`;
+
+    requestAnimationFrame(() => {
+      toast.classList.add('is-visible');
+    });
+
+    setTimeout(() => {
+      toast.classList.remove('is-visible');
+    }, 3500);
+  }
+
+  function slugify(text) {
+    return text
+      .toString()
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .toLowerCase()
+      .trim()
+      .replace(/[^\w\s-]/g, '')
+      .replace(/[\s_-]+/g, '-')
+      .replace(/^-+|-+$/g, '');
+  }
+
   function updateLanguageButtons() {
     document.querySelectorAll('.lang-btn').forEach(btn => {
       btn.classList.toggle('is-active', btn.dataset.lang === currentLang);
@@ -183,21 +217,30 @@
     const search = (document.getElementById('admin-search')?.value || '').toLowerCase();
     const filtered = projects.filter(p =>
       (p.title || '').toLowerCase().includes(search) ||
-      (p.title_en || '').toLowerCase().includes(search)
+      (p.title_en || '').toLowerCase().includes(search) ||
+      (p.slug || '').toLowerCase().includes(search)
     );
 
-    container.innerHTML = filtered.map(p => `
+    container.innerHTML = filtered.map(p => {
+      const statusClass = p.status === 'published' ? 'gold' : (p.status === 'academic' ? 'purple' : '');
+      const techBadges = (p.technologies || []).slice(0, 4).map(t => `<span class="admin-badge">${t}</span>`).join('');
+      return `
       <div class="admin-item">
         <div class="admin-item-info">
           <strong>#${p.id} ${p.title || ''}</strong>
-          <span>${p.status || ''} · ${p.category || ''} · ${p.featured ? '⭐' : ''}</span>
+          <div class="admin-item-meta">
+            ${p.status ? `<span class="admin-badge ${statusClass}">${p.status}</span>` : ''}
+            ${p.category ? `<span class="admin-badge">${p.category}</span>` : ''}
+            ${p.featured ? '<span class="admin-badge gold">⭐ Featured</span>' : ''}
+            ${techBadges}
+          </div>
         </div>
         <div class="admin-item-actions">
           <button type="button" class="btn small" onclick="window.adminEditProject(${p.id})" data-t="edit">${txt('edit')}</button>
           <button type="button" class="btn small ghost" onclick="window.adminDeleteProject(${p.id})" data-t="delete">${txt('delete')}</button>
         </div>
       </div>
-    `).join('') || `<p class="admin-empty">${txt('no_results')}</p>`;
+    `}).join('') || `<p class="admin-empty">${txt('no_results')}</p>`;
   }
 
   function renderBlog() {
@@ -205,21 +248,29 @@
     const search = (document.getElementById('admin-search')?.value || '').toLowerCase();
     const filtered = blog.filter(p =>
       (p.es?.title || '').toLowerCase().includes(search) ||
-      (p.en?.title || '').toLowerCase().includes(search)
+      (p.en?.title || '').toLowerCase().includes(search) ||
+      (p.slug || '').toLowerCase().includes(search)
     );
 
-    container.innerHTML = filtered.map((p, idx) => `
+    container.innerHTML = filtered.map(p => {
+      const tagBadges = (p.tags || []).slice(0, 4).map(t => `<span class="admin-badge">${t}</span>`).join('');
+      return `
       <div class="admin-item">
         <div class="admin-item-info">
           <strong>${p.es?.title || p.en?.title || ''}</strong>
-          <span>${p.date || ''} · ${p.category || ''}</span>
+          <div class="admin-item-meta">
+            ${p.date ? `<span class="admin-badge">📅 ${p.date}</span>` : ''}
+            ${p.category ? `<span class="admin-badge purple">${p.category}</span>` : ''}
+            ${p.readTime ? `<span class="admin-badge">⏱ ${p.readTime} min</span>` : ''}
+            ${tagBadges}
+          </div>
         </div>
         <div class="admin-item-actions">
           <button type="button" class="btn small" onclick="window.adminEditPost('${p.slug}')" data-t="edit">${txt('edit')}</button>
           <button type="button" class="btn small ghost" onclick="window.adminDeletePost('${p.slug}')" data-t="delete">${txt('delete')}</button>
         </div>
       </div>
-    `).join('') || `<p class="admin-empty">${txt('no_results')}</p>`;
+    `}).join('') || `<p class="admin-empty">${txt('no_results')}</p>`;
   }
 
   function renderList() {
@@ -236,23 +287,68 @@
     if (isProject) {
       panel.innerHTML = `
         <h3>${data ? txt('edit') : txt('add_project')}</h3>
-        <form id="admin-form" class="admin-form">
-          <label>ID</label><input type="number" name="id" value="${data ? data.id : ''}" ${data ? 'readonly' : ''} required>
-          <label>Slug</label><input type="text" name="slug" value="${data ? data.slug || '' : ''}" required>
-          <label>Título (ES)</label><input type="text" name="title" value="${data ? data.title || '' : ''}" required>
-          <label>Título (EN)</label><input type="text" name="title_en" value="${data ? data.title_en || '' : ''}">
-          <label>Kicker (ES)</label><input type="text" name="kicker" value="${data ? data.kicker || '' : ''}">
-          <label>Kicker (EN)</label><input type="text" name="kicker_en" value="${data ? data.kicker_en || '' : ''}">
-          <label>Descripción (ES)</label><textarea name="description" rows="3">${data ? data.description || '' : ''}</textarea>
-          <label>Descripción (EN)</label><textarea name="description_en" rows="3">${data ? data.description_en || '' : ''}</textarea>
-          <label>Estado</label><input type="text" name="status" value="${data ? data.status || '' : ''}">
-          <label>Categoría</label><input type="text" name="category" value="${data ? data.category || '' : ''}">
-          <label>Tecnologías (coma separadas)</label><input type="text" name="technologies" value="${data ? (data.technologies || []).join(', ') : ''}">
-          <label class="admin-checkbox"><input type="checkbox" name="featured" ${data && data.featured ? 'checked' : ''}> Destacado</label>
-          <label class="admin-checkbox"><input type="checkbox" name="published" ${data && data.published ? 'checked' : ''}> Publicado</label>
-          <label>URL Demo</label><input type="url" name="demoUrl" value="${data ? data.demoUrl || '' : ''}">
-          <label>URL Repo</label><input type="url" name="repoUrl" value="${data ? data.repoUrl || '' : ''}">
-          <label>Prioridad</label><input type="number" name="priority" value="${data ? data.priority || '' : ''}">
+        <form id="admin-form" class="admin-form" novalidate>
+          <fieldset>
+            <legend>Información básica</legend>
+            <label>ID</label>
+            <input type="number" name="id" value="${data ? data.id : ''}" ${data ? 'readonly' : ''} required>
+            <p class="field-hint">Identificador numérico único del proyecto.</p>
+
+            <label>Título (ES)</label>
+            <input type="text" name="title" id="field-title" value="${data ? data.title || '' : ''}" required>
+            <p class="field-error" id="error-title"></p>
+
+            <label>Título (EN)</label>
+            <input type="text" name="title_en" value="${data ? data.title_en || '' : ''}">
+
+            <label>Slug</label>
+            <input type="text" name="slug" id="field-slug" value="${data ? data.slug || '' : ''}" required>
+            <p class="field-hint">Se genera automáticamente desde el título. Puedes editarlo.</p>
+            <p class="field-error" id="error-slug"></p>
+          </fieldset>
+
+          <fieldset>
+            <legend>Contenido</legend>
+            <label>Kicker (ES)</label>
+            <input type="text" name="kicker" value="${data ? data.kicker || '' : ''}">
+            <label>Kicker (EN)</label>
+            <input type="text" name="kicker_en" value="${data ? data.kicker_en || '' : ''}">
+            <label>Descripción (ES)</label>
+            <textarea name="description" rows="3">${data ? data.description || '' : ''}</textarea>
+            <label>Descripción (EN)</label>
+            <textarea name="description_en" rows="3">${data ? data.description_en || '' : ''}</textarea>
+          </fieldset>
+
+          <fieldset>
+            <legend>Metadatos</legend>
+            <label>Estado</label>
+            <select name="status" required>
+              <option value="" ${!data || !data.status ? 'selected' : ''}>Selecciona un estado</option>
+              <option value="published" ${data && data.status === 'published' ? 'selected' : ''}>Publicado</option>
+              <option value="academic" ${data && data.status === 'academic' ? 'selected' : ''}>Académico</option>
+              <option value="practice" ${data && data.status === 'practice' ? 'selected' : ''}>Práctica</option>
+            </select>
+
+            <label>Categoría</label>
+            <input type="text" name="category" value="${data ? data.category || '' : ''}">
+
+            <label>Tecnologías (coma separadas)</label>
+            <input type="text" name="technologies" value="${data ? (data.technologies || []).join(', ') : ''}">
+
+            <label>Prioridad</label>
+            <input type="number" name="priority" value="${data ? data.priority || '' : ''}">
+
+            <label class="admin-checkbox"><input type="checkbox" name="featured" ${data && data.featured ? 'checked' : ''}> Destacado</label>
+          </fieldset>
+
+          <fieldset>
+            <legend>Enlaces</legend>
+            <label>URL Demo</label>
+            <input type="url" name="demoUrl" value="${data ? data.demoUrl || '' : ''}">
+            <label>URL Repo</label>
+            <input type="url" name="repoUrl" value="${data ? data.repoUrl || '' : ''}">
+          </fieldset>
+
           <div class="admin-form-actions">
             <button type="submit" class="btn primary" data-t="save">${txt('save')}</button>
             <button type="button" class="btn ghost" onclick="window.adminCloseForm()" data-t="cancel">${txt('cancel')}</button>
@@ -260,20 +356,52 @@
         </form>
       `;
     } else {
+      const today = new Date().toISOString().slice(0, 10);
       panel.innerHTML = `
         <h3>${data ? txt('edit') : txt('add_post')}</h3>
-        <form id="admin-form" class="admin-form">
-          <label>Slug</label><input type="text" name="slug" value="${data ? data.slug || '' : ''}" ${data ? 'readonly' : ''} required>
-          <label>Fecha</label><input type="date" name="date" value="${data ? data.date || '' : ''}" required>
-          <label>Categoría</label><input type="text" name="category" value="${data ? data.category || '' : ''}">
-          <label>Etiquetas (coma separadas)</label><input type="text" name="tags" value="${data ? (data.tags || []).join(', ') : ''}">
-          <label>Tiempo de lectura (min)</label><input type="number" name="readTime" value="${data ? data.readTime || '' : ''}">
-          <label>Título (ES)</label><input type="text" name="es_title" value="${data ? data.es?.title || '' : ''}" required>
-          <label>Extracto (ES)</label><textarea name="es_excerpt" rows="2">${data ? data.es?.excerpt || '' : ''}</textarea>
-          <label>Contenido HTML (ES)</label><textarea name="es_content" rows="6">${data ? data.es?.content || '' : ''}</textarea>
-          <label>Título (EN)</label><input type="text" name="en_title" value="${data ? data.en?.title || '' : ''}">
-          <label>Extracto (EN)</label><textarea name="en_excerpt" rows="2">${data ? data.en?.excerpt || '' : ''}</textarea>
-          <label>Contenido HTML (EN)</label><textarea name="en_content" rows="6">${data ? data.en?.content || '' : ''}</textarea>
+        <form id="admin-form" class="admin-form" novalidate>
+          <fieldset>
+            <legend>Información básica</legend>
+            <label>Título (ES)</label>
+            <input type="text" name="es_title" id="field-es-title" value="${data ? data.es?.title || '' : ''}" required>
+            <p class="field-error" id="error-es-title"></p>
+
+            <label>Slug</label>
+            <input type="text" name="slug" id="field-slug" value="${data ? data.slug || '' : ''}" ${data ? 'readonly' : ''} required>
+            <p class="field-hint">Se genera automáticamente desde el título en español.</p>
+            <p class="field-error" id="error-slug"></p>
+
+            <label>Fecha</label>
+            <input type="date" name="date" value="${data ? data.date || today : today}" required>
+
+            <label>Categoría</label>
+            <input type="text" name="category" value="${data ? data.category || '' : ''}">
+
+            <label>Etiquetas (coma separadas)</label>
+            <input type="text" name="tags" value="${data ? (data.tags || []).join(', ') : ''}">
+
+            <label>Tiempo de lectura (min)</label>
+            <input type="number" name="readTime" value="${data ? data.readTime || '' : ''}">
+          </fieldset>
+
+          <fieldset>
+            <legend>Contenido en español</legend>
+            <label>Extracto (ES)</label>
+            <textarea name="es_excerpt" rows="2">${data ? data.es?.excerpt || '' : ''}</textarea>
+            <label>Contenido HTML (ES)</label>
+            <textarea name="es_content" rows="6">${data ? data.es?.content || '' : ''}</textarea>
+          </fieldset>
+
+          <fieldset>
+            <legend>Contenido en inglés</legend>
+            <label>Título (EN)</label>
+            <input type="text" name="en_title" value="${data ? data.en?.title || '' : ''}">
+            <label>Extracto (EN)</label>
+            <textarea name="en_excerpt" rows="2">${data ? data.en?.excerpt || '' : ''}</textarea>
+            <label>Contenido HTML (EN)</label>
+            <textarea name="en_content" rows="6">${data ? data.en?.content || '' : ''}</textarea>
+          </fieldset>
+
           <div class="admin-form-actions">
             <button type="submit" class="btn primary" data-t="save">${txt('save')}</button>
             <button type="button" class="btn ghost" onclick="window.adminCloseForm()" data-t="cancel">${txt('cancel')}</button>
@@ -282,14 +410,92 @@
       `;
     }
 
+    bindFormHelpers(data);
     document.getElementById('admin-form').addEventListener('submit', handleFormSubmit);
     panel.scrollIntoView({ behavior: 'smooth' });
+  }
+
+  function bindFormHelpers(data) {
+    const titleInput = document.getElementById('field-title');
+    const esTitleInput = document.getElementById('field-es-title');
+    const slugInput = document.getElementById('field-slug');
+    if (!slugInput) return;
+
+    const sourceInput = titleInput || esTitleInput;
+    if (!sourceInput) return;
+
+    const existingSlug = data ? (data.slug || '') : '';
+    let lastAutoSlug = existingSlug || '';
+
+    sourceInput.addEventListener('input', () => {
+      if (slugInput.readOnly) return;
+      const currentSlug = slugInput.value.trim();
+      if (!currentSlug || currentSlug === lastAutoSlug) {
+        lastAutoSlug = slugify(sourceInput.value);
+        slugInput.value = lastAutoSlug;
+      }
+    });
+  }
+
+  function clearFieldErrors() {
+    document.querySelectorAll('.field-error').forEach(el => el.textContent = '');
+    document.querySelectorAll('#admin-form [aria-invalid]').forEach(el => el.removeAttribute('aria-invalid'));
+  }
+
+  function setFieldError(name, message) {
+    const errorEl = document.getElementById(`error-${name}`);
+    const field = document.querySelector(`[name="${name}"]`);
+    if (errorEl) errorEl.textContent = message;
+    if (field) field.setAttribute('aria-invalid', 'true');
+  }
+
+  function validateForm(fd) {
+    clearFieldErrors();
+    let isValid = true;
+
+    if (activeTab === 'projects') {
+      const title = fd.get('title')?.toString().trim();
+      const slug = fd.get('slug')?.toString().trim();
+      const id = parseInt(fd.get('id')?.toString().trim() || '', 10);
+
+      if (!id || id <= 0) {
+        setFieldError('id', 'Introduce un ID numérico válido.');
+        isValid = false;
+      }
+      if (!title) {
+        setFieldError('title', 'El título en español es obligatorio.');
+        isValid = false;
+      }
+      if (!slug) {
+        setFieldError('slug', 'El slug es obligatorio.');
+        isValid = false;
+      }
+    } else {
+      const title = fd.get('es_title')?.toString().trim();
+      const slug = fd.get('slug')?.toString().trim();
+
+      if (!title) {
+        setFieldError('es-title', 'El título en español es obligatorio.');
+        isValid = false;
+      }
+      if (!slug) {
+        setFieldError('slug', 'El slug es obligatorio.');
+        isValid = false;
+      }
+    }
+
+    return isValid;
   }
 
   function handleFormSubmit(e) {
     e.preventDefault();
     const fd = new FormData(e.target);
     const get = name => fd.get(name)?.toString().trim() || '';
+
+    if (!validateForm(fd)) {
+      showToast('Corrige los errores del formulario.', 'error');
+      return;
+    }
 
     if (activeTab === 'projects') {
       const id = parseInt(get('id'), 10);
@@ -306,7 +512,6 @@
         category: get('category'),
         technologies: get('technologies').split(',').map(s => s.trim()).filter(Boolean),
         featured: fd.has('featured'),
-        published: fd.has('published'),
         demoUrl: get('demoUrl'),
         repoUrl: get('repoUrl'),
         priority: parseInt(get('priority'), 10) || 0
@@ -344,7 +549,8 @@
     persist();
     closeForm();
     renderList();
-    alert(txt('saved'));
+    renderStats();
+    showToast(txt('saved'), 'success');
   }
 
   function closeForm() {
@@ -416,9 +622,9 @@
         }
         renderList();
         renderStats();
-        alert(txt('import_success'));
+        showToast(txt('import_success'), 'success');
       } catch (err) {
-        alert(txt('import_error'));
+        showToast(txt('import_error'), 'error');
       }
     };
     reader.readAsText(file);
