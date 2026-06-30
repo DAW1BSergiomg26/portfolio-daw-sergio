@@ -22,6 +22,7 @@ const STATIC_ASSETS = [
   `${BASE_PATH}/js/proyecto.js`,
   `${BASE_PATH}/js/blog.js`,
   `${BASE_PATH}/js/admin.js`,
+  `${BASE_PATH}/js/theme.js`,
   `${BASE_PATH}/data/projects.json`,
   `${BASE_PATH}/data/lang.json`,
   `${BASE_PATH}/data/blog.json`,

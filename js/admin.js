@@ -648,6 +648,10 @@
             <button type="button" class="lang-btn" data-lang="es" onclick="window.adminSetLang('es')">ES</button>
             <button type="button" class="lang-btn" data-lang="en" onclick="window.adminSetLang('en')">EN</button>
           </div>
+          <button type="button" class="theme-toggle" id="admin-theme-toggle" aria-label="Cambiar tema" onclick="window.toggleTheme()">
+            <span class="theme-icon-light" aria-hidden="true">☀️</span>
+            <span class="theme-icon-dark" aria-hidden="true">🌙</span>
+          </button>
           <button type="button" class="btn ghost" onclick="window.adminLogout()" data-t="logout">${txt('logout')}</button>
         </div>
       </header>
