@@ -202,7 +202,7 @@
         <span class="admin-stat-label">${txt('total_posts')}</span>
       </div>
       <div class="admin-stat-card">
-        <span class="admin-stat-value">${projects.filter(p => p.status === 'Publicado' || p.status === 'Published').length}</span>
+        <span class="admin-stat-value">${projects.filter(p => p.status === 'published').length}</span>
         <span class="admin-stat-label">${txt('published_projects')}</span>
       </div>
       <div class="admin-stat-card">
@@ -292,6 +292,7 @@
             <legend>Información básica</legend>
             <label>ID</label>
             <input type="number" name="id" value="${data ? data.id : ''}" ${data ? 'readonly' : ''} required>
+            <p class="field-error" id="error-id"></p>
             <p class="field-hint">Identificador numérico único del proyecto.</p>
 
             <label>Título (ES)</label>
