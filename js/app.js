@@ -4,7 +4,7 @@ let translations = {};
 
 async function loadTranslations() {
   try {
-    const response = await fetch("data/lang.json?v=3.4.2");
+    const response = await fetch("data/lang.json?v=3.5.0");
     translations = await response.json();
     updateLangButtons();
     applyTranslations();
@@ -504,7 +504,7 @@ async function loadProjectsFromJson() {
     if (localProjects) {
       projects = JSON.parse(localProjects);
     } else {
-      const response = await fetch("data/projects.json?v=3.4.2");
+      const response = await fetch("data/projects.json?v=3.5.0");
       if (!response.ok) throw new Error("No se pudo cargar data/projects.json");
       projects = await response.json();
     }
@@ -982,3 +982,136 @@ initProjectsCatalog();
 window.addEventListener("scroll", markActiveSection, { passive: true });
 window.addEventListener("hashchange", markActiveSection);
 markActiveSection();
+
+// Contact Form
+const CONTACT_FORM_ENDPOINT = "https://formspree.io/f/YOUR_FORM_ID";
+
+const contactForm = document.getElementById("contact-form");
+const contactStatus = document.getElementById("contact-status");
+
+function setContactStatus(message, type = "info") {
+  if (!contactStatus) return;
+  contactStatus.textContent = message;
+  contactStatus.className = `contact-status is-${type}`;
+}
+
+function validateContactField(field) {
+  const value = field.value.trim();
+  let isValid = true;
+  let errorKey = "";
+
+  if (!value) {
+    isValid = false;
+    errorKey = `contact_validation_${field.name}`;
+  } else if (field.type === "email") {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(value)) {
+      isValid = false;
+      errorKey = "contact_validation_email";
+    }
+  }
+
+  field.setAttribute("aria-invalid", String(!isValid));
+  return { isValid, errorKey };
+}
+
+function resetContactValidation() {
+  if (!contactForm) return;
+  contactForm.querySelectorAll("input, textarea").forEach((field) => {
+    field.setAttribute("aria-invalid", "false");
+  });
+}
+
+async function submitContactForm(event) {
+  event.preventDefault();
+  if (!contactForm || !contactStatus) return;
+
+  resetContactValidation();
+  setContactStatus("", "info");
+
+  const fields = Array.from(contactForm.querySelectorAll("input, textarea"));
+  let firstInvalid = null;
+
+  for (const field of fields) {
+    const { isValid, errorKey } = validateContactField(field);
+    if (!isValid && !firstInvalid) {
+      firstInvalid = field;
+      setContactStatus(t(errorKey), "error");
+    }
+  }
+
+  if (firstInvalid) {
+    firstInvalid.focus();
+    return;
+  }
+
+  const submitButton = contactForm.querySelector('button[type="submit"]');
+  const originalButtonText = submitButton ? submitButton.textContent : "";
+
+  if (submitButton) {
+    submitButton.disabled = true;
+    submitButton.textContent = t("contact_sending");
+  }
+
+  const formData = new FormData(contactForm);
+
+  try {
+    if (CONTACT_FORM_ENDPOINT.includes("YOUR_FORM_ID")) {
+      setContactStatus(t("contact_config_needed"), "info");
+      if (submitButton) {
+        submitButton.disabled = false;
+        submitButton.textContent = originalButtonText;
+      }
+      return;
+    }
+
+    const response = await fetch(CONTACT_FORM_ENDPOINT, {
+      method: "POST",
+      body: formData,
+      headers: { Accept: "application/json" },
+    });
+
+    if (response.ok) {
+      setContactStatus(t("contact_success"), "success");
+      contactForm.reset();
+    } else {
+      const data = await response.json().catch(() => ({}));
+      console.error("Contact form error:", data);
+      setContactStatus(t("contact_error"), "error");
+    }
+  } catch (error) {
+    console.error("Contact form exception:", error);
+    setContactStatus(t("contact_error"), "error");
+  } finally {
+    if (submitButton) {
+      submitButton.disabled = false;
+      submitButton.textContent = originalButtonText;
+    }
+  }
+}
+
+if (contactForm) {
+  contactForm.addEventListener("submit", submitContactForm);
+}
+
+function applyContactTranslations() {
+  if (!contactForm) return;
+  contactForm.querySelectorAll("[data-i18n]").forEach((el) => {
+    const key = el.getAttribute("data-i18n");
+    const text = translations[currentLang]?.[key] || translations["es"]?.[key];
+    if (!text) return;
+    if (el.hasAttribute("placeholder")) {
+      el.setAttribute("placeholder", text);
+    } else if (el.tagName === "BUTTON") {
+      if (!el.disabled) el.textContent = text;
+    } else {
+      el.textContent = text;
+    }
+  });
+}
+
+const originalApplyDynamicTranslations = applyDynamicTranslations;
+applyDynamicTranslations = function () {
+  originalApplyDynamicTranslations();
+  applyContactTranslations();
+};

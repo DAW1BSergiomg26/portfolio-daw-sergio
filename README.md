@@ -209,6 +209,18 @@ La versión v3.4.0 incluye un panel interno accesible desde `admin.html`:
 
 > Nota: al tratarse de GitHub Pages (estático), los cambios del panel se guardan solo en el navegador local. Para publicarlos hay que exportar el JSON y actualizar los archivos del repositorio.
 
+## Formulario de contacto
+
+La versión v3.5.0 añade un formulario de contacto profesional en la sección `#contacto`:
+
+- Campos de nombre, email, asunto y mensaje con validación nativa y personalizada.
+- Envío vía `fetch` a un endpoint configurable (por defecto preparado para Formspree).
+- Mensajes de éxito, error y estado de carga traducidos al inglés y al español.
+- Modo demostración: si no se configura un endpoint real, el formulario muestra un aviso informativo.
+- Estilos coherentes con el diseño glassmorphism del portfolio.
+
+Para activar el envío real, crea una cuenta en [Formspree](https://formspree.io), crea un formulario y sustituye `YOUR_FORM_ID` en la constante `CONTACT_FORM_ENDPOINT` de `js/app.js` y en el atributo `action` del formulario de `index.html`.
+
 ## SEO avanzado
 
 El proyecto incluye configuración para presentación profesional:
@@ -303,7 +315,7 @@ portfolio-daw-sergio/
 
 ## Estado
 
-Portfolio DAW publicado en GitHub Pages con base premium, SEO avanzado, Open Graph, PWA instalable con Service Worker, blog técnico bilingüe, panel de administración local, catálogo dinámico en JSON, filtros avanzados, buscador combinado, tarjetas premium, dashboard de estadísticas, panel profesional de proyectos destacados, auditoría de calidad documentada, curaduría profesional del catálogo, páginas individuales de proyecto, timeline profesional e internacionalización completa ES/EN.
+Portfolio DAW publicado en GitHub Pages con base premium, SEO avanzado, Open Graph, PWA instalable con Service Worker, blog técnico bilingüe, panel de administración local, formulario de contacto funcional, catálogo dinámico en JSON, filtros avanzados, buscador combinado, tarjetas premium, dashboard de estadísticas, panel profesional de proyectos destacados, auditoría de calidad documentada, curaduría profesional del catálogo, páginas individuales de proyecto, timeline profesional e internacionalización completa ES/EN.
 
 ## Internacionalización (i18n)
 
@@ -321,24 +333,26 @@ Características:
 - PWA instalable con Service Worker (v3.2.0): precacheo del shell, soporte offline y caches por versión.
 - Blog técnico bilingüe (v3.3.0): sección de apuntes, artículos individuales y contenido traducido en `data/blog.json`.
 - Panel de administración (v3.4.0): gestión local de proyectos y blog, exportación/importación JSON y autenticación simple.
+- Enlace directo al panel en el footer (v3.4.2).
+- Formulario de contacto funcional (v3.5.0): validación, envío vía Formspree y traducción ES/EN completa.
 
 ## Versionado de assets
 
 Para evitar problemas de caché en GitHub Pages, los archivos CSS, JavaScript y JSON se cargan con parámetro de versión.
 
-Versión actual estable: `v3.4.2`.
+Versión actual estable: `v3.5.0`.
 
 Ejemplo:
 
-- `css/styles.css?v=3.4.2`
-- `css/filters.css?v=3.4.2`
-- `js/app.js?v=3.4.2`
-- `js/proyecto.js?v=3.4.2`
-- `js/blog.js?v=3.4.2`
-- `js/admin.js?v=3.4.2`
-- `data/projects.json?v=3.4.2`
-- `data/lang.json?v=3.4.2`
-- `data/blog.json?v=3.4.2`
+- `css/styles.css?v=3.5.0`
+- `css/filters.css?v=3.5.0`
+- `js/app.js?v=3.5.0`
+- `js/proyecto.js?v=3.5.0`
+- `js/blog.js?v=3.5.0`
+- `js/admin.js?v=3.5.0`
+- `data/projects.json?v=3.5.0`
+- `data/lang.json?v=3.5.0`
+- `data/blog.json?v=3.5.0`
 - `sw.js` (se actualiza mediante cambio de `CACHE_NAME` interno)
 
 Así, cuando se publica una nueva versión, el navegador carga los archivos actualizados y no conserva estilos, scripts o datos antiguos.
