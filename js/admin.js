@@ -105,14 +105,14 @@
     if (localProjects) {
       projects = JSON.parse(localProjects);
     } else {
-      const res = await fetch('data/projects.json?v=3.5.0');
+      const res = await fetch('data/projects.json?v=3.5.10');
       projects = await res.json();
     }
 
     if (localBlog) {
       blog = JSON.parse(localBlog);
     } else {
-      const res = await fetch('data/blog.json?v=3.5.0');
+      const res = await fetch('data/blog.json?v=3.5.10');
       blog = await res.json();
     }
   }
