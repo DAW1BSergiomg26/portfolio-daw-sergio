@@ -1,11 +1,11 @@
-# Auditoría de calidad - Portfolio DAW v3.4.2
+# Auditoría de calidad - Portfolio DAW v3.5.0
 
 Documento de control técnico para validar el Portfolio DAW de Sergio Daniel Martínez Gómez antes de cada versión estable.
 
 ## Estado de la auditoría
 
-- Versión objetivo: v3.4.2
-- Rama de trabajo: `feature/admin-footer-link-v3`
+- Versión objetivo: v3.5.0
+- Rama de trabajo: `feature/contact-form-v3`
 - Estado: lista para revisión manual
 - URL pública: https://daw1bsergiomg26.github.io/portfolio-daw-sergio/
 
@@ -182,7 +182,33 @@ Invoke-WebRequest "https://daw1bsergiomg26.github.io/portfolio-daw-sergio/admin.
 Invoke-WebRequest "https://daw1bsergiomg26.github.io/portfolio-daw-sergio/js/admin.js" -UseBasicParsing | Select-String 'portfolio-admin-auth'
 ```
 
-## 7. Catálogo de proyectos
+## 7. Formulario de contacto
+
+### Objetivo
+
+Validar que el formulario de contacto es accesible, valida correctamente y está preparado para envío real.
+
+### Checklist
+
+- [x] Formulario presente en `index.html#contacto`.
+- [x] Campos: nombre, email, asunto y mensaje.
+- [x] Validación nativa (`required`, `type="email"`) y personalizada en `js/app.js`.
+- [x] Mensajes de error, éxito y carga traducidos en `data/lang.json`.
+- [x] Envío vía `fetch` con endpoint configurable.
+- [x] Modo demostración si el endpoint contiene `YOUR_FORM_ID`.
+- [x] Estados visualmente diferenciados (éxito, error, info).
+- [x] Campos accesibles con etiquetas `label` y `aria-invalid`.
+- [x] Estilos responsive y coherentes con el diseño.
+
+### Prueba manual
+
+1. Abrir `#contacto`.
+2. Enviar el formulario vacío y confirmar mensajes de validación.
+3. Introducir un email inválido y confirmar error.
+4. Rellenar correctamente y comprobar mensaje de modo demostración (sin endpoint real).
+5. Configurar un endpoint real y confirmar envío.
+
+## 8. Catálogo de proyectos
 
 ### Objetivo
 
@@ -210,7 +236,7 @@ Garantizar que el catálogo JSON, filtros, dashboard, búsqueda y panel destacad
 5. Buscar `Python`, `Auri`, `BBDD`, `Divina` y confirmar resultados.
 6. Probar en ancho móvil desde DevTools.
 
-## 8. Responsive
+## 9. Responsive
 
 ### Objetivo
 
@@ -234,7 +260,7 @@ Comprobar que el portfolio no se rompe en móvil, tablet ni escritorio.
 - 1366 px: portátil.
 - 1920 px: escritorio amplio.
 
-## 9. Enlaces principales
+## 10. Enlaces principales
 
 ### Objetivo
 
@@ -252,7 +278,7 @@ Evitar enlaces rotos en las rutas más importantes del portfolio.
 - [x] `robots.txt` responde 200.
 - [x] `sitemap.xml` responde 200.
 
-## 10. Criterio 3D aplicado
+## 11. Criterio 3D aplicado
 
 ### Diagnóstico
 
@@ -282,6 +308,7 @@ El portfolio queda preparado como entrega profesional de nivel avanzado:
 - con catálogo JSON mantenible e internacionalizado ES/EN;
 - con blog técnico bilingüe;
 - con panel de administración local;
+- con formulario de contacto funcional y preparado para producción;
 - con PWA instalable y soporte offline real;
 - con métricas Lighthouse superiores a 95 (Performance 99-100, A11y/BP/SEO 100);
 - con base accesible y diseño responsive;
@@ -291,6 +318,7 @@ El portfolio queda preparado como entrega profesional de nivel avanzado:
 
 Después de esta auditoría, el portfolio cuenta con una base sólida. Los siguientes pasos recomendados son:
 
+- Configurar endpoint real del formulario de contacto (Formspree, Web3Forms, etc.).
 - Añadir más proyectos reales al catálogo.
 - Publicar nuevas entradas de blog con aprendizajes de cada entrega.
 - Explorar integración con backend real para persistencia remota del panel de administración.
