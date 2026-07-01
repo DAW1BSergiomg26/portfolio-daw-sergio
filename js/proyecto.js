@@ -3,7 +3,7 @@ let translations = {};
 
 async function loadTranslations() {
   try {
-    const response = await fetch("data/lang.json?v=3.6.7");
+    const response = await fetch("data/lang.json?v=3.6.8");
     translations = await response.json();
     updateLangButtons();
     applyTranslations();
@@ -56,7 +56,7 @@ async function loadProject() {
   }
 
   try {
-    const response = await fetch("data/projects.json?v=3.6.7");
+    const response = await fetch("data/projects.json?v=3.6.8");
     if (!response.ok) throw new Error("No se pudo cargar el catálogo");
 
     const projects = await response.json();
@@ -71,7 +71,12 @@ async function loadProject() {
     renderProject(project, container);
     document.title = `${getProjectTitle(project)} | Portfolio DAW`;
     const breadcrumbTitle = document.getElementById("breadcrumb-project-title");
-    if (breadcrumbTitle) breadcrumbTitle.textContent = getProjectTitle(project);
+    if (breadcrumbTitle) {
+      breadcrumbTitle.textContent = getProjectTitle(project);
+      breadcrumbTitle.style.background = 'none';
+      breadcrumbTitle.style.animation = 'none';
+      breadcrumbTitle.style.minWidth = 'auto';
+    }
     updateMeta(project);
   } catch (error) {
     container.innerHTML = `
