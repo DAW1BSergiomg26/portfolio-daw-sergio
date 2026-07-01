@@ -196,7 +196,8 @@
 
   window.refreshBlog = initBlog;
   window.setBlogLanguage = setBlogLanguage;
-  window.setLanguage = setBlogLanguage;
+
+  document.addEventListener('languagechange', () => initBlog());
 
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initBlog);

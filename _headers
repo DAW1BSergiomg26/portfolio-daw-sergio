@@ -1,4 +1,4 @@
-https://daw1bsergiomg26.github.io/portfolio-daw-sergio/api/*
+/api/*
   Access-Control-Allow-Origin: *
   Content-Type: application/json; charset=utf-8
   Cache-Control: public, max-age=3600

@@ -46,6 +46,7 @@ function setLanguage(lang) {
   applyTranslations();
   applyDynamicTranslations();
   if (typeof window.refreshBlog === 'function') window.refreshBlog();
+  document.dispatchEvent(new CustomEvent('languagechange', { detail: { lang } }));
 }
 
 function updateLangButtons() {
