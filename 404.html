@@ -21,7 +21,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/styles.css?v=3.6.1">
+  <link rel="stylesheet" href="css/styles.css?v=3.6.2">
   <style>
     body {
       min-height: 100vh;
@@ -109,19 +109,70 @@
     </div>
   </main>
 
+  <footer class="site-footer">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <a class="brand footer-brand" href="index.html" aria-label="Portfolio DAW">
+          <span class="brand-mark">SD</span>
+          <span>Portfolio DAW</span>
+        </a>
+        <p class="footer-tagline" data-i18n="footer_tagline">Portfolio profesional de Sergio Daniel Martínez Gómez · Alumno DAW.</p>
+      </div>
+      <div class="footer-col">
+        <h3 class="footer-heading" data-i18n="footer_sitemap">Mapa del sitio</h3>
+        <ul class="footer-links">
+          <li><a href="index.html#inicio">Inicio</a></li>
+          <li><a href="index.html#proyectos" data-i18n="nav_proyectos">Proyectos</a></li>
+          <li><a href="index.html#blog" data-i18n="nav_blog">Blog</a></li>
+          <li><a href="index.html#ruta" data-i18n="nav_ruta">Ruta DAW</a></li>
+          <li><a href="index.html#contacto" data-i18n="nav_contacto">Contacto</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h3 class="footer-heading" data-i18n="footer_contact">Contacto</h3>
+        <ul class="footer-links">
+          <li><a href="admin.html" data-i18n="footer_admin">Panel de administración</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h3 class="footer-heading" data-i18n="footer_social">Redes</h3>
+        <div class="footer-social">
+          <a href="https://github.com/DAW1BSergiomg26" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+            <svg class="icon" aria-hidden="true"><use href="icons.svg#icon-github"></use></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p data-i18n="footer_copyright">© 2026 Portfolio DAW · Todos los derechos reservados.</p>
+    </div>
+  </footer>
+
   <script>
     const translations = {
       es: {
         title: 'Página no encontrada',
         text: 'La página que buscas no existe o ha cambiado de dirección. Puedes volver al inicio o explorar el catálogo de proyectos.',
         home: 'Volver al inicio',
-        projects: 'Ver proyectos'
+        projects: 'Ver proyectos',
+        footer_tagline: 'Portfolio profesional de Sergio Daniel Martínez Gómez · Alumno DAW.',
+        footer_sitemap: 'Mapa del sitio',
+        footer_contact: 'Contacto',
+        footer_social: 'Redes',
+        footer_admin: 'Panel de administración',
+        footer_copyright: '© 2026 Portfolio DAW · Todos los derechos reservados.'
       },
       en: {
         title: 'Page not found',
         text: 'The page you are looking for does not exist or has changed address. You can go back home or explore the project catalog.',
         home: 'Back to home',
-        projects: 'View projects'
+        projects: 'View projects',
+        footer_tagline: 'Professional portfolio of Sergio Daniel Martínez Gómez · DAW student.',
+        footer_sitemap: 'Sitemap',
+        footer_contact: 'Contact',
+        footer_social: 'Social',
+        footer_admin: 'Admin panel',
+        footer_copyright: '© 2026 Portfolio DAW · All rights reserved.'
       }
     };
 

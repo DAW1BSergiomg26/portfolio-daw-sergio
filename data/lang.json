@@ -165,7 +165,16 @@
     "blog_post_error": "Error al cargar el artículo.",
     "blog_post_published": "Publicado",
     "blog_post_tags": "Etiquetas",
-    "blog_min_read": "min de lectura"
+    "blog_min_read": "min de lectura",
+    "footer_tagline": "Portfolio profesional de Sergio Daniel Martínez Gómez · Alumno DAW.",
+    "footer_sitemap": "Mapa del sitio",
+    "footer_contact": "Contacto",
+    "footer_social": "Redes",
+    "footer_admin": "Panel de administración",
+    "footer_github": "GitHub",
+    "footer_linkedin": "LinkedIn",
+    "footer_email": "Email",
+    "footer_copyright": "© {{year}} Portfolio DAW · Todos los derechos reservados."
   },
   "en": {
     "lang_es": "ES",
@@ -333,6 +342,15 @@
     "blog_post_error": "Error loading article.",
     "blog_post_published": "Published",
     "blog_post_tags": "Tags",
-    "blog_min_read": "min read"
+    "blog_min_read": "min read",
+    "footer_tagline": "Professional portfolio of Sergio Daniel Martínez Gómez · DAW student.",
+    "footer_sitemap": "Sitemap",
+    "footer_contact": "Contact",
+    "footer_social": "Social",
+    "footer_admin": "Admin panel",
+    "footer_github": "GitHub",
+    "footer_linkedin": "LinkedIn",
+    "footer_email": "Email",
+    "footer_copyright": "© {{year}} Portfolio DAW · All rights reserved."
   }
 }
