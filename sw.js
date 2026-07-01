@@ -1,11 +1,11 @@
 /**
  * Service Worker - Portfolio DAW Sergio
- * Version: 3.7.1
+ * Version: 3.7.2
  * Estrategia: Cache-first para el shell/app, network-first para datos JSON.
  */
 
-const CACHE_NAME = 'portfolio-daw-v3.7.1';
-const DATA_CACHE_NAME = 'portfolio-daw-data-v3.7.1';
+const CACHE_NAME = 'portfolio-daw-v3.7.2';
+const DATA_CACHE_NAME = 'portfolio-daw-data-v3.7.2';
 
 // Detectar base path automáticamente (local /portfolio-daw-sergio/ o raíz)
 const BASE_PATH = self.location.pathname.replace(/\/sw\.js$/, '');
