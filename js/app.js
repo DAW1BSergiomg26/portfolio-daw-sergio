@@ -4,7 +4,7 @@ let translations = {};
 
 async function loadTranslations() {
   try {
-    const response = await fetch("data/lang.json?v=3.5.15");
+    const response = await fetch("data/lang.json?v=3.5.16");
     translations = await response.json();
     updateLangButtons();
     applyTranslations();
@@ -504,7 +504,7 @@ async function loadProjectsFromJson() {
     if (localProjects) {
       projects = JSON.parse(localProjects);
     } else {
-      const response = await fetch("data/projects.json?v=3.5.15");
+      const response = await fetch("data/projects.json?v=3.5.16");
       if (!response.ok) throw new Error("No se pudo cargar data/projects.json");
       projects = await response.json();
     }
@@ -1115,3 +1115,132 @@ applyDynamicTranslations = function () {
   originalApplyDynamicTranslations();
   applyContactTranslations();
 };
+
+/* --- BUSCADOR GLOBAL --- */
+const searchModal = document.getElementById("search-modal");
+const searchInput = document.getElementById("search-modal-input");
+const searchResults = document.getElementById("search-modal-results");
+let searchIndex = [];
+
+async function loadSearchData() {
+  try {
+    const [projectsRes, blogRes] = await Promise.all([
+      fetch("data/projects.json?v=3.5.16"),
+      fetch("data/blog.json?v=3.5.16")
+    ]);
+    const projects = await projectsRes.json();
+    const blog = await blogRes.json();
+
+    searchIndex = [
+      ...projects.map((p) => ({
+        type: "project",
+        id: p.id,
+        title: p.title || "",
+        title_en: p.title_en || "",
+        description: p.description || "",
+        description_en: p.description_en || "",
+        category: p.category || "",
+        technologies: (p.technologies || []).join(" "),
+        url: `proyecto.html?id=${encodeURIComponent(p.id)}`
+      })),
+      ...blog.map((p) => {
+        const content = p[currentLang] || p.es || p.en || {};
+        return {
+          type: "post",
+          slug: p.slug,
+          title: content.title || "",
+          excerpt: content.excerpt || "",
+          category: p.category || "",
+          tags: (p.tags || []).join(" "),
+          url: `entrada.html?slug=${encodeURIComponent(p.slug)}`
+        };
+      })
+    ];
+  } catch (err) {
+    console.error("[Search] Error loading data:", err);
+  }
+}
+
+function escapeHtml(str) {
+  return String(str).replace(/[&<>"']/g, (ch) => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", "\"": "&quot;", "'": "&#39;"}[ch]));
+}
+
+function normalizeText(str) {
+  return String(str).normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+}
+
+function renderSearchResults(query) {
+  if (!searchResults) return;
+  const q = normalizeText(query).trim();
+  if (!q) {
+    searchResults.innerHTML = `<p class="search-result-empty">${t("search_modal_empty")}</p>`;
+    return;
+  }
+
+  const terms = q.split(/\s+/).filter(Boolean);
+  const scored = searchIndex
+    .map((item) => {
+      const haystack = normalizeText([
+        item.title,
+        item.title_en || "",
+        item.description || item.excerpt || "",
+        item.category,
+        item.technologies || item.tags || ""
+      ].join(" "));
+      const matches = terms.filter((term) => haystack.includes(term)).length;
+      return { item, matches };
+    })
+    .filter(({ matches }) => matches > 0)
+    .sort((a, b) => b.matches - a.matches)
+    .map(({ item }) => item);
+
+  if (scored.length === 0) {
+    searchResults.innerHTML = `<p class="search-result-empty">${t("search_modal_no_results")}</p>`;
+    return;
+  }
+
+  const projects = scored.filter((i) => i.type === "project");
+  const posts = scored.filter((i) => i.type === "post");
+  let html = "";
+
+  if (projects.length) {
+    html += `<div class="search-result-group"><h4>${t("search_modal_projects")}</h4>`;
+    html += projects.map((i) => `<a class="search-result-item" href="${i.url}"><strong>${escapeHtml(i.title)}</strong><span>${escapeHtml(i.description || i.category || "")}</span></a>`).join("");
+    html += `</div>`;
+  }
+  if (posts.length) {
+    html += `<div class="search-result-group"><h4>${t("search_modal_posts")}</h4>`;
+    html += posts.map((i) => `<a class="search-result-item" href="${i.url}"><strong>${escapeHtml(i.title)}</strong><span>${escapeHtml(i.excerpt || i.category || "")}</span></a>`).join("");
+    html += `</div>`;
+  }
+
+  searchResults.innerHTML = html;
+}
+
+function openSearchModal() {
+  if (!searchModal) return;
+  searchModal.hidden = false;
+  document.body.style.overflow = "hidden";
+  if (searchInput) {
+    searchInput.value = "";
+    searchInput.focus();
+    renderSearchResults("");
+  }
+}
+
+function closeSearchModal() {
+  if (!searchModal) return;
+  searchModal.hidden = true;
+  document.body.style.overflow = "";
+}
+
+if (searchModal && searchInput && searchResults) {
+  loadSearchData();
+  searchInput.addEventListener("input", (e) => renderSearchResults(e.target.value));
+  searchModal.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closeSearchModal();
+  });
+}
+
+window.openSearchModal = openSearchModal;
+window.closeSearchModal = closeSearchModal;

@@ -109,8 +109,8 @@
   <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" fetchpriority="high">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
   <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet"></noscript>
-  <link rel="stylesheet" href="css/styles.css?v=3.5.15">
-  <link rel="stylesheet" href="css/filters.css?v=3.5.15">
+  <link rel="stylesheet" href="css/styles.css?v=3.5.16">
+  <link rel="stylesheet" href="css/filters.css?v=3.5.16">
 
   <style>
     .skip-link {
@@ -164,12 +164,24 @@
         <button type="button" class="lang-btn" data-lang="es" onclick="setLanguage('es')" data-i18n="lang_es">ES</button>
         <button type="button" class="lang-btn" data-lang="en" onclick="setLanguage('en')" data-i18n="lang_en">EN</button>
       </div>
+      <button type="button" class="search-toggle" id="search-toggle" aria-label="Buscar" data-i18n="search_toggle" onclick="openSearchModal()">🔍</button>
       <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Cambiar tema" data-i18n="theme_toggle" onclick="toggleTheme()">
         <span class="theme-icon-light" aria-hidden="true">☀️</span>
         <span class="theme-icon-dark" aria-hidden="true">🌙</span>
       </button>
     </nav>
   </header>
+
+  <div class="search-modal" id="search-modal" role="dialog" aria-modal="true" aria-label="Buscador global" hidden>
+    <div class="search-modal-overlay" onclick="closeSearchModal()"></div>
+    <div class="search-modal-content">
+      <div class="search-modal-header">
+        <input type="search" class="search-modal-input" id="search-modal-input" placeholder="Buscar proyectos y entradas..." data-i18n="search_modal_placeholder" aria-label="Buscar proyectos y entradas">
+        <button type="button" class="search-modal-close" aria-label="Cerrar búsqueda" data-i18n="search_modal_close" onclick="closeSearchModal()">✕</button>
+      </div>
+      <div class="search-modal-results" id="search-modal-results"></div>
+    </div>
+  </div>
 
   <main id="inicio">
     <section class="hero section-grid" aria-labelledby="titulo-principal">
@@ -363,8 +375,8 @@
     </p>
   </footer>
 
-  <script src="js/app.js?v=3.5.15" defer></script>
-  <script src="js/blog.js?v=3.5.15" defer></script>
+  <script src="js/app.js?v=3.5.16" defer></script>
+  <script src="js/blog.js?v=3.5.16" defer></script>
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
