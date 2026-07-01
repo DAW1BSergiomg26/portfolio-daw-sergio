@@ -42,7 +42,7 @@
     btn.type = 'button';
     btn.className = 'scroll-top';
     btn.setAttribute('aria-label', 'Volver arriba');
-    btn.innerHTML = '↑';
+    btn.innerHTML = '<svg class="icon" aria-hidden="true"><use href="icons.svg#icon-arrow-up"></use></svg>';
     document.body.appendChild(btn);
 
     function onScroll() {
