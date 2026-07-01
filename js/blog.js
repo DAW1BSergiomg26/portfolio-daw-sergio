@@ -10,8 +10,8 @@
   let blogTranslations = {};
   let currentLang = localStorage.getItem('lang') || 'es';
 
-  const BLOG_JSON_URL = 'data/blog.json?v=3.6.3';
-  const LANG_JSON_URL = 'data/lang.json?v=3.6.3';
+  const BLOG_JSON_URL = 'data/blog.json?v=3.6.4';
+  const LANG_JSON_URL = 'data/lang.json?v=3.6.4';
 
   async function loadBlogTranslations() {
     try {
@@ -136,6 +136,7 @@
             <a class="btn primary" href="index.html#blog" data-i18n="blog_back">${t('blog_back')}</a>
           </div>
         `;
+        container.setAttribute('aria-busy', 'false');
         return;
       }
 
@@ -168,6 +169,7 @@
           </footer>
         </article>
       `;
+      container.setAttribute('aria-busy', 'false');
     });
   }
 
