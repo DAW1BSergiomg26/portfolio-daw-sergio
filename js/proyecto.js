@@ -1,9 +1,10 @@
 let currentLang = localStorage.getItem("lang") || "es";
 let translations = {};
+let currentProject = null;
 
 async function loadTranslations() {
   try {
-    const response = await fetch("data/lang.json?v=3.9.0");
+    const response = await fetch("data/lang.json?v=3.11.0");
     translations = await response.json();
     updateLangButtons();
     applyTranslations();
@@ -56,7 +57,7 @@ async function loadProject() {
   }
 
   try {
-    const response = await fetch("data/projects.json?v=3.9.0");
+    const response = await fetch("data/projects.json?v=3.11.0");
     if (!response.ok) throw new Error("No se pudo cargar el catálogo");
 
     const projects = await response.json();
@@ -128,38 +129,74 @@ function getProjectRole(project) {
 }
 
 function renderProject(project, container) {
+  const hasDemo = project.demo;
   container.innerHTML = `
-    <p class="project-kicker">${getProjectKicker(project) || t("project_page_default_kicker")}</p>
-    <h1>${getProjectTitle(project)}</h1>
-    <p style="font-size: 1.2rem; color: var(--muted);">${getProjectDescription(project)}</p>
-    
-    <div class="project-meta">
-      ${project.status ? `<span>${t("project_meta_status")}: ${project.status}</span>` : ""}
-      ${project.level ? `<span>${t("project_meta_level")}: ${project.level}</span>` : ""}
-      ${project.version ? `<span>${t("project_meta_version")}: ${project.version}</span>` : ""}
-      ${project.year ? `<span>${t("project_meta_year")}: ${project.year}</span>` : ""}
+    <div class="proj-tabs" role="tablist" aria-label="Secciones del proyecto">
+      <button class="proj-tab is-active" role="tab" aria-selected="true" data-tab="details" id="tab-details">${t("project_tab_details")}</button>
+      ${hasDemo ? `<button class="proj-tab" role="tab" aria-selected="false" data-tab="demo" id="tab-demo">${t("project_tab_demo")}</button>` : ""}
     </div>
 
-    <h2>${t("modal_section_what")}</h2>
-    <p>${getProjectDescription(project)}</p>
+    <div class="proj-panels">
+      <div class="proj-panel is-active" role="tabpanel" aria-labelledby="tab-details" id="panel-details">
+        <p class="project-kicker">${getProjectKicker(project) || t("project_page_default_kicker")}</p>
+        <h1>${getProjectTitle(project)}</h1>
+        <p style="font-size: 1.2rem; color: var(--muted);">${getProjectDescription(project)}</p>
+        
+        <div class="project-meta">
+          ${project.status ? `<span>${t("project_meta_status")}: ${project.status}</span>` : ""}
+          ${project.level ? `<span>${t("project_meta_level")}: ${project.level}</span>` : ""}
+          ${project.version ? `<span>${t("project_meta_version")}: ${project.version}</span>` : ""}
+          ${project.year ? `<span>${t("project_meta_year")}: ${project.year}</span>` : ""}
+        </div>
 
-    <h2>${t("modal_section_learned")}</h2>
-    <p>${getProjectLearning(project) || t("project_page_default_kicker")}</p>
+        <h2>${t("modal_section_what")}</h2>
+        <p>${getProjectDescription(project)}</p>
 
-    <h2>${t("modal_section_why")}</h2>
-    <p>${getProjectRole(project) || t("project_page_default_kicker")}</p>
+        <h2>${t("modal_section_learned")}</h2>
+        <p>${getProjectLearning(project) || t("project_page_default_kicker")}</p>
 
-    <h2>${t("project_page_tech")}</h2>
-    <div class="tech-chips">
-      ${(project.technologies || []).map(tech => `<span>${tech}</span>`).join("")}
-    </div>
+        <h2>${t("modal_section_why")}</h2>
+        <p>${getProjectRole(project) || t("project_page_default_kicker")}</p>
 
-    <h2>${t("project_page_links")}</h2>
-    <div class="project-links">
-      ${(project.links || []).map(link => `<a href="${link.url}" target="_blank" rel="noopener noreferrer">${link.label}</a>`).join("")}
+        <h2>${t("project_page_tech")}</h2>
+        <div class="tech-chips">
+          ${(project.technologies || []).map(tech => `<span>${tech}</span>`).join("")}
+        </div>
+
+        <h2>${t("project_page_links")}</h2>
+        <div class="project-links">
+          ${(project.links || []).map(link => `<a href="${link.url}" target="_blank" rel="noopener noreferrer">${link.label}</a>`).join("")}
+        </div>
+      </div>
+
+      ${hasDemo ? `<div class="proj-panel" role="tabpanel" aria-labelledby="tab-demo" id="panel-demo"><div class="sandbox-container"></div></div>` : ""}
     </div>
   `;
   container.setAttribute('aria-busy', 'false');
+
+  currentProject = project;
+  setupTabs(project);
+}
+
+function setupTabs(project) {
+  document.querySelectorAll('.proj-tab').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.proj-tab').forEach(b => { b.classList.remove('is-active'); b.setAttribute('aria-selected', 'false'); });
+      document.querySelectorAll('.proj-panel').forEach(p => p.classList.remove('is-active'));
+      btn.classList.add('is-active');
+      btn.setAttribute('aria-selected', 'true');
+      const panel = document.getElementById('panel-' + btn.dataset.tab);
+      if (panel) panel.classList.add('is-active');
+      if (btn.dataset.tab === 'demo') {
+        const sandboxContainer = panel.querySelector('.sandbox-container');
+        if (sandboxContainer && !sandboxContainer.dataset.loaded) {
+          sandboxContainer.dataset.loaded = 'true';
+          createSandbox(sandboxContainer, project);
+        }
+      }
+      window.dispatchEvent(new Event('resize'));
+    });
+  });
 }
 
 loadProject();

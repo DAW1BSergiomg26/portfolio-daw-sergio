@@ -1,11 +1,11 @@
 /**
  * Service Worker - Portfolio DAW Sergio
- * Version: 3.8.0
+ * Version: 3.11.0
  * Estrategia: Cache-first para el shell/app, network-first para datos JSON.
  */
 
-const CACHE_NAME = 'portfolio-daw-v3.9.0';
-const DATA_CACHE_NAME = 'portfolio-daw-data-v3.9.0';
+const CACHE_NAME = 'portfolio-daw-v3.11.0';
+const DATA_CACHE_NAME = 'portfolio-daw-data-v3.11.0';
 
 // Detectar base path automáticamente (local /portfolio-daw-sergio/ o raíz)
 const BASE_PATH = self.location.pathname.replace(/\/sw\.js$/, '');
@@ -29,10 +29,39 @@ const STATIC_ASSETS = [
   `${BASE_PATH}/data/projects.json`,
   `${BASE_PATH}/data/lang.json`,
   `${BASE_PATH}/data/blog.json`,
+  `${BASE_PATH}/data/ruta.json`,
+  `${BASE_PATH}/js/sandbox.js`,
+  `${BASE_PATH}/js/ruta-map.js`,
+  `${BASE_PATH}/demos/archivo-moonwalk.html`,
+  `${BASE_PATH}/demos/gestor-tareas-daw.html`,
+  `${BASE_PATH}/demos/web-servicios-informaticos.html`,
+  `${BASE_PATH}/demos/web-mio-divina.html`,
+  `${BASE_PATH}/demos/divina-misericordia-app.html`,
+  `${BASE_PATH}/demos/menu-ciberpunk-multicolores.html`,
+  `${BASE_PATH}/demos/envios-paraguay-cms.html`,
+  `${BASE_PATH}/demos/naranco-grupo-b-2.html`,
+  `${BASE_PATH}/demos/auri-grupo-sergio-juan-juanca-luis-oscar-hector.html`,
+  `${BASE_PATH}/demos/auri-grupo-sergio-mateo-juanca.html`,
+  `${BASE_PATH}/demos/mi-juego-dinogamer.html`,
+  `${BASE_PATH}/demos/100-ejercicios-practicos.html`,
+  `${BASE_PATH}/demos/aprende-python-java.html`,
+  `${BASE_PATH}/demos/python-de-0-a-100.html`,
+  `${BASE_PATH}/demos/mi-app.html`,
+  `${BASE_PATH}/demos/ejercicios-bbdd-2026-03-10.html`,
+  `${BASE_PATH}/demos/mini-tienda-web.html`,
+  `${BASE_PATH}/demos/laboratorio-javascript.html`,
+  `${BASE_PATH}/demos/memoria-proyectos-daw.html`,
+  `${BASE_PATH}/demos/mejora-visual-portfolio.html`,
   `${BASE_PATH}/site.webmanifest`,
   `${BASE_PATH}/favicon.svg`,
   `${BASE_PATH}/og-image.svg`,
-  `${BASE_PATH}/icons.svg`
+  `${BASE_PATH}/icons.svg`,
+  `${BASE_PATH}/_headers`,
+  `${BASE_PATH}/api/index.html`,
+  `${BASE_PATH}/api/projects.json`,
+  `${BASE_PATH}/api/blog.json`,
+  `${BASE_PATH}/api/cv.json`,
+  `${BASE_PATH}/js/github-dashboard.js`
 ];
 
 const OFFLINE_PAGE = `${BASE_PATH}/index.html`;

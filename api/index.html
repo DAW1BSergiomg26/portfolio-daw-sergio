@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="es">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>API · Portfolio DAW</title>
+<meta name="robots" content="noindex">
+<style>*{box-sizing:border-box;margin:0;padding:0}body{font-family:system-ui,-apple-system,sans-serif;background:#0f172a;color:#e2e8f0;padding:2rem;max-width:720px;margin:0 auto}h1{font-size:1.5rem;font-weight:800;margin-bottom:.3rem}.sub{color:#94a3b8;margin-bottom:2rem}.endpoint{background:#1e293b;border-radius:16px;padding:1.25rem;margin-bottom:1rem;border:1px solid rgba(255,255,255,.08)}.endpoint .method{display:inline-block;padding:.15rem.5rem;border-radius:6px;font-weight:800;font-size:.7rem;background:#22c55e;color:#0f172a;margin-right:.5rem;text-transform:uppercase}.endpoint .url{font-family:monospace;font-size:.9rem;color:#93c5fd;font-weight:600}.endpoint .desc{font-size:.85rem;color:#94a3b8;margin-top:.5rem;line-height:1.6}.endpoint .example{margin-top:.6rem;background:#0f172a;border-radius:10px;padding:.7rem;font-family:monospace;font-size:.78rem;color:#64748b;overflow-x:auto;white-space:pre-wrap;word-break:break-all}code{background:rgba(255,255,255,.06);padding:.1rem.3rem;border-radius:4px;font-size:.85em}.tag{display:inline-block;padding:.15rem.45rem;border-radius:6px;font-size:.65rem;font-weight:700;background:rgba(59,130,246,.15);color:#93c5fd;margin-left:.4rem}footer{margin-top:2rem;padding-top:1rem;border-top:1px solid rgba(255,255,255,.08);font-size:.8rem;color:#64748b;text-align:center}</style></head>
+<body>
+<h1>📡 API · Portfolio DAW</h1>
+<p class="sub">API pública RESTful con datos del portfolio de Sergio Daniel Martínez Gómez. Todos los endpoints devuelven JSON con CORS abierto.</p>
+
+<div class="endpoint">
+  <div><span class="method">GET</span><span class="url">/api/projects.json</span><span class="tag">Catálogo completo</span></div>
+  <div class="desc">Listado de los 20 proyectos del portfolio con campos bilingües ES/EN, tecnologías, enlaces y metadatos.</div>
+  <div class="example">fetch('https://daw1bsergiomg26.github.io/portfolio-daw-sergio/api/projects.json')<br>  .then(r => r.json())<br>  .then(projects => console.log(projects.length))</div>
+</div>
+
+<div class="endpoint">
+  <div><span class="method">GET</span><span class="url">/api/blog.json</span><span class="tag">Entradas del blog</span></div>
+  <div class="desc">Artículos técnicos del blog con contenido ES/EN, categorías, etiquetas y metadatos.</div>
+  <div class="example">fetch('https://daw1bsergiomg26.github.io/portfolio-daw-sergio/api/blog.json')<br>  .then(r => r.json())<br>  .then(posts => console.log(posts))</div>
+</div>
+
+<div class="endpoint">
+  <div><span class="method">GET</span><span class="url">/api/cv.json</span><span class="tag">Currículum</span></div>
+  <div class="desc">Datos profesionales: formación, skills, idiomas, soft skills y enlaces.</div>
+  <div class="example">fetch('https://daw1bsergiomg26.github.io/portfolio-daw-sergio/api/cv.json')<br>  .then(r => r.json())<br>  .then(cv => console.log(cv))</div>
+</div>
+
+<h2 style="font-size:1rem;font-weight:700;margin:1.5rem 0 .8rem">🔧 Uso</h2>
+<p style="color:#94a3b8;font-size:.88rem;line-height:1.7">Todas las rutas devuelven <code>Content-Type: application/json</code> con cabecera <code>Access-Control-Allow-Origin: *</code>. No se requiere autenticación. Los datos se actualizan con cada release del portfolio.</p>
+
+<footer>Portfolio DAW · Sergio Daniel Martínez Gómez · <a href="https://daw1bsergiomg26.github.io/portfolio-daw-sergio/" style="color:#3b82f6;text-decoration:none">Volver al inicio</a></footer>
+</body>
+</html>

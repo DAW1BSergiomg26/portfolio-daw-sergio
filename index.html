@@ -109,8 +109,8 @@
   <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=optional" fetchpriority="high">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=optional" rel="stylesheet" media="print" onload="this.media='all'">
   <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=optional" rel="stylesheet"></noscript>
-  <link rel="stylesheet" href="css/styles.css?v=3.9.0">
-  <link rel="stylesheet" href="css/filters.css?v=3.9.0">
+  <link rel="stylesheet" href="css/styles.css?v=3.11.0">
+  <link rel="stylesheet" href="css/filters.css?v=3.11.0">
 
   <style>
     .skip-link {
@@ -155,6 +155,7 @@
     <nav class="main-nav" aria-label="Navegación principal">
       <a href="#sobre-mi" data-i18n="nav_sobre_mi">Sobre mí</a>
       <a href="#tecnologias" data-i18n="nav_tecnologias">Tecnologías</a>
+      <a href="#github" data-i18n="nav_github">GitHub</a>
       <a href="#proyectos" data-i18n="nav_proyectos">Proyectos</a>
       <a href="#proximos-proyectos" data-i18n="nav_proximos">Próximos</a>
       <a href="#blog" data-i18n="nav_blog">Blog</a>
@@ -288,6 +289,14 @@
       </div>
     </section>
 
+    <section id="github" class="content-section reveal" aria-labelledby="github-title">
+      <p class="eyebrow" data-i18n="github_eyebrow">Actividad en GitHub</p>
+      <h2 id="github-title" data-i18n="github_title">Estadísticas y repositorios</h2>
+      <div id="github-dashboard">
+        <div class="gh-loading"><span class="gh-spinner"></span> Cargando...</div>
+      </div>
+    </section>
+
     <section id="proyectos" class="content-section reveal is-loading" aria-labelledby="titulo-proyectos">
       <p class="eyebrow" data-i18n="projects_eyebrow">Proyectos y repositorios</p>
       <h2 id="titulo-proyectos" data-i18n="projects_title">Trabajos DAW en producción</h2>
@@ -351,36 +360,8 @@
     <section id="ruta" class="content-section reveal" aria-labelledby="titulo-ruta">
       <p class="eyebrow" data-i18n="route_eyebrow">Ruta DAW</p>
       <h2 id="titulo-ruta" data-i18n="route_title">Evolución profesional</h2>
-      <div class="timeline">
-        <article class="timeline-item">
-          <div class="timeline-marker">1</div>
-          <div class="timeline-content">
-            <strong data-i18n="route_1_title">Fundamentos</strong>
-            <p data-i18n="route_1_text">Creación de proyectos pequeños, semántica HTML, CSS y primeros pasos con JS.</p>
-          </div>
-        </article>
-        <article class="timeline-item">
-          <div class="timeline-marker">2</div>
-          <div class="timeline-content">
-            <strong data-i18n="route_2_title">Documentación Técnica</strong>
-            <p data-i18n="route_2_text">Implementación de buenas prácticas con README, memorias técnicas y control de versiones.</p>
-          </div>
-        </article>
-        <article class="timeline-item">
-          <div class="timeline-marker">3</div>
-          <div class="timeline-content">
-            <strong data-i18n="route_3_title">Producción Estable</strong>
-            <p data-i18n="route_3_text">Publicación de proyectos reales en GitHub Pages con PWA y SEO avanzado.</p>
-          </div>
-        </article>
-        <article class="timeline-item">
-          <div class="timeline-marker">4</div>
-          <div class="timeline-content">
-            <strong data-i18n="route_4_title">Arquitectura Premium</strong>
-            <p data-i18n="route_4_text">Refactorización, catálogo dinámico JSON, diseño glassmorphism y enfoque profesional.</p>
-          </div>
-        </article>
-      </div>
+      <p data-i18n="route_subtitle">Explora las islas de mi aprendizaje: cada estación representa una etapa del ciclo DAW.</p>
+      <div id="ruta-map-container"></div>
     </section>
 
     <section id="contacto" class="content-section contact-section reveal">
@@ -435,6 +416,7 @@
           <li><a href="cv.html" data-i18n="cv_eyebrow">Currículum</a></li>
           <li><a href="index.html#proyectos" data-i18n="nav_proyectos">Proyectos</a></li>
           <li><a href="index.html#blog" data-i18n="nav_blog">Blog</a></li>
+          <li><a href="index.html#ruta" data-i18n="nav_ruta">Ruta DAW</a></li>
           <li><a href="index.html#contacto" data-i18n="nav_contacto">Contacto</a></li>
         </ul>
       </div>
@@ -464,8 +446,10 @@
     </div>
   </footer>
 
-  <script src="js/app.js?v=3.9.0" defer></script>
-  <script src="js/blog.js?v=3.9.0" defer></script>
+  <script src="js/app.js?v=3.11.0" defer></script>
+  <script src="js/blog.js?v=3.11.0" defer></script>
+  <script src="js/ruta-map.js?v=3.11.0" defer></script>
+  <script src="js/github-dashboard.js?v=3.11.0" defer></script>
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {

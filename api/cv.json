@@ -1,0 +1,33 @@
+{
+  "name": "Sergio Daniel Martínez Gómez",
+  "title": "DAW Student · Web Development",
+  "email": "sergio@example.com",
+  "github": "https://github.com/DAW1BSergiomg26",
+  "linkedin": "https://linkedin.com/in/sergiodanielmg",
+  "location": "Spain",
+  "education": [
+    { "degree": "Desarrollo de Aplicaciones Web (DAW)", "school": "IES · Presencial", "period": "2024 — 2026" },
+    { "degree": "Formación complementaria", "school": "Cursos online", "period": "2023 — Presente" }
+  ],
+  "skills": {
+    "HTML5": 95,
+    "CSS3 / Responsive Design": 90,
+    "JavaScript (DOM, Fetch, JSON)": 75,
+    "Git / GitHub / GitHub Pages": 85,
+    "SEO básico / Open Graph": 80,
+    "PWA / Service Workers": 70,
+    "Internacionalización (i18n)": 75,
+    "Python (básico)": 50,
+    "SQL / Bases de datos": 55
+  },
+  "languages": [
+    { "language": "Español", "level": "Nativo" },
+    { "language": "Inglés", "level": "Técnico (lectura/documentación)" }
+  ],
+  "softSkills": [
+    "Comunicación efectiva", "Trabajo en equipo", "Resolución de problemas",
+    "Organización y planificación", "Adaptabilidad", "Aprendizaje continuo"
+  ],
+  "projects_url": "https://daw1bsergiomg26.github.io/portfolio-daw-sergio/api/projects.json",
+  "portfolio_url": "https://daw1bsergiomg26.github.io/portfolio-daw-sergio/"
+}

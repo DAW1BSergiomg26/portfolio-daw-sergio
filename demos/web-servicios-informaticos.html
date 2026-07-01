@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Servicios Informáticos - Demo</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:system-ui,-apple-system,sans-serif;background:#f1f5f9;color:#0f172a;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:2rem}
+.card{background:#fff;border-radius:20px;box-shadow:0 8px 32px rgba(0,0,0,.06);overflow:hidden;max-width:560px;width:100%}
+.hero{background:linear-gradient(135deg,#1e293b,#334155);color:#fff;padding:2rem;text-align:center}
+.hero h1{font-size:1.3rem;font-weight:800;letter-spacing:-.02em}
+.hero p{font-size:.85rem;opacity:.8;margin-top:.4rem}
+.services{padding:1.5rem;display:grid;grid-template-columns:1fr 1fr;gap:.75rem}
+.service{background:#f8fafc;border-radius:12px;padding:1rem;text-align:center;transition:transform .2s,box-shadow .2s;cursor:default}
+.service:hover{transform:translateY(-2px);box-shadow:0 4px 16px rgba(0,0,0,.06)}
+.service .icon{font-size:1.4rem;margin-bottom:.3rem}
+.service h3{font-size:.8rem;font-weight:700;margin-bottom:.2rem}
+.service p{font-size:.72rem;color:#64748b;line-height:1.4}
+.cta{padding:1.25rem 1.5rem;text-align:center;border-top:1px solid #e2e8f0}
+.cta a{display:inline-block;padding:.6rem 2rem;background:#3b82f6;color:#fff;border-radius:999px;font-weight:700;font-size:.85rem;text-decoration:none;transition:background .2s}
+.cta a:hover{background:#2563eb}
+.cta p{font-size:.75rem;color:#94a3b8;margin-top:.5rem}
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="hero">
+    <h1>Servicios Informáticos</h1>
+    <p>Soporte técnico profesional para particulares y empresas</p>
+  </div>
+  <div class="services">
+    <div class="service"><div class="icon">🖥️</div><h3>Instalación</h3><p>Windows, Linux y software profesional</p></div>
+    <div class="service"><div class="icon">🧹</div><h3>Limpieza</h3><p>Optimización y mantenimiento de equipos</p></div>
+    <div class="service"><div class="icon">💾</div><h3>Copias</h3><p>Backup y recuperación de datos</p></div>
+    <div class="service"><div class="icon">🌐</div><h3>Soporte</h3><p>Asistencia remota y presencial</p></div>
+  </div>
+  <div class="cta">
+    <a href="#">Solicitar presupuesto</a>
+    <p>Respondemos en menos de 24h</p>
+  </div>
+</div>
+</body>
+</html>

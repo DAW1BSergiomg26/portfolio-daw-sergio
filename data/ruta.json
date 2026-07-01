@@ -1,0 +1,88 @@
+{
+  "mapTitleEs": "Archipiélago DAW",
+  "mapTitleEn": "DAW Archipelago",
+  "playerLabel": "Tú estás aquí",
+  "islands": [
+    {
+      "id": "fundamentos",
+      "position": { "x": 10, "y": 45 },
+      "color": "#6366f1",
+      "icon": "icon-compass",
+      "titleEs": "Isla Fundamentos",
+      "titleEn": "Fundamentals Island",
+      "periodEs": "Trimestre 1",
+      "periodEn": "Quarter 1",
+      "descriptionEs": "HTML semántico, CSS3, primeros pasos con JavaScript y maquetación responsive.",
+      "descriptionEn": "Semantic HTML, CSS3, first steps with JavaScript and responsive layout.",
+      "technologies": ["HTML5", "CSS3", "JavaScript", "Git"],
+      "projects": ["web-servicios-informaticos", "aurora-pro", "mini-proyecto-js"],
+      "status": "completed"
+    },
+    {
+      "id": "documentacion",
+      "position": { "x": 25, "y": 20 },
+      "color": "#8b5cf6",
+      "icon": "icon-book",
+      "titleEs": "Isla Documentación",
+      "titleEn": "Documentation Island",
+      "periodEs": "Trimestre 2",
+      "periodEn": "Quarter 2",
+      "descriptionEs": "Buenas prácticas con README, memorias técnicas, control de versiones y trabajo organizado.",
+      "descriptionEn": "Best practices with README, technical memos, version control and organized workflow.",
+      "technologies": ["Git", "GitHub", "Markdown", "Documentación"],
+      "projects": ["archivo-moonwalk", "guia-estilo-css"],
+      "status": "completed"
+    },
+    {
+      "id": "produccion",
+      "position": { "x": 45, "y": 40 },
+      "color": "#ec4899",
+      "icon": "icon-globe",
+      "titleEs": "Isla Producción",
+      "titleEn": "Production Island",
+      "periodEs": "Trimestre 3",
+      "periodEn": "Quarter 3",
+      "descriptionEs": "Publicación en GitHub Pages, PWA instalable, SEO avanzado y optimización Lighthouse.",
+      "descriptionEn": "GitHub Pages deployment, installable PWA, advanced SEO and Lighthouse optimization.",
+      "technologies": ["GitHub Pages", "PWA", "SEO", "Lighthouse"],
+      "projects": ["portfolio-daw", "gestor-tareas-daw"],
+      "status": "completed"
+    },
+    {
+      "id": "arquitectura",
+      "position": { "x": 65, "y": 18 },
+      "color": "#f59e0b",
+      "icon": "icon-layers",
+      "titleEs": "Isla Arquitectura",
+      "titleEn": "Architecture Island",
+      "periodEs": "Trimestre 4",
+      "periodEn": "Quarter 4",
+      "descriptionEs": "Catálogo JSON dinámico, i18n ES/EN, diseño glassmorphism, panel admin y arquitectura premium.",
+      "descriptionEn": "Dynamic JSON catalog, i18n ES/EN, glassmorphism design, admin panel and premium architecture.",
+      "technologies": ["JSON", "i18n", "CSS Glassmorphism", "Admin Panel"],
+      "projects": ["portfolio-daw"],
+      "status": "completed"
+    },
+    {
+      "id": "innovacion",
+      "position": { "x": 82, "y": 35 },
+      "color": "#06b6d4",
+      "icon": "icon-zap",
+      "titleEs": "Isla Innovación",
+      "titleEn": "Innovation Island",
+      "periodEs": "Actualidad",
+      "periodEn": "Current",
+      "descriptionEs": "Demos interactivas en vivo, mapa RPG de ruta DAW, integración IA y experiencias únicas.",
+      "descriptionEn": "Live interactive demos, DAW route RPG map, AI integration and unique experiences.",
+      "technologies": ["Demos", "SVG Map", "IA"],
+      "projects": [],
+      "status": "current"
+    }
+  ],
+  "connections": [
+    { "from": "fundamentos", "to": "documentacion" },
+    { "from": "documentacion", "to": "produccion" },
+    { "from": "produccion", "to": "arquitectura" },
+    { "from": "arquitectura", "to": "innovacion" }
+  ]
+}
