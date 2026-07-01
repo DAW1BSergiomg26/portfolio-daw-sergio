@@ -1,10 +1,10 @@
 /**
  * Service Worker - Portfolio DAW Sergio
- * Version: 3.11.1
+ * Version: 3.12.0
  * Estrategia: Cache-first para HTML, network-first para JS/CSS/JSON.
  */
-const CACHE_NAME = 'portfolio-daw-v3.11.1';
-const DATA_CACHE_NAME = 'portfolio-daw-data-v3.11.1';
+const CACHE_NAME = 'portfolio-daw-v3.12.0';
+const DATA_CACHE_NAME = 'portfolio-daw-data-v3.12.0';
 const BASE_PATH = self.location.pathname.replace(/\/sw\.js$/, '');
 
 const PRECACHE_URLS = [

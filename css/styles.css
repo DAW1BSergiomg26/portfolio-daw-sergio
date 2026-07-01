@@ -191,6 +191,7 @@ h3 { font-size: clamp(1.7rem, 3vw, 2.6rem); margin-bottom: 1rem; }
 .avatar-circle {
   width: 140px;
   height: 140px;
+  aspect-ratio: 1;
   border-radius: 50%;
   background: linear-gradient(135deg, var(--accent), var(--accent-2));
   color: #050712;
@@ -307,6 +308,7 @@ h3 { font-size: clamp(1.7rem, 3vw, 2.6rem); margin-bottom: 1rem; }
   100% { transform: rotate(360deg) scale(1); }
 }
 
+#proyectos { min-height: 600px; }
 #proyectos.is-loading { min-height: 600px; }
 .project-counter { min-height: 1.5em; }
 
@@ -328,6 +330,8 @@ h3 { font-size: clamp(1.7rem, 3vw, 2.6rem); margin-bottom: 1rem; }
 }
 
 /* --- BLOG TÉCNICO --- */
+#blog-list { min-height: 300px; }
+#blog-list:empty { min-height: 200px; }
 .blog-list-container { margin-top: 2rem; min-height: 200px; }
 .blog-loading, .blog-empty { text-align: center; color: var(--muted); padding: 2rem 0; }
 .blog-grid { display: grid; gap: 1.5rem; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
@@ -676,6 +680,8 @@ h3 { font-size: clamp(1.7rem, 3vw, 2.6rem); margin-bottom: 1rem; }
   color: var(--muted);
 }
 
+.proj-grid { min-height: 400px; }
+
 /* --- TABS DE PROYECTO --- */
 .proj-tabs {
   display: flex;
@@ -763,6 +769,8 @@ h3 { font-size: clamp(1.7rem, 3vw, 2.6rem); margin-bottom: 1rem; }
 }
 
 /* --- MAPA RUTA DAW --- */
+#ruta-map-container { min-height: 350px; }
+#ruta-map-container:empty { min-height: 200px; }
 .ruta-map-wrapper {
   position: relative;
   background: var(--panel);
@@ -901,7 +909,7 @@ h3 { font-size: clamp(1.7rem, 3vw, 2.6rem); margin-bottom: 1rem; }
 }
 
 /* GitHub dashboard */
-#github-dashboard { min-height: 120px; }
+#github-dashboard { min-height: 200px; }
 .gh-loading { display:flex;align-items:center;gap:.75rem;color:#94a3b8;justify-content:center;padding:3rem 0 }
 .gh-spinner { width:24px;height:24px;border:3px solid rgba(255,255,255,.1);border-top-color:#3b82f6;border-radius:50%;animation:spin .8s linear infinite }
 .gh-error { text-align:center;color:#94a3b8;padding:2rem }

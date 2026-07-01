@@ -4,7 +4,7 @@ let translations = {};
 
 async function loadTranslations() {
   try {
-    const response = await fetch("data/lang.json?v=3.11.1");
+    const response = await fetch("data/lang.json?v=3.12.0");
     translations = await response.json();
     updateLangButtons();
     applyTranslations();
@@ -505,7 +505,7 @@ async function loadProjectsFromJson() {
     if (localProjects) {
       projects = JSON.parse(localProjects);
     } else {
-      const response = await fetch("data/projects.json?v=3.11.1");
+      const response = await fetch("data/projects.json?v=3.12.0");
       if (!response.ok) throw new Error("No se pudo cargar data/projects.json");
       projects = await response.json();
     }
@@ -1126,8 +1126,8 @@ let searchIndex = [];
 async function loadSearchData() {
   try {
     const [projectsRes, blogRes] = await Promise.all([
-      fetch("data/projects.json?v=3.11.1"),
-      fetch("data/blog.json?v=3.11.1")
+      fetch("data/projects.json?v=3.12.0"),
+      fetch("data/blog.json?v=3.12.0")
     ]);
     const projects = await projectsRes.json();
     const blog = await blogRes.json();
