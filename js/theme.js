@@ -37,12 +37,42 @@
     });
   }
 
+  function initScrollTop() {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'scroll-top';
+    btn.setAttribute('aria-label', 'Volver arriba');
+    btn.innerHTML = '↑';
+    document.body.appendChild(btn);
+
+    function onScroll() {
+      const threshold = 400;
+      if (window.scrollY > threshold) {
+        btn.classList.add('is-visible');
+      } else {
+        btn.classList.remove('is-visible');
+      }
+    }
+
+    btn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  }
+
   window.toggleTheme = toggleTheme;
   applyTheme(getPreferredTheme());
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', updateToggleButtons);
-  } else {
+  function init() {
     updateToggleButtons();
+    initScrollTop();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
   }
 })();
