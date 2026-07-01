@@ -197,7 +197,10 @@
   window.refreshBlog = initBlog;
   window.setBlogLanguage = setBlogLanguage;
 
-  document.addEventListener('languagechange', () => initBlog());
+  document.addEventListener('languagechange', (e) => {
+    currentLang = e.detail.lang;
+    initBlog();
+  });
 
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initBlog);
