@@ -203,8 +203,8 @@
     panel.classList.add('open');
   }
 
-  document.addEventListener('langChanged', function (e) {
-    currentLang = e.detail || 'es';
+  document.addEventListener('languagechange', function (e) {
+    currentLang = e.detail.lang || 'es';
     const container = document.getElementById(CONTAINER_ID);
     if (container && mapData) {
       activeIsland = null;
