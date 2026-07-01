@@ -1,16 +1,13 @@
 /**
  * Service Worker - Portfolio DAW Sergio
  * Version: 3.11.1
- * Estrategia: Cache-first para el shell/app, network-first para datos JSON.
+ * Estrategia: Cache-first para HTML, network-first para JS/CSS/JSON.
  */
-
 const CACHE_NAME = 'portfolio-daw-v3.11.1';
 const DATA_CACHE_NAME = 'portfolio-daw-data-v3.11.1';
-
-// Detectar base path automáticamente (local /portfolio-daw-sergio/ o raíz)
 const BASE_PATH = self.location.pathname.replace(/\/sw\.js$/, '');
 
-const STATIC_ASSETS = [
+const PRECACHE_URLS = [
   `${BASE_PATH}/`,
   `${BASE_PATH}/index.html`,
   `${BASE_PATH}/proyecto.html`,
@@ -26,104 +23,91 @@ const STATIC_ASSETS = [
   `${BASE_PATH}/js/admin.js`,
   `${BASE_PATH}/js/theme.js`,
   `${BASE_PATH}/js/cv.js`,
+  `${BASE_PATH}/js/sandbox.js`,
+  `${BASE_PATH}/js/ruta-map.js`,
+  `${BASE_PATH}/js/github-dashboard.js`,
   `${BASE_PATH}/data/projects.json`,
   `${BASE_PATH}/data/lang.json`,
   `${BASE_PATH}/data/blog.json`,
   `${BASE_PATH}/data/ruta.json`,
-  `${BASE_PATH}/js/sandbox.js`,
-  `${BASE_PATH}/js/ruta-map.js`,
-  `${BASE_PATH}/demos/archivo-moonwalk.html`,
-  `${BASE_PATH}/demos/gestor-tareas-daw.html`,
-  `${BASE_PATH}/demos/web-servicios-informaticos.html`,
-  `${BASE_PATH}/demos/web-mio-divina.html`,
-  `${BASE_PATH}/demos/divina-misericordia-app.html`,
-  `${BASE_PATH}/demos/menu-ciberpunk-multicolores.html`,
-  `${BASE_PATH}/demos/envios-paraguay-cms.html`,
-  `${BASE_PATH}/demos/naranco-grupo-b-2.html`,
-  `${BASE_PATH}/demos/auri-grupo-sergio-juan-juanca-luis-oscar-hector.html`,
-  `${BASE_PATH}/demos/auri-grupo-sergio-mateo-juanca.html`,
-  `${BASE_PATH}/demos/mi-juego-dinogamer.html`,
-  `${BASE_PATH}/demos/100-ejercicios-practicos.html`,
-  `${BASE_PATH}/demos/aprende-python-java.html`,
-  `${BASE_PATH}/demos/python-de-0-a-100.html`,
-  `${BASE_PATH}/demos/mi-app.html`,
-  `${BASE_PATH}/demos/ejercicios-bbdd-2026-03-10.html`,
-  `${BASE_PATH}/demos/mini-tienda-web.html`,
-  `${BASE_PATH}/demos/laboratorio-javascript.html`,
-  `${BASE_PATH}/demos/memoria-proyectos-daw.html`,
-  `${BASE_PATH}/demos/mejora-visual-portfolio.html`,
   `${BASE_PATH}/site.webmanifest`,
   `${BASE_PATH}/favicon.svg`,
   `${BASE_PATH}/og-image.svg`,
   `${BASE_PATH}/icons.svg`,
-  `${BASE_PATH}/_headers`,
   `${BASE_PATH}/api/index.html`,
   `${BASE_PATH}/api/projects.json`,
   `${BASE_PATH}/api/blog.json`,
-  `${BASE_PATH}/api/cv.json`,
-  `${BASE_PATH}/js/github-dashboard.js`
+  `${BASE_PATH}/api/cv.json`
 ];
 
 const OFFLINE_PAGE = `${BASE_PATH}/index.html`;
 
-// Instalación: precachear shell estático
 self.addEventListener('install', event => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then(cache => {
-      return cache.addAll(STATIC_ASSETS).catch(err => {
-        console.warn('[SW] Algunos recursos no se pudieron precachear:', err);
-      });
-    }).then(() => self.skipWaiting())
+    precacheAssets().then(() => self.skipWaiting())
   );
 });
 
-// Activación: limpiar caches antiguas
+async function precacheAssets() {
+  const cache = await caches.open(CACHE_NAME);
+  const results = await Promise.allSettled(
+    PRECACHE_URLS.map(url =>
+      fetch(url).then(res => {
+        if (res.ok) cache.put(url, res);
+      }).catch(() => {})
+    )
+  );
+  const failed = results.filter(r => r.status === 'rejected').length;
+  if (failed > 0) console.warn('[SW] Fallaron ' + failed + ' assets en precache');
+}
+
 self.addEventListener('activate', event => {
   event.waitUntil(
-    caches.keys().then(keys => {
-      return Promise.all(
+    caches.keys().then(keys =>
+      Promise.all(
         keys
           .filter(key => key !== CACHE_NAME && key !== DATA_CACHE_NAME)
           .map(key => caches.delete(key))
-      );
-    }).then(() => self.clients.claim())
+      )
+    ).then(() => self.clients.claim())
   );
 });
 
-// Fetch: estrategia híbrida
 self.addEventListener('fetch', event => {
   const { request } = event;
   const url = new URL(request.url);
-
-  // Ignorar peticiones no GET (POST a formularios, analytics, etc.)
   if (request.method !== 'GET') return;
-
-  // Ignorar chrome-extension y protocolos no soportados
   if (!url.protocol.startsWith('http')) return;
 
-  // Datos JSON: network-first con fallback a cache
-  if (url.pathname.endsWith('.json') || url.pathname.includes('/data/')) {
-    event.respondWith(networkFirst(request));
-    return;
-  }
+  const isJSON = url.pathname.endsWith('.json');
+  const isJS = url.pathname.endsWith('.js');
+  const isCSS = url.pathname.endsWith('.css');
+  const isData = url.pathname.includes('/data/');
+  const isDemo = url.pathname.includes('/demos/');
+  const isAPI = url.pathname.includes('/api/');
 
-  // Shell estático: cache-first con fallback a network
-  event.respondWith(cacheFirst(request));
+  if (isJSON || isData || isAPI) {
+    event.respondWith(networkFirst(request));
+  } else if (isJS || isCSS) {
+    event.respondWith(networkFirst(request));
+  } else if (isDemo) {
+    event.respondWith(networkFirst(request));
+  } else {
+    event.respondWith(cacheFirst(request));
+  }
 });
 
 async function cacheFirst(request) {
   const cache = await caches.open(CACHE_NAME);
   const cached = await cache.match(request);
   if (cached) return cached;
-
   try {
     const response = await fetch(request);
-    if (response && response.status === 200 && response.type === 'basic') {
+    if (response.ok && response.type === 'basic') {
       cache.put(request, response.clone());
     }
     return response;
   } catch (err) {
-    // Si falla y es una navegación, devolver offline page
     if (request.mode === 'navigate') {
       const offline = await cache.match(OFFLINE_PAGE);
       if (offline) return offline;
@@ -133,24 +117,20 @@ async function cacheFirst(request) {
 }
 
 async function networkFirst(request) {
-  const dataCache = await caches.open(DATA_CACHE_NAME);
+  const cache = await caches.open(DATA_CACHE_NAME);
   try {
-    const networkResponse = await fetch(request);
-    if (networkResponse && networkResponse.status === 200) {
-      dataCache.put(request, networkResponse.clone());
+    const response = await fetch(request);
+    if (response.ok) {
+      cache.put(request, response.clone());
     }
-    return networkResponse;
+    return response;
   } catch (err) {
-    const cached = await dataCache.match(request);
-    if (cached) {
-      console.log('[SW] Sirviendo JSON desde cache:', request.url);
-      return cached;
-    }
+    const cached = await cache.match(request);
+    if (cached) return cached;
     throw err;
   }
 }
 
-// Mensajes desde la app (skipWaiting manual, etc.)
 self.addEventListener('message', event => {
   if (event.data && event.data.type === 'SKIP_WAITING') {
     self.skipWaiting();
