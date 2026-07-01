@@ -10,8 +10,8 @@
   let blogTranslations = {};
   let currentLang = localStorage.getItem('lang') || 'es';
 
-  const BLOG_JSON_URL = 'data/blog.json?v=3.6.9';
-  const LANG_JSON_URL = 'data/lang.json?v=3.6.9';
+  const BLOG_JSON_URL = 'data/blog.json?v=3.7.0';
+  const LANG_JSON_URL = 'data/lang.json?v=3.7.0';
 
   async function loadBlogTranslations() {
     try {
