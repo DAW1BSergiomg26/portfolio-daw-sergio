@@ -1,12 +1,12 @@
-# Auditoría de calidad - Portfolio DAW v3.5.0
+# Auditoría de calidad - Portfolio DAW v3.7.3
 
 Documento de control técnico para validar el Portfolio DAW de Sergio Daniel Martínez Gómez antes de cada versión estable.
 
 ## Estado de la auditoría
 
-- Versión objetivo: v3.5.0
-- Rama de trabajo: `feature/contact-form-v3`
-- Estado: lista para revisión manual
+- Versión objetivo: v3.7.3
+- Rama de trabajo: `main`
+- Estado: revisión completa, CLS proyecto en investigación
 - URL pública: https://daw1bsergiomg26.github.io/portfolio-daw-sergio/
 
 ## 1. Rendimiento
@@ -218,7 +218,7 @@ Garantizar que el catálogo JSON, filtros, dashboard, búsqueda y panel destacad
 
 - [x] `data/projects.json` existe.
 - [x] El catálogo renderiza tarjetas desde JSON.
-- [x] Hay 16 proyectos catalogados.
+- [x] Hay 20 proyectos catalogados.
 - [x] El dashboard muestra totales.
 - [x] El filtro "Todos" muestra el catálogo completo.
 - [x] El filtro "Destacados" usa `featured: true`.
@@ -231,7 +231,7 @@ Garantizar que el catálogo JSON, filtros, dashboard, búsqueda y panel destacad
 
 1. Abrir `#proyectos`.
 2. Confirmar que se muestra el panel de proyectos destacados.
-3. Confirmar que el contador muestra 16 proyectos.
+3. Confirmar que el contador muestra 20 proyectos.
 4. Pulsar "Destacados" y comprobar que muestra solo proyectos destacados.
 5. Buscar `Python`, `Auri`, `BBDD`, `Divina` y confirmar resultados.
 6. Probar en ancho móvil desde DevTools.
@@ -310,7 +310,7 @@ El portfolio queda preparado como entrega profesional de nivel avanzado:
 - con panel de administración local;
 - con formulario de contacto funcional y preparado para producción;
 - con PWA instalable y soporte offline real;
-- con métricas Lighthouse superiores a 95 (Performance 99-100, A11y/BP/SEO 100);
+- con métricas Lighthouse: Index 94, Entrada 92, Admin 92, 404 91 (Performance). Accesibilidad 100, Prácticas 100, SEO 100 en páginas públicas. Proyecto detail page CLS residual ~0.30 en investigación;
 - con base accesible y diseño responsive;
 - con criterios técnicos defendibles.
 
@@ -318,6 +318,7 @@ El portfolio queda preparado como entrega profesional de nivel avanzado:
 
 Después de esta auditoría, el portfolio cuenta con una base sólida. Los siguientes pasos recomendados son:
 
+- Resolver CLS residual en proyecto.html (si el fix de breadcrumb no basta, considerar pre-renderizado HTML estático).
 - Configurar endpoint real del formulario de contacto (Formspree, Web3Forms, etc.).
 - Añadir más proyectos reales al catálogo.
 - Publicar nuevas entradas de blog con aprendizajes de cada entrega.

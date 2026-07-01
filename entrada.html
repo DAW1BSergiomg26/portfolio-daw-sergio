@@ -45,8 +45,8 @@
   <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=optional" fetchpriority="high">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=optional" rel="stylesheet" media="print" onload="this.media='all'">
   <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=optional" rel="stylesheet"></noscript>
-  <link rel="stylesheet" href="css/styles.css?v=3.7.2">
-  <link rel="stylesheet" href="css/filters.css?v=3.7.2">
+  <link rel="stylesheet" href="css/styles.css?v=3.7.3">
+  <link rel="stylesheet" href="css/filters.css?v=3.7.3">
   <style>
     body {
       background: radial-gradient(circle at top left, rgba(125, 211, 252, 0.1), transparent 30rem),
@@ -115,6 +115,10 @@
     #breadcrumb-post-title {
       display: inline-block;
       min-width: 240px;
+      max-width: 280px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
       min-height: 1.2em;
       border-radius: 4px;
       background: linear-gradient(90deg, var(--line) 25%, transparent 50%, var(--line) 75%);
@@ -285,7 +289,7 @@
     </div>
   </footer>
 
-  <script src="js/blog.js?v=3.7.2" defer></script>
+  <script src="js/blog.js?v=3.7.3" defer></script>
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
