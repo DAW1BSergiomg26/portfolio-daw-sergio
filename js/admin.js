@@ -699,8 +699,10 @@
             <button type="button" class="lang-btn" data-lang="en" onclick="window.adminSetLang('en')">EN</button>
           </div>
           <button type="button" class="theme-toggle" id="admin-theme-toggle" aria-label="Cambiar tema" onclick="window.toggleTheme()">
-            <span class="theme-icon-light" aria-hidden="true"><svg class="icon"><use href="icons.svg#icon-sun"></use></svg></span>
-            <span class="theme-icon-dark" aria-hidden="true"><svg class="icon"><use href="icons.svg#icon-moon"></use></svg></span>
+            <span class="icon-wrap">
+              <span class="theme-icon-light" aria-hidden="true"><svg class="icon"><use href="icons.svg#icon-sun"></use></svg></span>
+              <span class="theme-icon-dark" aria-hidden="true"><svg class="icon"><use href="icons.svg#icon-moon"></use></svg></span>
+            </span>
           </button>
           <button type="button" class="btn ghost" onclick="window.adminLogout()" data-t="logout">${txt('logout')}</button>
         </div>

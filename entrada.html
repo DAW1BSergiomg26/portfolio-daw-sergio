@@ -255,8 +255,10 @@
       <button type="button" class="lang-btn" data-lang="en" onclick="setLanguage('en')" data-i18n="lang_en">EN</button>
     </div>
     <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Cambiar tema" data-i18n="theme_toggle" onclick="toggleTheme()">
-      <span class="theme-icon-light" aria-hidden="true"><svg class="icon"><use href="icons.svg#icon-sun"></use></svg></span>
-      <span class="theme-icon-dark" aria-hidden="true"><svg class="icon"><use href="icons.svg#icon-moon"></use></svg></span>
+      <span class="icon-wrap">
+          <span class="theme-icon-light" aria-hidden="true"><svg class="icon"><use href="icons.svg#icon-sun"></use></svg></span>
+          <span class="theme-icon-dark" aria-hidden="true"><svg class="icon"><use href="icons.svg#icon-moon"></use></svg></span>
+        </span>
     </button>
   </div>
   <div class="blog-page-container">

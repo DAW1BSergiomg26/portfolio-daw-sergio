@@ -11,93 +11,79 @@
   }
 
   function applyTheme(theme) {
-    if (theme === 'light') {
-      document.documentElement.setAttribute('data-theme', 'light');
-    } else {
-      document.documentElement.removeAttribute('data-theme');
-    }
+    document.documentElement.setAttribute('data-theme', theme);
     updateToggleButtons();
   }
 
+  function getCurrentTheme() {
+    return document.documentElement.getAttribute('data-theme') || 'dark';
+  }
+
   function toggleTheme() {
-    const current = document.documentElement.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+    const current = getCurrentTheme();
     const next = current === 'light' ? 'dark' : 'light';
     localStorage.setItem(THEME_KEY, next);
     applyTheme(next);
+    animateToggle();
+  }
+
+  function animateToggle() {
+    document.querySelectorAll('.theme-toggle').forEach(btn => {
+      btn.classList.add('is-switching');
+      setTimeout(() => btn.classList.remove('is-switching'), 400);
+    });
   }
 
   function updateToggleButtons() {
-    const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+    const theme = getCurrentTheme();
     document.querySelectorAll('.theme-toggle').forEach(btn => {
-      const lightIcon = btn.querySelector('.theme-icon-light');
-      const darkIcon = btn.querySelector('.theme-icon-dark');
-      if (lightIcon) lightIcon.style.display = isLight ? 'none' : 'inline';
-      if (darkIcon) darkIcon.style.display = isLight ? 'inline' : 'none';
-      btn.setAttribute('aria-pressed', String(isLight));
+      btn.setAttribute('aria-pressed', String(theme === 'light'));
     });
   }
 
   function initScrollTop() {
-    const btn = document.createElement('button');
-    btn.type = 'button';
-    btn.className = 'scroll-top';
-    btn.setAttribute('aria-label', 'Volver arriba');
-    btn.innerHTML = '<svg class="icon" aria-hidden="true"><use href="icons.svg#icon-arrow-up"></use></svg>';
-    document.body.appendChild(btn);
-
-    function onScroll() {
-      const threshold = 400;
-      if (window.scrollY > threshold) {
-        btn.classList.add('is-visible');
-      } else {
-        btn.classList.remove('is-visible');
-      }
-    }
-
+    const btn = document.getElementById('scroll-top');
+    if (!btn) return;
+    window.addEventListener('scroll', () => {
+      btn.classList.toggle('is-visible', window.scrollY > 400);
+    }, { passive: true });
     btn.addEventListener('click', () => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
-
-    window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
   }
 
-  window.toggleTheme = toggleTheme;
-  applyTheme(getPreferredTheme());
-
   function initRevealAnimations() {
-    const items = document.querySelectorAll('.reveal');
-    if (!items.length) return;
-
-    function show(item) {
-      item.classList.add('is-visible');
-    }
-
-    if ('IntersectionObserver' in window) {
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            show(entry.target);
-            observer.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.05, rootMargin: '0px 0px -40px 0px' });
-
-      items.forEach(item => observer.observe(item));
-
-      window.setTimeout(() => {
-        items.forEach(show);
-      }, 350);
-    } else {
-      items.forEach(show);
-    }
+    if (!('IntersectionObserver' in window)) return;
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal, .proj-card, .blog-card').forEach(el => observer.observe(el));
   }
 
   function init() {
-    updateToggleButtons();
     initScrollTop();
     initRevealAnimations();
   }
+
+  window.toggleTheme = toggleTheme;
+  window.getCurrentTheme = getCurrentTheme;
+
+  applyTheme(getPreferredTheme());
+
+  window.addEventListener('storage', (e) => {
+    if (e.key === THEME_KEY) applyTheme(e.newValue || 'dark');
+  });
+
+  window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', (e) => {
+    if (!localStorage.getItem(THEME_KEY)) {
+      applyTheme(e.matches ? 'light' : 'dark');
+    }
+  });
 
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
