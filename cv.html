@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="es">
+<script>
+  (function() {
+    const savedTheme = localStorage.getItem('portfolio-theme');
+    const prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
+    if (savedTheme === 'light' || (!savedTheme && prefersLight)) {
+      document.documentElement.setAttribute('data-theme', 'light');
+    }
+  })();
+</script>
+<head>
+  <script src="js/theme.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title data-i18n="cv_page_title">Currículum | Portfolio DAW</title>
+  <meta name="description" content="" data-i18n-att="content|cv_page_desc">
+  <meta name="robots" content="index, follow">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=optional" fetchpriority="high">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=optional" rel="stylesheet" media="print" onload="this.media='all'">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=optional" rel="stylesheet"></noscript>
+  <link rel="stylesheet" href="css/styles.css?v=3.9.0">
+  <link rel="stylesheet" href="css/filters.css?v=3.9.0">
+  <style>
+    .cv-page { max-width: 1000px; margin: 0 auto; padding: 2rem; min-height: 100vh; }
+    .cv-header { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 1rem; margin-bottom: 2rem; }
+    .cv-header nav { flex: 1 1 auto; min-width: 0; }
+    .cv-actions { display: flex; gap: 0.6rem; flex-wrap: wrap; }
+    .cv-print-btn { display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.5rem 1rem; border: 1px solid var(--line); border-radius: 999px; background: var(--panel); color: var(--text); font-weight: 700; font-size: 0.85rem; cursor: pointer; transition: background 180ms ease, color 180ms ease; font-family: inherit; }
+    .cv-print-btn:hover { background: var(--accent); color: #050712; }
+    .cv-card { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius-lg); padding: 2.5rem; box-shadow: var(--shadow); }
+    .cv-grid { display: grid; grid-template-columns: 280px 1fr; gap: 2rem; }
+    .cv-sidebar { display: flex; flex-direction: column; gap: 1.5rem; }
+    .cv-main { display: flex; flex-direction: column; gap: 1.5rem; }
+    .cv-headshot { text-align: center; margin-bottom: 0.5rem; }
+    .cv-avatar { width: 120px; height: 120px; border-radius: 50%; background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: #050712; display: grid; place-items: center; margin: 0 auto; font-size: 2.4rem; font-weight: 900; letter-spacing: -0.03em; box-shadow: 0 0 30px rgba(125, 211, 252, 0.25); border: 3px solid rgba(255,255,255,0.1); }
+    .cv-name { font-size: 1.8rem; font-weight: 900; letter-spacing: -0.04em; margin: 0.5rem 0 0.2rem; color: var(--text); }
+    .cv-title-line { color: var(--accent-2); font-weight: 700; font-size: 0.95rem; margin: 0 0 1rem; letter-spacing: 0.02em; }
+    .cv-contact-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 0.6rem; }
+    .cv-contact-list li { display: flex; align-items: center; gap: 0.5rem; font-size: 0.85rem; color: var(--muted); word-break: break-all; }
+    .cv-contact-list .icon { width: 1em; height: 1em; flex-shrink: 0; color: var(--accent); }
+    .cv-section-title { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--accent); font-weight: 800; margin: 0 0 0.8rem; padding-bottom: 0.4rem; border-bottom: 1px solid var(--line); }
+    .cv-about-text { font-size: 0.95rem; line-height: 1.7; color: var(--muted); margin: 0; }
+    .cv-skill { margin-bottom: 0.8rem; }
+    .cv-skill:last-child { margin-bottom: 0; }
+    .cv-skill-label { display: flex; justify-content: space-between; font-size: 0.85rem; font-weight: 600; color: var(--text); margin-bottom: 0.3rem; }
+    .cv-skill-bar { height: 6px; border-radius: 999px; background: var(--line); overflow: hidden; }
+    .cv-skill-fill { height: 100%; border-radius: 999px; background: linear-gradient(90deg, var(--accent), var(--accent-2)); transition: width 0.6s ease; }
+    .cv-edu-item { margin-bottom: 1rem; }
+    .cv-edu-item:last-child { margin-bottom: 0; }
+    .cv-edu-title { font-weight: 700; font-size: 0.95rem; color: var(--text); }
+    .cv-edu-school { font-size: 0.85rem; color: var(--muted); margin: 0.1rem 0; }
+    .cv-edu-year { font-size: 0.8rem; color: var(--accent); font-weight: 600; }
+    .cv-project-item { margin-bottom: 0.8rem; font-size: 0.9rem; line-height: 1.5; color: var(--muted); }
+    .cv-project-item:last-child { margin-bottom: 0; }
+    .cv-project-item strong { color: var(--text); }
+    .cv-lang-item { display: flex; justify-content: space-between; font-size: 0.85rem; color: var(--muted); margin-bottom: 0.4rem; }
+    .cv-lang-item:last-child { margin-bottom: 0; }
+    .cv-lang-name { color: var(--text); font-weight: 600; }
+    .cv-tag { display: inline-block; padding: 0.25rem 0.6rem; border-radius: 8px; background: var(--panel-strong); font-size: 0.78rem; font-weight: 600; color: var(--text); margin: 0.15rem; }
+    .cv-tag-cloud { display: flex; flex-wrap: wrap; gap: 0.3rem; }
+    .cv-breadcrumb { display: flex; flex-wrap: wrap; align-items: center; gap: 0.2rem; font-size: 0.9rem; color: var(--muted); list-style: none; padding: 0; margin: 0; }
+    .cv-breadcrumb li { display: inline-flex; align-items: center; }
+    .cv-breadcrumb li:not(:last-child)::after { content: '/'; margin: 0 0.4rem; color: var(--muted); opacity: 0.6; }
+    .cv-breadcrumb a { color: var(--accent); text-decoration: none; }
+    .cv-breadcrumb a:hover { text-decoration: underline; }
+    .cv-breadcrumb span[aria-current="page"] { color: var(--text); font-weight: 700; }
+    @media (max-width: 768px) {
+      .cv-grid { grid-template-columns: 1fr; }
+      .cv-card { padding: 1.5rem; }
+      .cv-page { padding: 1rem; }
+    }
+    @media print {
+      @page { margin: 0.5cm; size: A4; }
+      body { background: #fff !important; color: #111 !important; font-family: 'Inter', Arial, sans-serif !important; }
+      .site-header, .site-footer, .cv-header nav, .cv-print-btn, .lang-switcher, .theme-toggle, .scroll-top, #theme-toggle, .breadcrumb a:not([aria-current]) { display: none !important; }
+      .cv-page { padding: 0; max-width: 100%; }
+      .cv-card { border: none !important; border-radius: 0 !important; background: #fff !important; box-shadow: none !important; padding: 0 !important; }
+      .cv-grid { grid-template-columns: 240px 1fr; gap: 1.5rem; }
+      .cv-avatar { width: 100px; height: 100px; font-size: 2rem; background: linear-gradient(135deg, #0284c7, #7c3aed) !important; color: #fff !important; }
+      .cv-name { color: #111 !important; }
+      .cv-section-title { color: #0284c7 !important; border-bottom-color: #ccc !important; }
+      .cv-skill-fill { background: #0284c7 !important; }
+      .cv-contact-list .icon { color: #0284c7 !important; }
+      .cv-skill-label, .cv-edu-title, .cv-lang-name, .cv-tag { color: #111 !important; }
+      .cv-about-text, .cv-edu-school, .cv-project-item, .cv-contact-list li, .cv-lang-item { color: #444 !important; }
+      .cv-skill-bar { background: #e5e7eb !important; }
+      .cv-edu-year { color: #0284c7 !important; }
+      .cv-tag { background: #f3f4f6 !important; }
+      a { color: #0284c7 !important; text-decoration: none !important; }
+      .cv-title-line { color: #7c3aed !important; }
+      .cv-card { break-inside: avoid; }
+      .cv-sidebar, .cv-main { break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+  <div class="cv-page">
+    <div class="cv-header">
+      <nav aria-label="Breadcrumb">
+        <ol class="cv-breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+          <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+            <a itemprop="item" href="index.html"><span itemprop="name">Inicio</span></a>
+            <meta itemprop="position" content="1">
+          </li>
+          <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+            <span itemprop="name" aria-current="page" data-i18n="cv_eyebrow">Currículum</span>
+            <meta itemprop="position" content="2">
+          </li>
+        </ol>
+      </nav>
+      <div class="cv-actions">
+        <div class="lang-switcher" role="group" aria-label="Selector de idioma">
+          <button type="button" class="lang-btn" data-lang="es" onclick="setCvLanguage('es')">ES</button>
+          <button type="button" class="lang-btn" data-lang="en" onclick="setCvLanguage('en')">EN</button>
+        </div>
+        <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Cambiar tema" onclick="toggleTheme()">
+          <span class="theme-icon-light" aria-hidden="true"><svg class="icon"><use href="icons.svg#icon-sun"></use></svg></span>
+          <span class="theme-icon-dark" aria-hidden="true"><svg class="icon"><use href="icons.svg#icon-moon"></use></svg></span>
+        </button>
+        <button type="button" class="cv-print-btn" onclick="window.print()">
+          <svg class="icon" aria-hidden="true"><use href="icons.svg#icon-external-link"></use></svg>
+          <span data-i18n="cv_print">Imprimir</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="cv-card">
+      <div class="cv-grid">
+        <aside class="cv-sidebar">
+          <div class="cv-headshot">
+            <div class="cv-avatar" aria-hidden="true">SD</div>
+            <h1 class="cv-name" data-i18n="cv_name">Sergio Daniel Martínez Gómez</h1>
+            <p class="cv-title-line" data-i18n="cv_title">Alumno DAW · Desarrollo Web</p>
+          </div>
+
+          <div>
+            <h2 class="cv-section-title" data-i18n="contact_title">Contacto</h2>
+            <ul class="cv-contact-list">
+              <li><svg class="icon" aria-hidden="true"><use href="icons.svg#icon-mail"></use></svg> <span data-i18n="cv_contact_email">sergio@example.com</span></li>
+              <li><svg class="icon" aria-hidden="true"><use href="icons.svg#icon-github"></use></svg> <span data-i18n="cv_contact_github">github.com/DAW1BSergiomg26</span></li>
+              <li><svg class="icon" aria-hidden="true"><use href="icons.svg#icon-linkedin"></use></svg> <span data-i18n="cv_contact_linkedin">linkedin.com/in/sergiodanielmg</span></li>
+            </ul>
+          </div>
+
+          <div>
+            <h2 class="cv-section-title" data-i18n="cv_skills_title">Habilidades técnicas</h2>
+            <div class="cv-skill"><div class="cv-skill-label"><span data-i18n="cv_skill_html">HTML5</span><span>95%</span></div><div class="cv-skill-bar"><div class="cv-skill-fill" style="width:95%"></div></div></div>
+            <div class="cv-skill"><div class="cv-skill-label"><span data-i18n="cv_skill_css">CSS3 / Responsive Design</span><span>90%</span></div><div class="cv-skill-bar"><div class="cv-skill-fill" style="width:90%"></div></div></div>
+            <div class="cv-skill"><div class="cv-skill-label"><span data-i18n="cv_skill_js">JavaScript (DOM, Fetch, JSON)</span><span>75%</span></div><div class="cv-skill-bar"><div class="cv-skill-fill" style="width:75%"></div></div></div>
+            <div class="cv-skill"><div class="cv-skill-label"><span data-i18n="cv_skill_git">Git / GitHub / GitHub Pages</span><span>85%</span></div><div class="cv-skill-bar"><div class="cv-skill-fill" style="width:85%"></div></div></div>
+            <div class="cv-skill"><div class="cv-skill-label"><span data-i18n="cv_skill_seo">SEO básico / Open Graph</span><span>80%</span></div><div class="cv-skill-bar"><div class="cv-skill-fill" style="width:80%"></div></div></div>
+            <div class="cv-skill"><div class="cv-skill-label"><span data-i18n="cv_skill_pwa">PWA / Service Workers</span><span>70%</span></div><div class="cv-skill-bar"><div class="cv-skill-fill" style="width:70%"></div></div></div>
+            <div class="cv-skill"><div class="cv-skill-label"><span data-i18n="cv_skill_i18n">Internacionalización (i18n)</span><span>75%</span></div><div class="cv-skill-bar"><div class="cv-skill-fill" style="width:75%"></div></div></div>
+            <div class="cv-skill"><div class="cv-skill-label"><span data-i18n="cv_skill_python">Python (básico)</span><span>50%</span></div><div class="cv-skill-bar"><div class="cv-skill-fill" style="width:50%"></div></div></div>
+            <div class="cv-skill"><div class="cv-skill-label"><span data-i18n="cv_skill_bbdd">SQL / Bases de datos</span><span>55%</span></div><div class="cv-skill-bar"><div class="cv-skill-fill" style="width:55%"></div></div></div>
+          </div>
+
+          <div>
+            <h2 class="cv-section-title" data-i18n="cv_soft_skills_title">Competencias personales</h2>
+            <div class="cv-tag-cloud">
+              <span class="cv-tag" data-i18n="about_skill_1">Comunicación efectiva</span>
+              <span class="cv-tag" data-i18n="about_skill_2">Trabajo en equipo</span>
+              <span class="cv-tag" data-i18n="about_skill_3">Resolución de problemas</span>
+              <span class="cv-tag" data-i18n="about_skill_4">Organización y planificación</span>
+              <span class="cv-tag" data-i18n="about_skill_5">Adaptabilidad</span>
+              <span class="cv-tag" data-i18n="about_skill_6">Aprendizaje continuo</span>
+            </div>
+          </div>
+
+          <div>
+            <h2 class="cv-section-title" data-i18n="cv_languages_title">Idiomas</h2>
+            <div class="cv-lang-item"><span class="cv-lang-name" data-i18n="cv_lang_es">Español — Nativo</span></div>
+            <div class="cv-lang-item"><span class="cv-lang-name" data-i18n="cv_lang_en">Inglés — Técnico (lectura/documentación)</span></div>
+          </div>
+        </aside>
+
+        <div class="cv-main">
+          <div>
+            <h2 class="cv-section-title" data-i18n="cv_about_title">Perfil profesional</h2>
+            <p class="cv-about-text" data-i18n="cv_about_text">Alumno de Desarrollo de Aplicaciones Web con interés en construir proyectos sólidos, documentados y publicables. Capacidad de aprendizaje autónomo, organización con Git y enfoque en calidad desde la base.</p>
+          </div>
+
+          <div>
+            <h2 class="cv-section-title" data-i18n="cv_education_title">Formación académica</h2>
+            <div class="cv-edu-item">
+              <div class="cv-edu-title" data-i18n="cv_education_1_title">Desarrollo de Aplicaciones Web (DAW)</div>
+              <div class="cv-edu-school" data-i18n="cv_education_1_school">IES · Modalidad presencial</div>
+              <div class="cv-edu-year" data-i18n="cv_education_1_year">2024 — 2026</div>
+            </div>
+            <div class="cv-edu-item">
+              <div class="cv-edu-title" data-i18n="cv_education_2_title">Formación complementaria</div>
+              <div class="cv-edu-school" data-i18n="cv_education_2_school">Cursos online · Git, HTML, CSS, JavaScript</div>
+              <div class="cv-edu-year" data-i18n="cv_education_2_year">2023 — Actualidad</div>
+            </div>
+          </div>
+
+          <div>
+            <h2 class="cv-section-title" data-i18n="cv_projects_title">Proyectos destacados</h2>
+            <div class="cv-project-item"><strong>Portfolio DAW</strong> — <span data-i18n="cv_project_1">Web personal con catálogo JSON, i18n, PWA y panel admin.</span></div>
+            <div class="cv-project-item"><strong>Gestor de Tareas</strong> — <span data-i18n="cv_project_2">App CRUD con localStorage, filtros y diseño responsive.</span></div>
+            <div class="cv-project-item"><strong>Archivo Moonwalk</strong> — <span data-i18n="cv_project_3">Web cultural con documentación técnica y publicación en GitHub Pages.</span></div>
+          </div>
+
+          <div style="margin-top: auto; padding-top: 1.5rem; border-top: 1px solid var(--line); text-align: center;">
+            <button type="button" class="btn primary" onclick="window.print()">
+              <svg class="icon" aria-hidden="true" style="margin-right:0.4rem"><use href="icons.svg#icon-external-link"></use></svg>
+              <span data-i18n="cv_download">Descargar PDF</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <a class="brand footer-brand" href="index.html" aria-label="SD Portfolio DAW">
+          <span class="brand-mark">SD</span>
+          <span>Portfolio DAW</span>
+        </a>
+        <p class="footer-tagline" data-i18n="footer_tagline">Portfolio profesional de Sergio Daniel Martínez Gómez · Alumno DAW.</p>
+      </div>
+      <div class="footer-col">
+        <h2 class="footer-heading" data-i18n="footer_sitemap">Mapa del sitio</h2>
+        <ul class="footer-links">
+          <li><a href="index.html#inicio">Inicio</a></li>
+          <li><a href="index.html#sobre-mi" data-i18n="nav_sobre_mi">Sobre mí</a></li>
+          <li><a href="index.html#proyectos" data-i18n="nav_proyectos">Proyectos</a></li>
+          <li><a href="index.html#blog" data-i18n="nav_blog">Blog</a></li>
+          <li><a href="index.html#contacto" data-i18n="nav_contacto">Contacto</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h2 class="footer-heading" data-i18n="footer_contact">Contacto</h2>
+        <ul class="footer-links">
+          <li><a href="admin.html" data-i18n="footer_admin">Panel de administración</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h2 class="footer-heading" data-i18n="footer_social">Redes</h2>
+        <div class="footer-social">
+          <a href="https://github.com/DAW1BSergiomg26" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+            <svg class="icon" aria-hidden="true"><use href="icons.svg#icon-github"></use></svg>
+          </a>
+          <a href="https://linkedin.com/in/sergiodanielmg" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+            <svg class="icon" aria-hidden="true"><use href="icons.svg#icon-linkedin"></use></svg>
+          </a>
+          <a href="mailto:sergio@example.com" aria-label="Email">
+            <svg class="icon" aria-hidden="true"><use href="icons.svg#icon-mail"></use></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p data-i18n="footer_copyright">© 2026 Portfolio DAW · Todos los derechos reservados.</p>
+    </div>
+  </footer>
+
+  <script src="js/cv.js?v=3.9.0" defer></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('sw.js')
+          .then(reg => {
+            console.log('[SW] Registrado:', reg.scope);
+            reg.addEventListener('updatefound', () => {
+              const newWorker = reg.installing;
+              if (!newWorker) return;
+              newWorker.addEventListener('statechange', () => {
+                if (newWorker.state === 'activated' && navigator.serviceWorker.controller) {
+                  console.log('[SW] Nueva versión activada, recargando...');
+                  window.location.reload();
+                }
+              });
+            });
+          })
+          .catch(err => console.error('[SW] Error al registrar:', err));
+      });
+    }
+  </script>
+</body>
+</html>
