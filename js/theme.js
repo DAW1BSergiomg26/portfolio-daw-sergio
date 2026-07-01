@@ -65,9 +65,38 @@
   window.toggleTheme = toggleTheme;
   applyTheme(getPreferredTheme());
 
+  function initRevealAnimations() {
+    const items = document.querySelectorAll('.reveal');
+    if (!items.length) return;
+
+    function show(item) {
+      item.classList.add('is-visible');
+    }
+
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            show(entry.target);
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.05, rootMargin: '0px 0px -40px 0px' });
+
+      items.forEach(item => observer.observe(item));
+
+      window.setTimeout(() => {
+        items.forEach(show);
+      }, 350);
+    } else {
+      items.forEach(show);
+    }
+  }
+
   function init() {
     updateToggleButtons();
     initScrollTop();
+    initRevealAnimations();
   }
 
   if (document.readyState === 'loading') {

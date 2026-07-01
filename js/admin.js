@@ -10,7 +10,7 @@
   const PROJECTS_KEY = 'portfolio-projects';
   const BLOG_KEY = 'portfolio-blog';
   const AUTH_KEY = 'portfolio-admin-auth';
-  const APP_VERSION = 'v3.5.14';
+  const APP_VERSION = 'v3.5.15';
 
   // Hash SHA-256 de "Rufi141414%$"
   const ADMIN_PASSWORD_HASH = 'fb705980c178167d0f50537bd6c9dfb88765e01f3b180e889c868e405770f13d';
@@ -106,14 +106,14 @@
     if (localProjects) {
       projects = JSON.parse(localProjects);
     } else {
-      const res = await fetch('data/projects.json?v=3.5.14');
+      const res = await fetch('data/projects.json?v=3.5.15');
       projects = await res.json();
     }
 
     if (localBlog) {
       blog = JSON.parse(localBlog);
     } else {
-      const res = await fetch('data/blog.json?v=3.5.14');
+      const res = await fetch('data/blog.json?v=3.5.15');
       blog = await res.json();
     }
   }
