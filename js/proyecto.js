@@ -4,7 +4,7 @@ let currentProject = null;
 
 async function loadTranslations() {
   try {
-    const response = await fetch("data/lang.json?v=3.11.0");
+    const response = await fetch("data/lang.json?v=3.11.1");
     translations = await response.json();
     updateLangButtons();
     applyTranslations();
@@ -57,7 +57,7 @@ async function loadProject() {
   }
 
   try {
-    const response = await fetch("data/projects.json?v=3.11.0");
+    const response = await fetch("data/projects.json?v=3.11.1");
     if (!response.ok) throw new Error("No se pudo cargar el catálogo");
 
     const projects = await response.json();

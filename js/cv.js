@@ -3,7 +3,7 @@ let translations = {};
 
 async function loadTranslations() {
   try {
-    const res = await fetch('data/lang.json?v=3.11.0');
+    const res = await fetch('data/lang.json?v=3.11.1');
     translations = await res.json();
     updateLangButtons();
     applyTranslations();

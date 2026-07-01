@@ -9,7 +9,7 @@
     const container = document.getElementById(CONTAINER_ID);
     if (!container) return;
     try {
-      const res = await fetch('data/ruta.json?v=3.11.0');
+      const res = await fetch('data/ruta.json?v=3.11.1');
       mapData = await res.json();
       render(container);
     } catch (e) {
