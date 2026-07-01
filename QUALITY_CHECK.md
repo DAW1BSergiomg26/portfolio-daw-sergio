@@ -1,12 +1,12 @@
-# Auditoría de calidad - Portfolio DAW v3.7.3
+# Auditoría de calidad - Portfolio DAW v3.8.0
 
 Documento de control técnico para validar el Portfolio DAW de Sergio Daniel Martínez Gómez antes de cada versión estable.
 
 ## Estado de la auditoría
 
-- Versión objetivo: v3.7.3
+- Versión objetivo: v3.8.0
 - Rama de trabajo: `main`
-- Estado: revisión completa, CLS proyecto en investigación
+- Estado: revisión completa, CLS proyecto fix en v3.7.3, Sobre mí y LinkedIn en v3.8.0
 - URL pública: https://daw1bsergiomg26.github.io/portfolio-daw-sergio/
 
 ## 1. Rendimiento

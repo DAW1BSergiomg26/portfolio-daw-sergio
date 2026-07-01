@@ -109,8 +109,8 @@
   <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=optional" fetchpriority="high">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=optional" rel="stylesheet" media="print" onload="this.media='all'">
   <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=optional" rel="stylesheet"></noscript>
-  <link rel="stylesheet" href="css/styles.css?v=3.7.3">
-  <link rel="stylesheet" href="css/filters.css?v=3.7.3">
+  <link rel="stylesheet" href="css/styles.css?v=3.8.0">
+  <link rel="stylesheet" href="css/filters.css?v=3.8.0">
 
   <style>
     .skip-link {
@@ -217,13 +217,59 @@
       </aside>
     </section>
 
-    <section id="sobre-mi" class="content-section reveal">
+    <section id="sobre-mi" class="content-section reveal" aria-labelledby="about-title">
       <p class="eyebrow" data-i18n="about_eyebrow">Sobre mí</p>
-      <h2 data-i18n="about_title">Aprendiendo a construir con orden, paciencia y criterio</h2>
-      <p data-i18n="about_text">
-        Soy Sergio Daniel, alumno de DAW. Este portfolio nace para enseñar mi evolución real: desde ejercicios sencillos hasta proyectos completos publicados en GitHub Pages.
-        Mi objetivo es aprender bien la base, practicar mucho y crear trabajos que pueda defender con claridad.
-      </p>
+      <h2 id="about-title" data-i18n="about_title">Aprendiendo a construir con orden, paciencia y criterio</h2>
+      <div class="about-grid">
+        <div class="about-main">
+          <p class="about-bio" data-i18n="about_text">
+            Soy Sergio Daniel, alumno de DAW. Este portfolio nace para enseñar mi evolución real: desde ejercicios sencillos hasta proyectos completos publicados en GitHub Pages.
+            Mi objetivo es aprender bien la base, practicar mucho y crear trabajos que pueda defender con claridad.
+          </p>
+
+          <h3 class="about-subheading" data-i18n="about_soft_skills">Soft Skills</h3>
+          <div class="about-tags">
+            <span data-i18n="about_skill_1">Comunicación efectiva</span>
+            <span data-i18n="about_skill_2">Trabajo en equipo</span>
+            <span data-i18n="about_skill_3">Resolución de problemas</span>
+            <span data-i18n="about_skill_4">Organización y planificación</span>
+            <span data-i18n="about_skill_5">Adaptabilidad</span>
+            <span data-i18n="about_skill_6">Aprendizaje continuo</span>
+          </div>
+
+          <h3 class="about-subheading" data-i18n="about_values">Valores profesionales</h3>
+          <div class="about-values">
+            <div class="about-value-card">
+              <span class="about-value-icon" aria-hidden="true"><svg class="icon"><use href="icons.svg#icon-check"></use></svg></span>
+              <strong data-i18n="about_value_1_title">Calidad</strong>
+              <p data-i18n="about_value_1_text">Cada proyecto debe ser defendible, documentado y profesional.</p>
+            </div>
+            <div class="about-value-card">
+              <span class="about-value-icon" aria-hidden="true"><svg class="icon"><use href="icons.svg#icon-arrow-up"></use></svg></span>
+              <strong data-i18n="about_value_2_title">Progreso</strong>
+              <p data-i18n="about_value_2_text">Prefiero avanzar con fundamentos sólidos a ir rápido sin base.</p>
+            </div>
+            <div class="about-value-card">
+              <span class="about-value-icon" aria-hidden="true"><svg class="icon"><use href="icons.svg#icon-star"></use></svg></span>
+              <strong data-i18n="about_value_3_title">Transparencia</strong>
+              <p data-i18n="about_value_3_text">Este portfolio muestra mi estado real, no una versión idealizada.</p>
+            </div>
+          </div>
+
+          <div class="about-actions">
+            <a class="btn primary" href="#" download data-i18n="about_cv" aria-label="Descargar currículum">Descargar CV</a>
+            <a class="btn ghost" href="https://linkedin.com/in/sergiodanielmg" target="_blank" rel="noopener noreferrer" data-i18n="about_linkedin">
+              <svg class="icon" aria-hidden="true"><use href="icons.svg#icon-linkedin"></use></svg>
+              Conectar en LinkedIn
+            </a>
+          </div>
+        </div>
+
+        <aside class="about-avatar" aria-label="Avatar profesional">
+          <div class="avatar-circle" aria-hidden="true">SD</div>
+          <p class="avatar-caption" data-i18n="about_avatar_caption">Sergio Daniel Martínez Gómez</p>
+        </aside>
+      </div>
     </section>
 
     <section id="tecnologias" class="content-section reveal">
@@ -373,13 +419,6 @@
   </main>
 
   <footer class="site-footer">
-    <p data-i18n="footer_text">Portfolio DAW · Sergio Daniel Martínez Gómez · Hecho con HTML, CSS, JavaScript y Git.</p>
-    <p class="footer-tools">
-      <a href="admin.html" data-i18n="footer_admin">Admin</a>
-    </p>
-  </footer>
-
-  <footer class="site-footer">
     <div class="footer-grid">
       <div class="footer-col">
         <a class="brand footer-brand" href="index.html" aria-label="SD Portfolio DAW">
@@ -410,6 +449,12 @@
           <a href="https://github.com/DAW1BSergiomg26" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
             <svg class="icon" aria-hidden="true"><use href="icons.svg#icon-github"></use></svg>
           </a>
+          <a href="https://linkedin.com/in/sergiodanielmg" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+            <svg class="icon" aria-hidden="true"><use href="icons.svg#icon-linkedin"></use></svg>
+          </a>
+          <a href="mailto:sergio@example.com" aria-label="Email">
+            <svg class="icon" aria-hidden="true"><use href="icons.svg#icon-mail"></use></svg>
+          </a>
         </div>
       </div>
     </div>
@@ -418,8 +463,8 @@
     </div>
   </footer>
 
-  <script src="js/app.js?v=3.7.3" defer></script>
-  <script src="js/blog.js?v=3.7.3" defer></script>
+  <script src="js/app.js?v=3.8.0" defer></script>
+  <script src="js/blog.js?v=3.8.0" defer></script>
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
