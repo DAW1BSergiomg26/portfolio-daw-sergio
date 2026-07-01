@@ -344,15 +344,15 @@ Versión actual estable: `v3.5.0`.
 
 Ejemplo:
 
-- `css/styles.css?v=3.6.1`
-- `css/filters.css?v=3.6.1`
-- `js/app.js?v=3.6.1`
-- `js/proyecto.js?v=3.6.1`
-- `js/blog.js?v=3.6.1`
-- `js/admin.js?v=3.6.1`
-- `data/projects.json?v=3.6.1`
-- `data/lang.json?v=3.6.1`
-- `data/blog.json?v=3.6.1`
+- `css/styles.css?v=3.6.2`
+- `css/filters.css?v=3.6.2`
+- `js/app.js?v=3.6.2`
+- `js/proyecto.js?v=3.6.2`
+- `js/blog.js?v=3.6.2`
+- `js/admin.js?v=3.6.2`
+- `data/projects.json?v=3.6.2`
+- `data/lang.json?v=3.6.2`
+- `data/blog.json?v=3.6.2`
 - `sw.js` (se actualiza mediante cambio de `CACHE_NAME` interno)
 
 Así, cuando se publica una nueva versión, el navegador carga los archivos actualizados y no conserva estilos, scripts o datos antiguos.
