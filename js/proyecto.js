@@ -3,7 +3,7 @@ let translations = {};
 
 async function loadTranslations() {
   try {
-    const response = await fetch("data/lang.json?v=3.6.4");
+    const response = await fetch("data/lang.json?v=3.6.5");
     translations = await response.json();
     updateLangButtons();
     applyTranslations();
@@ -51,11 +51,12 @@ async function loadProject() {
 
   if (!projectId) {
     container.innerHTML = `<h1>${t("project_page_not_found")}</h1><a href='index.html'>${t("project_page_back_home")}</a>`;
+    container.setAttribute('aria-busy', 'false');
     return;
   }
 
   try {
-    const response = await fetch("data/projects.json?v=3.6.4");
+    const response = await fetch("data/projects.json?v=3.6.5");
     if (!response.ok) throw new Error("No se pudo cargar el catálogo");
 
     const projects = await response.json();
@@ -63,6 +64,7 @@ async function loadProject() {
 
     if (!project) {
       container.innerHTML = `<h1>${t("project_page_not_found")}</h1><a href='index.html'>${t("project_page_back_home")}</a>`;
+      container.setAttribute('aria-busy', 'false');
       return;
     }
 
@@ -77,6 +79,7 @@ async function loadProject() {
       <p>${t("project_page_error_text")}</p>
       <a href='index.html' class="project-links" style="text-decoration:none; display:inline-block; margin-top:1rem;">${t("project_page_back_home")}</a>
     `;
+    container.setAttribute('aria-busy', 'false');
   }
 }
 
@@ -133,25 +136,26 @@ function renderProject(project, container) {
       ${project.year ? `<span>${t("project_meta_year")}: ${project.year}</span>` : ""}
     </div>
 
-    <h3>${t("modal_section_what")}</h3>
+    <h2>${t("modal_section_what")}</h2>
     <p>${getProjectDescription(project)}</p>
 
-    <h3>${t("modal_section_learned")}</h3>
+    <h2>${t("modal_section_learned")}</h2>
     <p>${getProjectLearning(project) || t("project_page_default_kicker")}</p>
 
-    <h3>${t("modal_section_why")}</h3>
+    <h2>${t("modal_section_why")}</h2>
     <p>${getProjectRole(project) || t("project_page_default_kicker")}</p>
 
-    <h3>${t("project_page_tech")}</h3>
+    <h2>${t("project_page_tech")}</h2>
     <div class="tech-chips">
       ${(project.technologies || []).map(tech => `<span>${tech}</span>`).join("")}
     </div>
 
-    <h3>${t("project_page_links")}</h3>
+    <h2>${t("project_page_links")}</h2>
     <div class="project-links">
       ${(project.links || []).map(link => `<a href="${link.url}" target="_blank" rel="noopener noreferrer">${link.label}</a>`).join("")}
     </div>
   `;
+  container.setAttribute('aria-busy', 'false');
 }
 
 loadProject();

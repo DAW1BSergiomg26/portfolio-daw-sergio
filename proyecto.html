@@ -37,8 +37,8 @@
   <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" fetchpriority="high">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
   <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet"></noscript>
-  <link rel="stylesheet" href="css/styles.css?v=3.6.4">
-  <link rel="stylesheet" href="css/filters.css?v=3.6.4">
+  <link rel="stylesheet" href="css/styles.css?v=3.6.5">
+  <link rel="stylesheet" href="css/filters.css?v=3.6.5">
   <style>
     body {
       background: radial-gradient(circle at top left, rgba(125, 211, 252, 0.1), transparent 30rem),
@@ -69,7 +69,9 @@
       max-width: 900px;
       margin: 0 auto 4rem;
       padding: 2rem;
+      min-height: 100vh;
     }
+    .project-page-content { min-height: 85vh; }
     .back-link {
       display: inline-flex;
       align-items: center;
@@ -118,6 +120,30 @@
     .tech-chips span { background: var(--panel-strong); padding: 0.4rem 0.8rem; border-radius: 8px; font-size: 0.85rem; }
     .project-links { margin-top: 2rem; display: flex; flex-wrap: wrap; gap: 1rem; }
     .project-links a { background: var(--accent); color: #000; padding: 0.8rem 1.5rem; border-radius: 12px; text-decoration: none; font-weight: 700; }
+    .project-skeleton {
+      display: grid;
+      gap: 1.1rem;
+      padding: 2rem 0;
+      min-height: 75vh;
+    }
+    .project-skeleton > div {
+      background: var(--line);
+      border-radius: 8px;
+      animation: skeleton-pulse 1.6s ease-in-out infinite;
+    }
+    .project-skeleton .skeleton-kicker { height: 1rem; width: 160px; }
+    .project-skeleton .skeleton-title { height: 2.8rem; width: 85%; max-width: 620px; border-radius: 10px; }
+    .project-skeleton .skeleton-line { height: 1rem; }
+    .project-skeleton .skeleton-line.short { width: 65%; }
+    .project-skeleton .skeleton-line:nth-child(4) { width: 92%; }
+    .project-skeleton .skeleton-line:nth-child(5) { width: 78%; }
+    .project-skeleton .skeleton-line:nth-child(6) { width: 88%; }
+    .project-skeleton .skeleton-chips { display: flex; gap: 0.5rem; margin-top: 0.5rem; }
+    .project-skeleton .skeleton-chips > div { height: 1.8rem; width: 80px; background: var(--line); border-radius: 8px; }
+    @keyframes skeleton-pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.45; }
+    }
   </style>
 </head>
 <body>
@@ -148,8 +174,18 @@
     </button>
   </div>
   <div class="project-page-container">
-    <main id="project-container" class="project-page-content reveal">
-      <div style="text-align: center; padding: 4rem;" data-i18n="project_page_loading">Cargando detalles profesionales...</div>
+    <main id="project-container" class="project-page-content reveal" aria-live="polite" aria-busy="true">
+      <div class="project-skeleton" aria-label="Cargando proyecto">
+        <div class="skeleton-kicker"></div>
+        <div class="skeleton-title"></div>
+        <div class="skeleton-line"></div>
+        <div class="skeleton-line"></div>
+        <div class="skeleton-line"></div>
+        <div class="skeleton-line short"></div>
+        <div class="skeleton-chips">
+          <div></div><div></div><div></div>
+        </div>
+      </div>
     </main>
   </div>
   <footer class="site-footer">
@@ -191,7 +227,7 @@
     </div>
   </footer>
 
-  <script src="js/proyecto.js?v=3.6.4" defer></script>
+  <script src="js/proyecto.js?v=3.6.5" defer></script>
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
