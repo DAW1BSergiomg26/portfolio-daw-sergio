@@ -10,8 +10,8 @@
   let blogTranslations = {};
   let currentLang = localStorage.getItem('lang') || 'es';
 
-  const BLOG_JSON_URL = 'data/blog.json?v=3.6.7';
-  const LANG_JSON_URL = 'data/lang.json?v=3.6.7';
+  const BLOG_JSON_URL = 'data/blog.json?v=3.6.8';
+  const LANG_JSON_URL = 'data/lang.json?v=3.6.8';
 
   async function loadBlogTranslations() {
     try {
@@ -144,7 +144,12 @@
       const tags = (post.tags || []).map(tag => `<span class="blog-tag">${tag}</span>`).join('');
 
       const breadcrumbTitle = document.getElementById('breadcrumb-post-title');
-      if (breadcrumbTitle) breadcrumbTitle.textContent = content.title || '';
+      if (breadcrumbTitle) {
+        breadcrumbTitle.textContent = content.title || '';
+        breadcrumbTitle.style.background = 'none';
+        breadcrumbTitle.style.animation = 'none';
+        breadcrumbTitle.style.minWidth = 'auto';
+      }
       document.title = `${content.title || 'Blog'} | Portfolio DAW`;
       updatePostMeta(post, content);
 
