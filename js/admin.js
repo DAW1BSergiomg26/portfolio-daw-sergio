@@ -10,7 +10,7 @@
   const PROJECTS_KEY = 'portfolio-projects';
   const BLOG_KEY = 'portfolio-blog';
   const AUTH_KEY = 'portfolio-admin-auth';
-  const APP_VERSION = 'v3.5.16';
+  const APP_VERSION = 'v3.6.0';
 
   // Hash SHA-256 de "Rufi141414%$"
   const ADMIN_PASSWORD_HASH = 'fb705980c178167d0f50537bd6c9dfb88765e01f3b180e889c868e405770f13d';
@@ -106,14 +106,14 @@
     if (localProjects) {
       projects = JSON.parse(localProjects);
     } else {
-      const res = await fetch('data/projects.json?v=3.5.16');
+      const res = await fetch('data/projects.json?v=3.6.0');
       projects = await res.json();
     }
 
     if (localBlog) {
       blog = JSON.parse(localBlog);
     } else {
-      const res = await fetch('data/blog.json?v=3.5.16');
+      const res = await fetch('data/blog.json?v=3.6.0');
       blog = await res.json();
     }
   }
@@ -238,7 +238,7 @@
           <div class="admin-item-meta">
             ${p.status ? `<span class="admin-badge ${statusClass}">${p.status}</span>` : ''}
             ${p.category ? `<span class="admin-badge">${p.category}</span>` : ''}
-            ${p.featured ? '<span class="admin-badge gold">⭐ Featured</span>' : ''}
+            ${p.featured ? '<span class="admin-badge gold"><svg class="icon" aria-hidden="true"><use href="icons.svg#icon-star"></use></svg> Featured</span>' : ''}
             ${techBadges}
           </div>
         </div>
@@ -268,9 +268,9 @@
         <div class="admin-item-info">
           <strong>${p.es?.title || p.en?.title || ''}</strong>
           <div class="admin-item-meta">
-            ${p.date ? `<span class="admin-badge">📅 ${p.date}</span>` : ''}
+            ${p.date ? `<span class="admin-badge"><svg class="icon" aria-hidden="true"><use href="icons.svg#icon-calendar"></use></svg> ${p.date}</span>` : ''}
             ${p.category ? `<span class="admin-badge purple">${p.category}</span>` : ''}
-            ${p.readTime ? `<span class="admin-badge">⏱ ${p.readTime} min</span>` : ''}
+            ${p.readTime ? `<span class="admin-badge"><svg class="icon" aria-hidden="true"><use href="icons.svg#icon-clock"></use></svg> ${p.readTime} min</span>` : ''}
             ${tagBadges}
           </div>
         </div>
@@ -699,8 +699,8 @@
             <button type="button" class="lang-btn" data-lang="en" onclick="window.adminSetLang('en')">EN</button>
           </div>
           <button type="button" class="theme-toggle" id="admin-theme-toggle" aria-label="Cambiar tema" onclick="window.toggleTheme()">
-            <span class="theme-icon-light" aria-hidden="true">☀️</span>
-            <span class="theme-icon-dark" aria-hidden="true">🌙</span>
+            <span class="theme-icon-light" aria-hidden="true"><svg class="icon"><use href="icons.svg#icon-sun"></use></svg></span>
+            <span class="theme-icon-dark" aria-hidden="true"><svg class="icon"><use href="icons.svg#icon-moon"></use></svg></span>
           </button>
           <button type="button" class="btn ghost" onclick="window.adminLogout()" data-t="logout">${txt('logout')}</button>
         </div>

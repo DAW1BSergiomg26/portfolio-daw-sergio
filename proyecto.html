@@ -37,8 +37,8 @@
   <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" fetchpriority="high">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
   <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet"></noscript>
-  <link rel="stylesheet" href="css/styles.css?v=3.5.16">
-  <link rel="stylesheet" href="css/filters.css?v=3.5.16">
+  <link rel="stylesheet" href="css/styles.css?v=3.6.0">
+  <link rel="stylesheet" href="css/filters.css?v=3.6.0">
   <style>
     body {
       background: radial-gradient(circle at top left, rgba(125, 211, 252, 0.1), transparent 30rem),
@@ -143,8 +143,8 @@
       <button type="button" class="lang-btn" data-lang="en" onclick="setLanguage('en')" data-i18n="lang_en">EN</button>
     </div>
     <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Cambiar tema" data-i18n="theme_toggle" onclick="toggleTheme()">
-      <span class="theme-icon-light" aria-hidden="true">☀️</span>
-      <span class="theme-icon-dark" aria-hidden="true">🌙</span>
+      <span class="theme-icon-light" aria-hidden="true"><svg class="icon"><use href="icons.svg#icon-sun"></use></svg></span>
+      <span class="theme-icon-dark" aria-hidden="true"><svg class="icon"><use href="icons.svg#icon-moon"></use></svg></span>
     </button>
   </div>
   <div class="project-page-container">
@@ -152,7 +152,7 @@
       <div style="text-align: center; padding: 4rem;" data-i18n="project_page_loading">Cargando detalles profesionales...</div>
     </main>
   </div>
-  <script src="js/proyecto.js?v=3.5.16" defer></script>
+  <script src="js/proyecto.js?v=3.6.0" defer></script>
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
