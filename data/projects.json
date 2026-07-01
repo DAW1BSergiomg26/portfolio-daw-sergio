@@ -421,5 +421,109 @@
     "links": [
       { "label": "Repositorio", "url": "https://github.com/DAW1BSergiomg26/Ejercicios-de-BBDD-10-03-2026" }
     ]
+  },
+  {
+    "id": "mini-tienda-web",
+    "status": "practice",
+    "type": "web",
+    "version": "v0.2.0",
+    "year": 2026,
+    "priority": 17,
+    "level": "práctica evolutiva",
+    "featured": false,
+    "technologies": ["HTML", "CSS", "JavaScript", "DOM", "LocalStorage"],
+    "categories": ["prácticas", "practice", "javascript", "web"],
+    "kicker": "Escaparate con carrito simulado",
+    "kicker_en": "Showcase with simulated cart",
+    "title": "Mini Tienda Web",
+    "title_en": "Mini Web Store",
+    "description": "Escaparate de productos con filtros básicos, carrito simulado y persistencia en localStorage. Práctica pensada para reforzar lógica de JavaScript, manipulación del DOM y diseño responsive sin frameworks.",
+    "description_en": "Product showcase with basic filters, simulated cart, and localStorage persistence. Practice designed to reinforce JavaScript logic, DOM manipulation, and responsive design without frameworks.",
+    "learning": "Gestión de estado con objetos y arrays, renderizado dinámico de tarjetas, filtros combinados y persistencia local del carrito.",
+    "learning_en": "State management with objects and arrays, dynamic card rendering, combined filters, and local persistence of the cart.",
+    "portfolioRole": "Práctica de lógica comercial frontend para demostrar manejo de datos y eventos sin librerías externas.",
+    "portfolioRole_en": "Frontend commercial logic practice to demonstrate data and event handling without external libraries.",
+    "badge": { "label": "v0.2.0", "status": "Práctica" },
+    "links": [
+      { "label": "Repositorio", "url": "https://github.com/DAW1BSergiomg26" }
+    ]
+  },
+  {
+    "id": "laboratorio-javascript",
+    "status": "practice",
+    "type": "web",
+    "version": "v0.3.0",
+    "year": 2026,
+    "priority": 18,
+    "level": "práctica evolutiva",
+    "featured": false,
+    "technologies": ["HTML", "CSS", "JavaScript", "DOM"],
+    "categories": ["prácticas", "practice", "javascript"],
+    "kicker": "Ejercicios interactivos de JS",
+    "kicker_en": "Interactive JS exercises",
+    "title": "Laboratorio JavaScript",
+    "title_en": "JavaScript Laboratory",
+    "description": "Colección de pequeños ejercicios interactivos para practicar eventos, manipulación del DOM, arrays, objetos y lógica básica. Cada experimento está aislado, documentado y puede ejecutarse de forma independiente.",
+    "description_en": "Collection of small interactive exercises to practice events, DOM manipulation, arrays, objects, and basic logic. Each experiment is isolated, documented, and can run independently.",
+    "learning": "Resolución de problemas con JavaScript puro, organización de código en módulos pequeños y uso de eventos del usuario.",
+    "learning_en": "Problem solving with vanilla JavaScript, organizing code into small modules, and using user events.",
+    "portfolioRole": "Laboratorio de aprendizaje que muestra progresión técnica y capacidad de explicar código propio.",
+    "portfolioRole_en": "Learning laboratory that shows technical progression and ability to explain own code.",
+    "badge": { "label": "v0.3.0", "status": "Práctica" },
+    "links": [
+      { "label": "Repositorio", "url": "https://github.com/DAW1BSergiomg26" }
+    ]
+  },
+  {
+    "id": "memoria-proyectos-daw",
+    "status": "practice",
+    "type": "web",
+    "version": "v0.1.0",
+    "year": 2026,
+    "priority": 19,
+    "level": "documentación técnica",
+    "featured": false,
+    "technologies": ["Markdown", "HTML", "CSS", "GitHub Pages"],
+    "categories": ["prácticas", "practice", "documentación"],
+    "kicker": "Documentación técnica de entregas",
+    "kicker_en": "Technical documentation of deliveries",
+    "title": "Memoria de Proyectos DAW",
+    "title_en": "DAW Projects Memory",
+    "description": "Sección documental donde explico qué hice, cómo lo hice, qué aprendí y qué mejoraría en cada entrega del ciclo DAW. Sirve como bitácora de aprendizaje y referente para futuros proyectos.",
+    "description_en": "Documentary section where I explain what I did, how I did it, what I learned, and what I would improve in each DAW cycle delivery. It serves as a learning log and reference for future projects.",
+    "learning": "Estructuración de documentación técnica, análisis retrospectivo de proyectos y comunicación clara de decisiones de desarrollo.",
+    "learning_en": "Structuring technical documentation, retrospective analysis of projects, and clear communication of development decisions.",
+    "portfolioRole": "Herramienta de reflexión profesional que demuestra capacidad de documentar y aprender de cada entrega.",
+    "portfolioRole_en": "Professional reflection tool that demonstrates ability to document and learn from each delivery.",
+    "badge": { "label": "v0.1.0", "status": "Documentación" },
+    "links": [
+      { "label": "Repositorio", "url": "https://github.com/DAW1BSergiomg26" }
+    ]
+  },
+  {
+    "id": "mejora-visual-portfolio",
+    "status": "practice",
+    "type": "web",
+    "version": "v0.5.0",
+    "year": 2026,
+    "priority": 20,
+    "level": "mejora continua",
+    "featured": false,
+    "technologies": ["HTML", "CSS", "JavaScript", "UX", "SVG"],
+    "categories": ["prácticas", "practice", "ui", "javascript"],
+    "kicker": "Rediseño y optimización de UI",
+    "kicker_en": "UI redesign and optimization",
+    "title": "Mejora Visual del Portfolio",
+    "title_en": "Portfolio Visual Upgrade",
+    "description": "Proceso de mejora continua del portfolio: optimización de tarjetas, filtros por tecnología, sistema de iconos SVG profesional, animaciones suaves y navegación más cómoda a medida que el catálogo crece.",
+    "description_en": "Continuous improvement process of the portfolio: card optimization, technology filters, professional SVG icon system, smooth animations, and more comfortable navigation as the catalog grows.",
+    "learning": "Diseño UI/UX iterativo, accesibilidad visual, rendimiento frontend y mantenimiento de un sistema de diseño coherente.",
+    "learning_en": "Iterative UI/UX design, visual accessibility, frontend performance, and maintenance of a coherent design system.",
+    "portfolioRole": "Proyecto vivo de mejora UI que demuestra atención al detalle, accesibilidad y criterio de diseño.",
+    "portfolioRole_en": "Living UI improvement project that demonstrates attention to detail, accessibility, and design criteria.",
+    "badge": { "label": "v0.5.0", "status": "Mejora" },
+    "links": [
+      { "label": "Repositorio", "url": "https://github.com/DAW1BSergiomg26/portfolio-daw-sergio" }
+    ]
   }
 ]
