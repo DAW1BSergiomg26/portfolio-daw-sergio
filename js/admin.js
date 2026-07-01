@@ -10,7 +10,7 @@
   const PROJECTS_KEY = 'portfolio-projects';
   const BLOG_KEY = 'portfolio-blog';
   const AUTH_KEY = 'portfolio-admin-auth';
-  const APP_VERSION = 'v3.6.3';
+  const APP_VERSION = 'v3.6.4';
 
   // Hash SHA-256 de "Rufi141414%$"
   const ADMIN_PASSWORD_HASH = 'fb705980c178167d0f50537bd6c9dfb88765e01f3b180e889c868e405770f13d';
@@ -106,14 +106,14 @@
     if (localProjects) {
       projects = JSON.parse(localProjects);
     } else {
-      const res = await fetch('data/projects.json?v=3.6.3');
+      const res = await fetch('data/projects.json?v=3.6.4');
       projects = await res.json();
     }
 
     if (localBlog) {
       blog = JSON.parse(localBlog);
     } else {
-      const res = await fetch('data/blog.json?v=3.6.3');
+      const res = await fetch('data/blog.json?v=3.6.4');
       blog = await res.json();
     }
   }
@@ -765,7 +765,7 @@
 
   function renderLogin() {
     document.body.innerHTML = `
-      <div class="admin-login">
+      <main class="admin-login">
         <div class="admin-login-card">
           <h1 data-t="login_title">${txt('login_title')}</h1>
           <form id="admin-login-form">
@@ -778,7 +778,7 @@
             Contraseña de acceso: <code>Rufi141414%$</code>
           </p>
         </div>
-      </div>
+      </main>
     `;
     document.getElementById('admin-login-form').addEventListener('submit', handleLogin);
   }
