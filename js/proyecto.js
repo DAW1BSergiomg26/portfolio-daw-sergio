@@ -3,7 +3,7 @@ let translations = {};
 
 async function loadTranslations() {
   try {
-    const response = await fetch("data/lang.json?v=3.7.1");
+    const response = await fetch("data/lang.json?v=3.7.2");
     translations = await response.json();
     updateLangButtons();
     applyTranslations();
@@ -56,7 +56,7 @@ async function loadProject() {
   }
 
   try {
-    const response = await fetch("data/projects.json?v=3.7.1");
+    const response = await fetch("data/projects.json?v=3.7.2");
     if (!response.ok) throw new Error("No se pudo cargar el catálogo");
 
     const projects = await response.json();
@@ -75,7 +75,6 @@ async function loadProject() {
       breadcrumbTitle.textContent = getProjectTitle(project);
       breadcrumbTitle.style.background = 'none';
       breadcrumbTitle.style.animation = 'none';
-      breadcrumbTitle.style.minWidth = 'auto';
     }
     updateMeta(project);
   } catch (error) {
