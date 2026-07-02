@@ -101,13 +101,20 @@
   </script>
 
   <title>Portfolio DAW | Sergio Daniel Martínez Gómez - Desarrollo Web Junior</title>
+  <link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js">
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js"
+    }
+  }
+  </script>
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="favicon.svg">
   <link rel="manifest" href="site.webmanifest">
   <link rel="sitemap" type="application/xml" href="https://daw1bsergiomg26.github.io/portfolio-daw-sergio/sitemap.xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preload" as="font" href="https://fonts.gstatic.com/s/inter/v18/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfAZ9hiJ-Ek-_EeAmM.woff2" type="font/woff2" crossorigin="anonymous">
   <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=optional" fetchpriority="high">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=optional" rel="stylesheet" media="print" onload="this.media='all'">
   <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=optional" rel="stylesheet"></noscript>
@@ -161,16 +168,20 @@
     <nav class="main-nav" aria-label="Navegación principal">
       <a href="#sobre-mi" data-i18n="nav_sobre_mi">Sobre mí</a>
       <a href="#tecnologias" data-i18n="nav_tecnologias">Tecnologías</a>
-      <a href="#github" data-i18n="nav_github">GitHub</a>
+      <a href="#github" data-i18n="nav_github" aria-label="Sección GitHub">GitHub</a>
       <a href="#proyectos" data-i18n="nav_proyectos">Proyectos</a>
       <a href="#proximos-proyectos" data-i18n="nav_proximos">Próximos</a>
       <a href="#blog" data-i18n="nav_blog">Blog</a>
       <a href="#ruta" data-i18n="nav_ruta">Ruta DAW</a>
+      <a href="#sandbox" data-i18n="nav_sandbox">Sandbox</a>
       <a href="#contacto" data-i18n="nav_contacto">Contacto</a>
       <div class="lang-switcher" role="group" aria-label="Selector de idioma">
         <button type="button" class="lang-btn" data-lang="es" onclick="setLanguage('es')" data-i18n="lang_es">ES</button>
         <button type="button" class="lang-btn" data-lang="en" onclick="setLanguage('en')" data-i18n="lang_en">EN</button>
       </div>
+      <button type="button" class="explore-btn" id="explore-btn" aria-label="Explorar secciones" data-i18n="explore_btn">Mapa</button>
+      <button type="button" class="sound-toggle" id="sound-toggle" aria-label="Sonido ambiente" title="Sonido ambiente" data-i18n="sound_toggle">Sound</button>
+      <button type="button" class="zen-toggle" id="zen-toggle" aria-label="Modo Zen" aria-pressed="false" title="Modo Zen">Zen</button>
       <button type="button" class="search-toggle" id="search-toggle" aria-label="Buscar" data-i18n="search_toggle" onclick="openSearchModal()">
         <svg class="icon" aria-hidden="true" width="20" height="20"><use href="icons.svg#icon-search"></use></svg>
       </button>
@@ -197,8 +208,8 @@
   </div>
 
   <main id="inicio">
-    <section class="hero section-grid" aria-labelledby="titulo-principal">
-      <div class="hero-content reveal">
+    <section class="hero section-grid" aria-labelledby="titulo-principal" data-scroll>
+      <div class="hero-content reveal" data-parallax-speed="0.25">
         <p class="eyebrow" data-i18n="hero_eyebrow">Alumno DAW · Desarrollo Web · GitHub Pages</p>
         <h1 id="titulo-principal" data-i18n="hero_title">Sergio Daniel Martínez Gómez</h1>
         <p class="hero-lead" data-i18n="hero_lead">
@@ -208,29 +219,28 @@
         <div class="hero-actions">
           <a class="btn primary" href="#proyectos" data-i18n="btn_ver_proyectos">Ver proyectos</a>
           <a class="btn ghost" href="https://github.com/DAW1BSergiomg26" target="_blank" rel="noopener noreferrer" data-i18n="btn_ver_github">Ver GitHub</a>
+          <button type="button" class="btn terminal-toggle" id="terminal-toggle" aria-label="Abrir terminal interactivo" data-i18n="terminal_toggle">&gt;_ Terminal</button>
+          <button type="button" class="btn primary" id="speedrun-btn" data-i18n="speedrun_btn">Hire Me</button>
         </div>
       </div>
 
-      <aside class="hero-card reveal" aria-label="Resumen profesional">
-        <div class="card-icon" aria-hidden="true">⌘</div>
-        <h2 data-i18n="hero_card_title">Portfolio en construcción profesional</h2>
-        <p data-i18n="hero_card_text">
-          Un espacio vivo para presentar proyectos reales, publicados, documentados y versionados con un flujo Git limpio.
-        </p>
-        <ul class="mini-list">
-          <li data-i18n="hero_card_item_1">HTML5 semántico</li>
-          <li data-i18n="hero_card_item_2">CSS responsive</li>
-          <li data-i18n="hero_card_item_3">JavaScript básico</li>
-          <li data-i18n="hero_card_item_4">Git y GitHub</li>
-        </ul>
-      </aside>
+      <div id="terminal-wrapper" class="terminal-wrapper" hidden>
+        <button type="button" class="terminal-close-btn" id="terminal-close" aria-label="Cerrar terminal" onclick="closeTerminal()">&times;</button>
+      </div>
+
+      <div id="hero-carousel" class="hero-carousel" aria-label="Carrusel 3D de proyectos" role="region" data-parallax-speed="0.15">
+        <div class="hero-carousel-loader">
+          <span class="gh-spinner"></span>
+          <span data-i18n="carousel_loading">Cargando...</span>
+        </div>
+      </div>
     </section>
 
-    <section id="sobre-mi" class="content-section reveal" aria-labelledby="about-title">
+      <section id="sobre-mi" class="content-section reveal" aria-labelledby="about-title" data-scroll>
       <p class="eyebrow" data-i18n="about_eyebrow">Sobre mí</p>
       <h2 id="about-title" data-i18n="about_title">Aprendiendo a construir con orden, paciencia y criterio</h2>
       <div class="about-grid">
-        <div class="about-main">
+        <div class="about-main" data-parallax-speed="0.2">
           <p class="about-bio" data-i18n="about_text">
             Soy Sergio Daniel, alumno de DAW. Este portfolio nace para enseñar mi evolución real: desde ejercicios sencillos hasta proyectos completos publicados en GitHub Pages.
             Mi objetivo es aprender bien la base, practicar mucho y crear trabajos que pueda defender con claridad.
@@ -274,17 +284,17 @@
           </div>
         </div>
 
-        <aside class="about-avatar" aria-label="Avatar profesional">
+        <aside class="about-avatar" aria-label="Avatar profesional" data-parallax-speed="0.3" data-parallax-dir="x">
           <div class="avatar-circle" aria-hidden="true" loading="lazy" decoding="async">SD</div>
           <p class="avatar-caption" data-i18n="about_avatar_caption">Sergio Daniel Martínez Gómez</p>
         </aside>
       </div>
     </section>
 
-    <section id="tecnologias" class="content-section reveal">
+    <section id="tecnologias" class="content-section reveal" data-scroll>
       <p class="eyebrow" data-i18n="tech_eyebrow">Stack actual</p>
       <h2 data-i18n="tech_title">Tecnologías que estoy practicando</h2>
-      <div class="tag-grid">
+      <div class="tag-grid" data-parallax-speed="0.2">
         <span>HTML5</span>
         <span>CSS3</span>
         <span>JavaScript</span>
@@ -295,17 +305,25 @@
         <span>Responsive Design</span>
         <span>SEO básico</span>
       </div>
+      <div class="radar-wrap">
+        <canvas id="radar-canvas" aria-label="Grafico radar de competencias tecnicas"></canvas>
+      </div>
+      <div class="timeline-wrap">
+        <p class="timeline-heading" data-i18n="timeline_title">Evolucion de habilidades</p>
+        <canvas id="timeline-canvas" aria-label="Linea de tiempo de evolucion de habilidades tecnicas"></canvas>
+      </div>
     </section>
 
-    <section id="github" class="content-section reveal" aria-labelledby="github-title">
+    <section id="github" class="content-section reveal" aria-labelledby="github-title" data-scroll>
       <p class="eyebrow" data-i18n="github_eyebrow">Actividad en GitHub</p>
       <h2 id="github-title" data-i18n="github_title">Estadísticas y repositorios</h2>
       <div id="github-dashboard">
         <div class="gh-loading"><span class="gh-spinner"></span> Cargando...</div>
       </div>
+      <div id="gh-heatmap" class="heatmap-wrap"></div>
     </section>
 
-    <section id="proyectos" class="content-section reveal is-loading" aria-labelledby="titulo-proyectos">
+    <section id="proyectos" class="content-section reveal is-loading" aria-labelledby="titulo-proyectos" data-scroll>
       <p class="eyebrow" data-i18n="projects_eyebrow">Proyectos y repositorios</p>
       <h2 id="titulo-proyectos" data-i18n="projects_title">Trabajos DAW en producción</h2>
 
@@ -326,7 +344,7 @@
       <p class="project-counter" aria-live="polite" data-i18n="projects_loading">Cargando catálogo de proyectos...</p>
     </section>
 
-    <section id="proximos-proyectos" class="content-section reveal">
+    <section id="proximos-proyectos" class="content-section reveal" data-scroll>
       <p class="eyebrow" data-i18n="future_eyebrow">Próximos proyectos</p>
       <h2 data-i18n="future_title">Ideas que quiero convertir en entregas reales</h2>
       <p data-i18n="future_text">
@@ -356,7 +374,7 @@
       </div>
     </section>
 
-    <section id="blog" class="content-section reveal" aria-labelledby="titulo-blog">
+    <section id="blog" class="content-section reveal" aria-labelledby="titulo-blog" data-scroll>
       <p class="eyebrow" data-i18n="blog_eyebrow">Blog técnico</p>
       <h2 id="titulo-blog" data-i18n="blog_title">Apuntes y aprendizajes</h2>
       <p data-i18n="blog_subtitle">Notas sobre desarrollo web, DAW y buenas prácticas.</p>
@@ -365,14 +383,43 @@
       </div>
     </section>
 
-    <section id="ruta" class="content-section reveal" aria-labelledby="titulo-ruta">
+    <section id="guestbook" class="content-section reveal" aria-labelledby="titulo-guestbook" data-scroll>
+      <p class="eyebrow" data-i18n="guestbook_eyebrow">Invitados</p>
+      <h2 id="titulo-guestbook" data-i18n="guestbook_title">Libro de visitas</h2>
+      <p data-i18n="guestbook_subtitle">Deja un mensaje en el guestbook. Todos los mensajes se publican como issues en GitHub.</p>
+      <div id="guestbook-container">
+        <form class="guestbook-form">
+          <div class="guestbook-form-grid">
+            <div class="guestbook-field">
+              <label for="gb-name" data-i18n="guestbook_label_name">Nombre</label>
+              <input id="gb-name" name="gb-name" type="text" autocomplete="off" required placeholder="Tu nombre">
+            </div>
+          </div>
+          <div class="guestbook-field">
+            <label for="gb-message" data-i18n="guestbook_label_message">Mensaje</label>
+            <textarea id="gb-message" name="gb-message" rows="3" required placeholder="Escribe tu mensaje..."></textarea>
+          </div>
+          <div class="guestbook-actions">
+            <button class="btn primary guestbook-submit" type="submit" data-i18n="guestbook_submit">Enviar</button>
+          </div>
+          <p class="guestbook-status" role="status" aria-live="polite"></p>
+        </form>
+        <div class="guestbook-meta">
+          <span class="guestbook-count">0 mensajes</span>
+          <a class="guestbook-link" href="https://github.com/DAW1BSergiomg26/portfolio-daw-sergio/labels/guestbook" target="_blank" rel="noopener noreferrer" data-i18n="guestbook_github_link">Ver en GitHub</a>
+        </div>
+        <div class="guestbook-list" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <section id="ruta" class="content-section reveal" aria-labelledby="titulo-ruta" data-scroll>
       <p class="eyebrow" data-i18n="route_eyebrow">Ruta DAW</p>
       <h2 id="titulo-ruta" data-i18n="route_title">Evolución profesional</h2>
       <p data-i18n="route_subtitle">Explora las islas de mi aprendizaje: cada estación representa una etapa del ciclo DAW.</p>
       <div id="ruta-map-container"></div>
     </section>
 
-    <section id="contacto" class="content-section contact-section reveal">
+    <section id="contacto" class="content-section contact-section reveal" data-scroll>
       <p class="eyebrow" data-i18n="contact_eyebrow">Contacto</p>
       <h2 data-i18n="contact_title">Hablemos</h2>
       <p data-i18n="contact_text">
@@ -404,6 +451,34 @@
         </div>
         <p id="contact-status" class="contact-status" role="status" aria-live="polite"></p>
       </form>
+    </section>
+
+    <section id="sandbox" class="content-section reveal" data-scroll>
+      <p class="eyebrow" data-i18n="sandbox_eyebrow">Sandbox</p>
+      <h2 data-i18n="sandbox_title">Editor de codigo en vivo</h2>
+      <p data-i18n="sandbox_subtitle">Escribe HTML, CSS y JavaScript y ve el resultado en tiempo real.</p>
+
+      <div class="sandbox-toolbar">
+        <div class="sandbox-tabs" role="tablist">
+          <button class="sandbox-tab is-active" data-panel="html" role="tab" aria-selected="true">HTML</button>
+          <button class="sandbox-tab" data-panel="css" role="tab" aria-selected="false">CSS</button>
+          <button class="sandbox-tab" data-panel="js" role="tab" aria-selected="false">JS</button>
+        </div>
+        <div class="sandbox-actions">
+          <button class="btn primary sandbox-btn" id="sandbox-run" data-i18n="sandbox_run">Ejecutar</button>
+          <button class="btn ghost sandbox-btn" id="sandbox-reset" data-i18n="sandbox_reset">Restablecer</button>
+        </div>
+      </div>
+
+      <div class="sandbox-editor">
+        <textarea class="sandbox-panel is-active" id="sandbox-html" data-panel="html" spellcheck="false" wrap="off" aria-label="HTML"></textarea>
+        <textarea class="sandbox-panel" id="sandbox-css" data-panel="css" spellcheck="false" wrap="off" aria-label="CSS"></textarea>
+        <textarea class="sandbox-panel" id="sandbox-js" data-panel="js" spellcheck="false" wrap="off" aria-label="JavaScript"></textarea>
+      </div>
+
+      <div class="sandbox-preview">
+        <iframe id="sandbox-frame" class="sandbox-frame" title="Live preview" sandbox="allow-scripts allow-same-origin"></iframe>
+      </div>
     </section>
   </main>
 
@@ -454,6 +529,31 @@
     </div>
   </footer>
 
+  <script>
+  document.addEventListener('DOMContentLoaded', async () => {
+    try {
+      const { initCarousel } = await import('./js/three-carousel.js');
+      initCarousel('hero-carousel');
+    } catch (e) {
+      console.warn('3D carousel not available:', e.message);
+    }
+  });
+  </script>
+  <script src="js/shader-bg.js?v=3.22.0"></script>
+  <script src="js/scrollama.js?v=3.16.0"></script>
+  <script src="js/guestbook.js?v=3.17.0"></script>
+  <script src="js/cursor-glow.js?v=3.21.0"></script>
+  <script src="js/timeline.js?v=3.23.0"></script>
+  <script src="js/soundscape.js?v=3.26.0"></script>
+  <script src="js/speedrun.js?v=3.27.0"></script>
+  <script src="js/explore.js?v=3.27.0"></script>
+  <script src="js/commit-badges.js?v=3.24.0"></script>
+  <script src="js/heatmap.js?v=3.25.0"></script>
+  <script src="js/radar.js?v=3.19.0"></script>
+  <script src="js/sandbox.js?v=3.20.0"></script>
+  <script src="js/zen.js?v=3.18.0"></script>
+  <script src="js/konami.js?v=3.14.0"></script>
+  <script src="js/terminal.js?v=3.13.0"></script>
   <script src="js/app.js?v=3.12.0" defer></script>
   <script src="js/blog.js?v=3.12.0" defer></script>
   <script src="js/ruta-map.js?v=3.12.0" defer></script>

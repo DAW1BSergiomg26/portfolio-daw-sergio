@@ -468,6 +468,20 @@ function createProjectCard(project) {
     content.append(kicker, title, description, links);
   }
 
+  // Health badges
+  const health = document.createElement("div");
+  health.className = "project-health";
+
+  const typeBadge = document.createElement("span");
+  typeBadge.className = "health-badge health-badge--type";
+  typeBadge.textContent = project.type || (project.badge && project.badge.status ? project.badge.status.toLowerCase() : '');
+
+  const verBadge = document.createElement("span");
+  verBadge.className = "health-badge health-badge--version";
+  verBadge.textContent = project.version || (project.badge && project.badge.label ? project.badge.label : 'repo');
+
+  health.append(typeBadge, verBadge);
+
   const badge = document.createElement("div");
   badge.className = "project-badge";
 
@@ -478,7 +492,7 @@ function createProjectCard(project) {
   badgeStatus.textContent = project.badge.status;
 
   badge.append(badgeLabel, badgeStatus);
-  article.append(content, badge);
+  article.append(content, health, badge);
 
   return article;
 }

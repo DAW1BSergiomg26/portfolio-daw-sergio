@@ -1,60 +1,98 @@
-function createSandbox(container, project) {
-  container.innerHTML = '';
+(function () {
+  'use strict';
 
-  if (!project.demo) {
-    container.innerHTML = '<div class="sandbox-placeholder"><svg class="icon" aria-hidden="true" style="width:3rem;height:3rem;opacity:0.3;margin-bottom:1rem"><use href="icons.svg#icon-code"></use></svg><p data-i18n="demo_coming_soon">Demo en construcción</p></div>';
-    return;
-  }
+  var DEFAULT_HTML = '<h1>Hola, mundo!</h1>\n<p>Esta es una demo en vivo.</p>';
+  var DEFAULT_CSS = 'body {\n  font-family: system-ui;\n  padding: 2rem;\n  background: #f6f7fb;\n  color: #0f1221;\n}';
+  var DEFAULT_JS = '// Escribe JavaScript aqui\ndocument.querySelector("h1").style.color = "#0284c7";';
 
-  const loading = document.createElement('div');
-  loading.className = 'sandbox-loading';
-  loading.setAttribute('data-i18n', 'demo_loading');
-  loading.textContent = 'Cargando demo...';
-  container.appendChild(loading);
+  var htmlEl = document.getElementById('sandbox-html');
+  var cssEl = document.getElementById('sandbox-css');
+  var jsEl = document.getElementById('sandbox-js');
+  var frameEl = document.getElementById('sandbox-frame');
+  var runBtn = document.getElementById('sandbox-run');
+  var resetBtn = document.getElementById('sandbox-reset');
+  var tabBtns = document.querySelectorAll('.sandbox-tab');
 
-  const iframe = document.createElement('iframe');
-  iframe.className = 'sandbox-frame';
-  iframe.setAttribute('sandbox', 'allow-scripts allow-same-origin');
-  iframe.setAttribute('loading', 'lazy');
-  iframe.setAttribute('title', 'Demo interactiva del proyecto');
-  iframe.style.cssText = 'width:100%;border:0;border-radius:var(--radius-md);background:#fff;display:block';
+  var debounceTimer = null;
 
-  const send = (html, css, js) => {
-    const doc = `
-<!DOCTYPE html>
-<html>
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
-<style>${css}</style>
-<style>body{font-family:system-ui,-apple-system,sans-serif;padding:1.5rem;margin:0;background:#fff;color:#111}*{box-sizing:border-box}</style>
-</head>
-<body>${html}
-<script>${js}<\/script>
-</body>
-</html>`;
-    iframe.srcdoc = doc;
-    container.innerHTML = '';
-    container.appendChild(iframe);
-    const resize = () => {
-      try {
-        const h = iframe.contentWindow.document.documentElement.scrollHeight;
-        iframe.style.height = Math.min(h, 600) + 'px';
-      } catch {}
+  function getThemeColors() {
+    var isDark = document.documentElement.getAttribute('data-theme') !== 'light';
+    return {
+      bg: isDark ? '#0d1220' : '#f6f7fb',
+      text: isDark ? '#f6f7fb' : '#0f1221',
     };
-    iframe.addEventListener('load', resize);
-    setTimeout(resize, 300);
-    window.addEventListener('resize', resize);
-  };
-
-  if (typeof project.demo === 'string') {
-    fetch(project.demo)
-      .then(r => r.text())
-      .then(text => { send(text, '', ''); })
-      .catch(() => {
-        container.innerHTML = '<div class="sandbox-placeholder"><p data-i18n="demo_error">Error al cargar la demo</p></div>';
-      });
-  } else if (project.demo.html !== undefined) {
-    send(project.demo.html || '', project.demo.css || '', project.demo.js || '');
-  } else {
-    container.innerHTML = '<div class="sandbox-placeholder"><p data-i18n="demo_coming_soon">Demo en construcción</p></div>';
   }
-}
+
+  function buildDocument(htmlCode, cssCode, jsCode) {
+    var cols = getThemeColors();
+    return '<!DOCTYPE html><html>' +
+      '<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">' +
+      '<style>' + (cssCode || '') + '</style>' +
+      '</head><body>' +
+      (htmlCode || '') +
+      '<script>' + (jsCode || '') + '<\/script>' +
+      '</body></html>';
+  }
+
+  function run() {
+    var html = htmlEl.value;
+    var css = cssEl.value;
+    var js = jsEl.value;
+    var doc = buildDocument(html, css, js);
+    frameEl.srcdoc = doc;
+  }
+
+  function debouncedRun() {
+    if (debounceTimer) clearTimeout(debounceTimer);
+    debounceTimer = setTimeout(run, 500);
+  }
+
+  function switchTab(btn) {
+    tabBtns.forEach(function (b) { b.classList.remove('is-active'); });
+    btn.classList.add('is-active');
+
+    var target = btn.getAttribute('data-panel');
+    document.querySelectorAll('.sandbox-panel').forEach(function (p) {
+      p.classList.remove('is-active');
+    });
+    var panel = document.getElementById('sandbox-panel-' + target);
+    if (panel) panel.classList.add('is-active');
+  }
+
+  function resetCode() {
+    htmlEl.value = DEFAULT_HTML;
+    cssEl.value = DEFAULT_CSS;
+    jsEl.value = DEFAULT_JS;
+    run();
+  }
+
+  function init() {
+    // Set defaults
+    htmlEl.value = DEFAULT_HTML;
+    cssEl.value = DEFAULT_CSS;
+    jsEl.value = DEFAULT_JS;
+
+    // Tabs
+    tabBtns.forEach(function (btn) {
+      btn.addEventListener('click', function () { switchTab(btn); });
+    });
+
+    // Auto-run
+    htmlEl.addEventListener('input', debouncedRun);
+    cssEl.addEventListener('input', debouncedRun);
+    jsEl.addEventListener('input', debouncedRun);
+
+    // Buttons
+    if (runBtn) runBtn.addEventListener('click', run);
+    if (resetBtn) resetBtn.addEventListener('click', resetCode);
+
+    // Initial run
+    run();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
